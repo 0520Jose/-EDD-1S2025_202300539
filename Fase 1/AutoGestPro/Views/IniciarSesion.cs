@@ -31,7 +31,7 @@ namespace AutoGestPro.Views
             Button iniciarSesion = new Button("Iniciar Sesión");
             iniciarSesion.Clicked += (sender, e) => {
                 if (txtUsuario.Text == "admin@usac.com" && txtContrasena.Text == "root"){
-                    CargaMasiva cargaMasiva = new CargaMasiva();
+                    Menu menu = new Menu();
                 } else {
                     Console.WriteLine("Usuario no encontrado");
                 }

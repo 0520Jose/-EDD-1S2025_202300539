@@ -21,3 +21,4 @@
 /home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase 1/AutoGestPro/bin/Debug/net7.0/GtkSharp.dll
 /home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase 1/AutoGestPro/bin/Debug/net7.0/PangoSharp.dll
 /home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase 1/AutoGestPro/obj/Debug/net7.0/AutoGestPro.csproj.CopyComplete
+/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase 1/AutoGestPro/bin/Debug/net7.0/Newtonsoft.Json.dll
