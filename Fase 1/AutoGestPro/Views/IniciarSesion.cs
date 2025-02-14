@@ -31,7 +31,8 @@ namespace AutoGestPro.Views
             Button iniciarSesion = new Button("Iniciar Sesión");
             iniciarSesion.Clicked += (sender, e) => {
                 if (txtUsuario.Text == "admin@usac.com" && txtContrasena.Text == "root"){
-                    Menu menu = new Menu();
+                    Menu menu = new Menu(ventana);
+                    ventana.Hide();
                 } else {
                     Console.WriteLine("Usuario no encontrado");
                 }

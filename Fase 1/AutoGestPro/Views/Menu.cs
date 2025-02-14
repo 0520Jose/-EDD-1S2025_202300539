@@ -5,7 +5,7 @@ namespace AutoGestPro.Views
 {
     class Menu
     {
-        public Menu()
+        public Menu(Window cerrarSesion)
         {
             Window ventana = new Window("Menu - Root");
             ventana.SetDefaultSize(800,600);
@@ -46,6 +46,13 @@ namespace AutoGestPro.Views
                 CancelarFactura cancelarFactura = new CancelarFactura();
             };
             contenedor.PackStart(cancelarFactura, false, false, 5);
+
+            Button CerrarSesion = new Button("Cerrar sesion");
+            CerrarSesion.Clicked += (sender, e) => {
+                cerrarSesion.Show();
+                ventana.Hide();
+            };
+            contenedor.PackStart(CerrarSesion, false, false, 5);
 
             ventana.ShowAll();
         }

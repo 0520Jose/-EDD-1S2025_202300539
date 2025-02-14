@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Json;
 using Gtk;
 using AutoGestPro.Models;
+using AutoGestPro.Models.Listas;
 
 
 namespace AutoGestPro.Views
@@ -68,18 +69,52 @@ namespace AutoGestPro.Views
                     if (opcionSeleccionada == "Usuarios")
                     {
                         string json = File.ReadAllText(filePath);
-                        var usuarios = JsonSerializer.Deserialize<Usuario[]>(json);
-
-                        
-
+                        using (JsonDocument doc = JsonDocument.Parse(json))
+                        {
+                            JsonElement root = doc.RootElement;
+                            foreach (JsonElement element in root.EnumerateArray())
+                            {
+                                int id = element.GetProperty("ID").GetInt32();
+                                string nombre = element.GetProperty("Nombres").GetString();
+                                string apellido = element.GetProperty("Apellidos").GetString();
+                                string correo = element.GetProperty("Correo").GetString();
+                                string contrasenia = element.GetProperty("Contrasenia").GetString();
+                                ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, contrasenia);
+                            }
+                        }
                     }
                     else if (opcionSeleccionada == "Vehiculos")
                     {
-                        Console.WriteLine("Cargando vehiculos");
+                        string json = File.ReadAllText(filePath);
+                        using (JsonDocument doc = JsonDocument.Parse(json))
+                        {
+                            JsonElement root = doc.RootElement;
+                            foreach (JsonElement element in root.EnumerateArray())
+                            {
+                                int id = element.GetProperty("ID").GetInt32();
+                                int idUsuario = element.GetProperty("ID_Usuario").GetInt32();
+                                string Repuesto = element.GetProperty("Repuesto").GetString();
+                                string Detalles = element.GetProperty("Detalles").GetString();
+                                string Costo = element.GetProperty("Costo").GetString();
+                                ListasGlobales.listaVehiculos.Insertar(id, idUsuario, Repuesto, Detalles, Costo);
+                            }
+                        }
                     }
                     else if (opcionSeleccionada == "Repuestos")
                     {
-                        Console.WriteLine("Cargando repuestos");
+                        string json = File.ReadAllText(filePath);
+                        using (JsonDocument doc = JsonDocument.Parse(json))
+                        {
+                            JsonElement root = doc.RootElement;
+                            foreach (JsonElement element in root.EnumerateArray())
+                            {
+                                int id = element.GetProperty("ID").GetInt32();
+                                string Repuesto = element.GetProperty("Repuesto").GetString();
+                                string Detalles = element.GetProperty("Detalles").GetString();
+                                float Costo = element.GetProperty("Costo").GetSingle();
+                                ListasGlobales.listaRepuestos.Insertar(id, Repuesto, Detalles, Costo);
+                            }
+                        }
                     }
                     else
                     {
