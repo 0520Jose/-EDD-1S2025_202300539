@@ -1,0 +1,5 @@
+digraph G {
+node [shape=record];
+[label="{ID: 1 | Nombre: Juan | Apellido: Pérez | Correo: juan.perez@mail.com}"];
+[label="{ID: 2 | Nombre: María | Apellido: Gómez | Correo: maria.gomez@mail.com}"];
+}

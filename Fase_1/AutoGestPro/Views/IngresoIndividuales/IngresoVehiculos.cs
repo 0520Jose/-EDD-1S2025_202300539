@@ -5,9 +5,9 @@ using Gtk;
 
 namespace AutoGestPro.Views
 {
-    class IngresoRepuestos
+    class IngresoVehiculos
     {
-        public IngresoRepuestos(Window ingresoIndividual)
+        public IngresoVehiculos(Window ingresoIndividual)
         {
             Window ventana = new Window("Ingreso individual - Root");
             ventana.SetDefaultSize(800,600);
@@ -17,7 +17,7 @@ namespace AutoGestPro.Views
             VBox contenedor = new VBox(false, 5);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Ingreso de repuesto");
+            Label titulo = new Label("Ingreso de vehiculo");
             contenedor.PackStart(titulo, false, false, 5);
 
             HBox subContenedor = new HBox(false, 5);
@@ -33,31 +33,43 @@ namespace AutoGestPro.Views
             Entry idEntry = new Entry();
             table.Attach(idEntry, 1, 2, 0, 1);
 
-            Label Repuesto = new Label("Repuesto:");
-            table.Attach(Repuesto, 0, 1, 1, 2);
+            Label IdUsuario = new Label("IdUsuario:");
+            table.Attach(IdUsuario, 0, 1, 1, 2);
 
-            Entry RepuestoEntry = new Entry();
-            table.Attach(RepuestoEntry, 1, 2, 1, 2);
+            Entry IdUsuarioEntry = new Entry();
+            table.Attach(IdUsuarioEntry, 1, 2, 1, 2);
 
-            Label Detalles = new Label("Detalles:");
-            table.Attach(Detalles, 0, 1, 2, 3);
+            Label marca = new Label("marca:");
+            table.Attach(marca, 0, 1, 2, 3);
 
-            Entry DetallesEntry = new Entry();
-            table.Attach(DetallesEntry, 1, 2, 2, 3);
+            Entry marcaEntry = new Entry();
+            table.Attach(marcaEntry, 1, 2, 2, 3);
 
-            Label Costo = new Label("Costo:");
-            table.Attach(Costo, 0, 1, 3, 4);
+            Label modelo = new Label("modelo:");
+            table.Attach(modelo, 0, 1, 3, 4);
 
-            Entry CostoEntry = new Entry();
-            table.Attach(CostoEntry, 1, 2, 3, 4);
+            Entry modeloEntry = new Entry();
+            table.Attach(modeloEntry, 1, 2, 3, 4);
+
+            Label placa = new Label("Contraseña:");
+            table.Attach(placa, 0, 1, 4, 5);
+
+            Entry placaEntry = new Entry();
+            table.Attach(placaEntry, 1, 2, 4, 5);
 
             Button guardar = new Button("Guardar");
             guardar.Clicked += (sender, e) => {
-                string Repuesto = RepuestoEntry.Text;
-                string Detalles = DetallesEntry.Text;
-                float Costo = float.Parse(CostoEntry.Text);
+                int IdUsuario = int.Parse(IdUsuarioEntry.Text);
+                string marca = marcaEntry.Text;
+                string modelo = modeloEntry.Text;
+                string placa = placaEntry.Text;
                 int id = int.Parse(idEntry.Text);
-                ListasGlobales.listaRepuestos.Insertar(id, Repuesto, Detalles, Costo);
+                ListasGlobales.listaVehiculos.Insertar(id, IdUsuario, marca, modelo, placa);
+                    MessageDialog dialog = new MessageDialog(ventana, 
+                    DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                    "Carga masiva exitosa de vehiculos");
+                dialog.Run();
+                dialog.Destroy();
             };
             HBox buttonContainer = new HBox(false, 5);
             buttonContainer.PackStart(guardar, false, false, 4);

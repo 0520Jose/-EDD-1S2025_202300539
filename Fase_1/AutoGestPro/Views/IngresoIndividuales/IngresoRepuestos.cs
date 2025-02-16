@@ -5,9 +5,9 @@ using Gtk;
 
 namespace AutoGestPro.Views
 {
-    class IngresoUsuarios
+    class IngresoRepuestos
     {
-        public IngresoUsuarios(Window ingresoIndividual)
+        public IngresoRepuestos(Window ingresoIndividual)
         {
             Window ventana = new Window("Ingreso individual - Root");
             ventana.SetDefaultSize(800,600);
@@ -17,7 +17,7 @@ namespace AutoGestPro.Views
             VBox contenedor = new VBox(false, 5);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Ingreso de usuario");
+            Label titulo = new Label("Ingreso de repuesto");
             contenedor.PackStart(titulo, false, false, 5);
 
             HBox subContenedor = new HBox(false, 5);
@@ -33,38 +33,36 @@ namespace AutoGestPro.Views
             Entry idEntry = new Entry();
             table.Attach(idEntry, 1, 2, 0, 1);
 
-            Label nombre = new Label("Nombre:");
-            table.Attach(nombre, 0, 1, 1, 2);
+            Label Repuesto = new Label("Repuesto:");
+            table.Attach(Repuesto, 0, 1, 1, 2);
 
-            Entry nombreEntry = new Entry();
-            table.Attach(nombreEntry, 1, 2, 1, 2);
+            Entry RepuestoEntry = new Entry();
+            table.Attach(RepuestoEntry, 1, 2, 1, 2);
 
-            Label apellido = new Label("Apellido:");
-            table.Attach(apellido, 0, 1, 2, 3);
+            Label Detalles = new Label("Detalles:");
+            table.Attach(Detalles, 0, 1, 2, 3);
 
-            Entry apellidoEntry = new Entry();
-            table.Attach(apellidoEntry, 1, 2, 2, 3);
+            Entry DetallesEntry = new Entry();
+            table.Attach(DetallesEntry, 1, 2, 2, 3);
 
-            Label correo = new Label("Correo:");
-            table.Attach(correo, 0, 1, 3, 4);
+            Label Costo = new Label("Costo:");
+            table.Attach(Costo, 0, 1, 3, 4);
 
-            Entry correoEntry = new Entry();
-            table.Attach(correoEntry, 1, 2, 3, 4);
-
-            Label contrasenia = new Label("Contraseña:");
-            table.Attach(contrasenia, 0, 1, 4, 5);
-
-            Entry contraseniaEntry = new Entry();
-            table.Attach(contraseniaEntry, 1, 2, 4, 5);
+            Entry CostoEntry = new Entry();
+            table.Attach(CostoEntry, 1, 2, 3, 4);
 
             Button guardar = new Button("Guardar");
             guardar.Clicked += (sender, e) => {
-                string nombre = nombreEntry.Text;
-                string apellido = apellidoEntry.Text;
-                string correo = correoEntry.Text;
-                string contrasenia = contraseniaEntry.Text;
+                string Repuesto = RepuestoEntry.Text;
+                string Detalles = DetallesEntry.Text;
+                float Costo = float.Parse(CostoEntry.Text);
                 int id = int.Parse(idEntry.Text);
-                ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, contrasenia);
+                ListasGlobales.listaRepuestos.Insertar(id, Repuesto, Detalles, Costo);
+                    MessageDialog dialog = new MessageDialog(ventana, 
+                    DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                    "Carga masiva exitosa de repuestos");
+                dialog.Run();
+                dialog.Destroy();
             };
             HBox buttonContainer = new HBox(false, 5);
             buttonContainer.PackStart(guardar, false, false, 4);

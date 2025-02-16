@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using AutoGestPro.Models;
 unsafe class ListaSimple
 {
-    private Usuario* inicio = null;
+    public Usuario* inicio = null;
 
     public void Insertar(int id, string nombre, string apellido, string correo, string contrasenia)
     {
@@ -13,8 +13,20 @@ unsafe class ListaSimple
         nuevoUsuario->Apellido = apellido;
         nuevoUsuario->Correo = correo;
         nuevoUsuario->Contrasenia = contrasenia;
-        nuevoUsuario->siguiente = inicio;
-        inicio = nuevoUsuario;
+        nuevoUsuario->siguiente = null;
+        if (inicio == null)
+        {
+            inicio = nuevoUsuario;
+        }
+        else
+        {
+            Usuario* usuarioActual = inicio;
+            while (usuarioActual->siguiente != null)
+            {
+                usuarioActual = usuarioActual->siguiente;
+            }
+            usuarioActual->siguiente = nuevoUsuario;
+        }
     }
 
     public Usuario buscarUsuario(int id)
@@ -78,4 +90,5 @@ unsafe class ListaSimple
             usuarioActual = usuarioActual->siguiente;
         }
     }
+
 }

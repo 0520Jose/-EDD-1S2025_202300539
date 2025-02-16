@@ -80,6 +80,11 @@ namespace AutoGestPro.Views
                                 string correo = element.GetProperty("Correo").GetString();
                                 string contrasenia = element.GetProperty("Contrasenia").GetString();
                                 ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, contrasenia);
+                                    //MessageDialog dialog = new MessageDialog(ventana, 
+                                    //DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                                    //"Carga masiva exitosa");
+                                //dialog.Run();
+                                //dialog.Destroy();
                             }
                         }
                     }
@@ -97,6 +102,11 @@ namespace AutoGestPro.Views
                                 string modelo = element.GetProperty("Modelo").GetString();
                                 string placa = element.GetProperty("Placa").GetString();
                                 ListasGlobales.listaVehiculos.Insertar(id, idUsuario, marca, modelo, placa);
+                                    MessageDialog dialog = new MessageDialog(ventana, 
+                                    DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                                    "Carga masiva exitosa");
+                                dialog.Run();
+                                dialog.Destroy();
                             }
                         }
                     }
@@ -113,6 +123,11 @@ namespace AutoGestPro.Views
                                 string Detalles = element.GetProperty("Detalles").GetString();
                                 float Costo = element.GetProperty("Costo").GetSingle();
                                 ListasGlobales.listaRepuestos.Insertar(id, repuesto, Detalles, Costo);
+                                    MessageDialog dialog = new MessageDialog(ventana, 
+                                    DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                                    "Carga masiva exitosa");
+                                dialog.Run();
+                                dialog.Destroy();
                             }
                         }
                     }

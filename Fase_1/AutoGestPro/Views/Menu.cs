@@ -53,6 +53,13 @@ namespace AutoGestPro.Views
             };
             contenedor.PackStart(cancelarFactura, false, false, 5);
 
+            Button reportes = new Button("Reportes");
+            reportes.Clicked += (sender, e) => {
+                Reportes reportes = new Reportes(ventana);
+                ventana.Hide();
+            };
+            contenedor.PackStart(reportes, false, false, 5);
+
             Button CerrarSesion = new Button("Cerrar sesion");
             CerrarSesion.Clicked += (sender, e) => {
                 cerrarSesion.Show();

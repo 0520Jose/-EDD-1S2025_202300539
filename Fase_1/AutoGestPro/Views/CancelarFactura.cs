@@ -62,8 +62,6 @@ namespace AutoGestPro.Views
                     "No hay facturas disponibles para cancelar.");
                 dialog.Run();
                 dialog.Destroy();
-                menu.Show();
-                ventana.Destroy();
             }
             else if (factura.Id != null)
             {
