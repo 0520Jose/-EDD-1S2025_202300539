@@ -50,14 +50,20 @@ namespace AutoGestPro.Views
             dotContent += "node [shape=record];\n";
             ListaSimple listaUsuarios = ListasGlobales.listaUsuarios;
             Usuario* actual = listaUsuarios.inicio;
+            dotContent += "rankdir=LR;\n";
             while (actual != null)
             {
                 String nombre = actual->Nombre;
                 String apellido = actual->Apellido;
                 String correo = actual->Correo;
-                dotContent += $"[label=\"{{ID: {actual->Id} | Nombre: {nombre} | Apellido: {apellido} | Correo: {correo}}}\"];\n";
+                string id = actual->Id.ToString();
+                dotContent += "node" + id + "[label=\"{ID: " + id + " | \nNombre y Apellido: " + nombre + " " + apellido + " | \nCorreo: " + correo + "}\", shape=record];\n";
+                if (actual->siguiente != null)
+                {
+                    dotContent += $"node{actual->Id} -> node{actual->siguiente->Id};\n";
+                }
                 actual = actual->siguiente;
-            };
+            }
             dotContent += "}";
 
             File.WriteAllText(dotFilePath, dotContent);
@@ -78,6 +84,8 @@ namespace AutoGestPro.Views
             MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de usuarios generado exitosamente.");
             dialog.Run();
             dialog.Destroy();
+
+            System.Diagnostics.Process.Start("xdg-open", outputPath);
         }
     }
 }

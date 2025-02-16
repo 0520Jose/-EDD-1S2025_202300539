@@ -243,11 +243,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase 1/AutoGestPro/AutoGestPro.csproj",
+      "projectUniqueName": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj",
       "projectName": "AutoGestPro",
-      "projectPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase 1/AutoGestPro/AutoGestPro.csproj",
+      "projectPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj",
       "packagesPath": "/home/emanuel/.nuget/packages/",
-      "outputPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase 1/AutoGestPro/obj/",
+      "outputPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/emanuel/.nuget/NuGet/NuGet.Config"
