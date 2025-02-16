@@ -1,14 +1,17 @@
 using System;
+using AutoGestPro.Models.Entidades;
+using AutoGestPro.Models.Listas;
 using Gtk;
 
 namespace AutoGestPro.Views
 {
     class CancelarFactura
     {
-        public CancelarFactura()
+        public CancelarFactura(Window menu)
         {
             Window ventana = new Window("Cancelar factura - Root");
             ventana.SetDefaultSize(400,300);
+            ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
             VBox contenedor = new VBox(false, 5);
@@ -42,7 +45,32 @@ namespace AutoGestPro.Views
             Label totalActual = new Label("Null");
             table.Attach(totalActual, 1, 2, 2, 3);
 
+            Button regresar = new Button("Regresar");
+            regresar.Clicked += (sender, e) => {
+                menu.Show();
+                ventana.Destroy();
+            };
+            contenedor.PackStart(regresar, false, false, 5);
+
             ventana.ShowAll();
+
+            Factura factura = ListasGlobales.pilaFacturas.Desapilar();
+            if (factura.Id < 1)
+            {
+                MessageDialog dialog = new MessageDialog(ventana, 
+                    DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                    "No hay facturas disponibles para cancelar.");
+                dialog.Run();
+                dialog.Destroy();
+                menu.Show();
+                ventana.Destroy();
+            }
+            else if (factura.Id != null)
+            {
+                idActual.Text = factura.Id.ToString();
+                idOrdenActual.Text = factura.Id_Orden.ToString();
+                totalActual.Text = factura.Total.ToString();
+            }
         }
     }
 }

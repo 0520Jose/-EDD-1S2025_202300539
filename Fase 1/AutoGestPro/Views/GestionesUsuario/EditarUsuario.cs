@@ -7,10 +7,11 @@ namespace AutoGestPro.Views
 {
     class EditarUsuario
     {
-        public EditarUsuario()
+        public EditarUsuario(Window gestionUsuarios)
         {
             Window ventana = new Window("Gestion de usuarios - Root");
             ventana.SetDefaultSize(800,600);
+            ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
             VBox contenedor = new VBox(false, 5);
@@ -106,6 +107,13 @@ namespace AutoGestPro.Views
             HBox buttonContainer = new HBox(false, 5);
             buttonContainer.PackStart(actualizar, false, false, 4);
             contenedor.PackStart(buttonContainer, false, false, 5);
+
+            Button regresar = new Button("Regresar");
+            regresar.Clicked += (sender, e) => {
+                gestionUsuarios.Show();
+                ventana.Destroy();
+            };
+            contenedor.PackStart(regresar, false, false, 5);
 
             ventana.ShowAll();
         }

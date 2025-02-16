@@ -7,10 +7,11 @@ namespace AutoGestPro.Views
 {
     class EliminarUsuario
     {
-        public EliminarUsuario()
+        public EliminarUsuario(Window gestionUsuarios)
         {
             Window ventana = new Window("Gestion de usuarios - Root");
             ventana.SetDefaultSize(800,600);
+            ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
             VBox contenedor = new VBox(false, 5);
@@ -37,6 +38,13 @@ namespace AutoGestPro.Views
             eliminar.Clicked += (sender, e) => {
                 ListasGlobales.listaUsuarios.EliminarUsuario(int.Parse(idEntry.Text));
             };
+
+            Button regresar = new Button("Regresar");
+            regresar.Clicked += (sender, e) => {
+                gestionUsuarios.Show();
+                ventana.Destroy();
+            };
+            contenedor.PackStart(regresar, false, false, 5);
 
             ventana.ShowAll();
         }

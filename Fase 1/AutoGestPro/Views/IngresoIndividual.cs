@@ -7,10 +7,11 @@ namespace AutoGestPro.Views
 {
     class IngresoIndividual
     {
-        public IngresoIndividual()
+        public IngresoIndividual(Window menu)
         {
             Window ventana = new Window("Ingreso individual - Root");
             ventana.SetDefaultSize(800,600);
+            ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
             VBox contenedor = new VBox(false, 5);
@@ -21,21 +22,31 @@ namespace AutoGestPro.Views
 
             Button ingresarUsuario = new Button("Ingresar usuario");
             ingresarUsuario.Clicked += (sender, e) => {
-                new IngresoUsuarios();
+                new IngresoUsuarios(ventana);
+                ventana.Hide();
             };
             contenedor.PackStart(ingresarUsuario, false, false, 5);
 
             Button ingresarVehiculo = new Button("Ingresar vehiculo");
             ingresarVehiculo.Clicked += (sender, e) => {
-                new IngresoVehiculos();
+                new IngresoVehiculos(ventana);
+                ventana.Hide();
             };
             contenedor.PackStart(ingresarVehiculo, false, false, 5);
 
             Button ingresarRepuesto = new Button("Ingresar repuesto");
             ingresarRepuesto.Clicked += (sender, e) => {
-                new IngresoRepuestos();
+                new IngresoRepuestos(ventana);
+                ventana.Hide();
             };
             contenedor.PackStart(ingresarRepuesto, false, false, 5);
+
+            Button regresar = new Button("Regresar");
+            regresar.Clicked += (sender, e) => {
+                menu.Show();
+                ventana.Destroy();
+            };
+            contenedor.PackStart(regresar, false, false, 5);
 
             ventana.ShowAll();
         }

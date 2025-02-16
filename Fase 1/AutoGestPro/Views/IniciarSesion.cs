@@ -31,10 +31,19 @@ namespace AutoGestPro.Views
             Button iniciarSesion = new Button("Iniciar Sesión");
             iniciarSesion.Clicked += (sender, e) => {
                 if (txtUsuario.Text == "admin@usac.com" && txtContrasena.Text == "root"){
+                    txtUsuario.Text = "";
+                    txtContrasena.Text = "";
+                    MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Bienvenido");
+                    mensaje.Run();
                     Menu menu = new Menu(ventana);
                     ventana.Hide();
+                    mensaje.Destroy();
                 } else {
-                    Console.WriteLine("Usuario no encontrado");
+                    MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Usuario o contraseña incorrectos");
+                    mensaje.Run();
+                    mensaje.Destroy();
+                    txtUsuario.Text = "";
+                    txtContrasena.Text = "";
                 }
             };
             contenedor.PackStart(iniciarSesion, false, false, 5);

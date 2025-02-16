@@ -7,10 +7,11 @@ namespace AutoGestPro.Views
 {
     class verUsuario
     {
-        public verUsuario()
+        public verUsuario(Window gestionUsuarios)
         {
             Window ventana = new Window("Gestion de usuarios - Root");
             ventana.SetDefaultSize(800,600);
+            ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
             VBox contenedor = new VBox(false, 5);
@@ -69,6 +70,13 @@ namespace AutoGestPro.Views
                     correoActual.Text = "Usuario no encontrado";
                 }
             };
+
+            Button regresar = new Button("Regresar");
+            regresar.Clicked += (sender, e) => {
+                gestionUsuarios.Show();
+                ventana.Destroy();
+            };
+            contenedor.PackStart(regresar, false, false, 5);
 
             ventana.ShowAll();
         }

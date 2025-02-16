@@ -7,5 +7,7 @@ namespace AutoGestPro.Models.Listas
         public static ListaSimple listaUsuarios = new ListaSimple();
         public static ListaDoble listaVehiculos = new ListaDoble();
         public static ListaCircular listaRepuestos = new ListaCircular();
+        public static Cola colaServicios = new Cola();
+        public static Pila pilaFacturas = new Pila();
     }
 }

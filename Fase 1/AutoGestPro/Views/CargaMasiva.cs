@@ -10,10 +10,11 @@ namespace AutoGestPro.Views
 {
     class CargaMasiva 
     {
-        public CargaMasiva()
+        public CargaMasiva(Window menu)
         {
             Window ventana = new Window("Carga masiva - Root");
-            ventana.SetDefaultSize(800,600);
+            ventana.SetDefaultSize(800, 600);
+            ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
             VBox contenedor = new VBox(false, 5);
@@ -41,7 +42,6 @@ namespace AutoGestPro.Views
                 if (((ComboBox)sender).GetActiveIter(out iter))
                 {
                     opcionSeleccionada = (string)((ComboBox)sender).Model.GetValue(iter, 0);
-                    Console.WriteLine(opcionSeleccionada);
                 }
             };
 
@@ -93,10 +93,10 @@ namespace AutoGestPro.Views
                             {
                                 int id = element.GetProperty("ID").GetInt32();
                                 int idUsuario = element.GetProperty("ID_Usuario").GetInt32();
-                                string Repuesto = element.GetProperty("Repuesto").GetString();
-                                string Detalles = element.GetProperty("Detalles").GetString();
-                                string Costo = element.GetProperty("Costo").GetString();
-                                ListasGlobales.listaVehiculos.Insertar(id, idUsuario, Repuesto, Detalles, Costo);
+                                string marca = element.GetProperty("Marca").GetString();
+                                string modelo = element.GetProperty("Modelo").GetString();
+                                string placa = element.GetProperty("Placa").GetString();
+                                ListasGlobales.listaVehiculos.Insertar(id, idUsuario, marca, modelo, placa);
                             }
                         }
                     }
@@ -109,24 +109,33 @@ namespace AutoGestPro.Views
                             foreach (JsonElement element in root.EnumerateArray())
                             {
                                 int id = element.GetProperty("ID").GetInt32();
-                                string Repuesto = element.GetProperty("Repuesto").GetString();
+                                string repuesto = element.GetProperty("Repuesto").GetString();
                                 string Detalles = element.GetProperty("Detalles").GetString();
                                 float Costo = element.GetProperty("Costo").GetSingle();
-                                ListasGlobales.listaRepuestos.Insertar(id, Repuesto, Detalles, Costo);
+                                ListasGlobales.listaRepuestos.Insertar(id, repuesto, Detalles, Costo);
                             }
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Opcion no valida");
+                            MessageDialog dialog = new MessageDialog(ventana, 
+                            DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                            "Error archivo no valido");
+                        dialog.Run();
+                        dialog.Destroy();
                     }
-                    Console.WriteLine("Archivo seleccionado: " + filePath);
                     
                 }
-
                 fileChooser.Destroy();
             };
             contenedor.PackStart(cargar, false, false, 5);
+
+            Button regresar = new Button("Regresar");
+            regresar.Clicked += (sender, e) => {
+                menu.Show();
+                ventana.Destroy();
+            };
+            contenedor.PackStart(regresar, false, false, 5);
 
             ventana.ShowAll();
         }
