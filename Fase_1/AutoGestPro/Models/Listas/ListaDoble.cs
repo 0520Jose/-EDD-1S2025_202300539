@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using AutoGestPro.Models;
 unsafe class ListaDoble
 {
-    private Vehiculo* inicio = null;
+    public Vehiculo* inicio = null;
 
     public void Insertar(int id, int IdUsuario, string marca, string modelo, string placa)
     {

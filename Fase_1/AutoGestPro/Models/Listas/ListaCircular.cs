@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using AutoGestPro.Models;
 unsafe class ListaCircular
 {
-    private Repuesto* inicio = null;
+    public Repuesto* inicio = null;
 
     public void Insertar(int id, string repuesto, string detalles, float costo)
     {

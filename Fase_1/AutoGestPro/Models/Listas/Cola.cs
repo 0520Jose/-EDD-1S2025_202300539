@@ -7,7 +7,7 @@ namespace AutoGestPro.Models.Listas
 {
     unsafe class Cola
     {
-        private Servicio* inicio = null;
+        public Servicio* inicio = null;
 
         public void Encolar(int id, int Id_Repuesto, int Id_Vehiculo, string detalles, double costo)
         {

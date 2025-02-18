@@ -6,7 +6,7 @@ namespace AutoGestPro.Models.Listas
 {
     unsafe class Pila
     {
-        private Factura* sima = null;
+        public Factura* sima = null;
 
         public void Apilar(int id, int idOrden, float total)
         {
