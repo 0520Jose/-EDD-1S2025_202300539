@@ -295,6 +295,7 @@ namespace AutoGestPro.Views
 
             System.Diagnostics.Process.Start("xdg-open", outputPath);
         }
+        
     }
 }
 
