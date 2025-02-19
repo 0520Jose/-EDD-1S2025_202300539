@@ -139,7 +139,6 @@ namespace AutoGestPro.Views
                         dialog.Run();
                         dialog.Destroy();
                     }
-                    
                 }
                 fileChooser.Destroy();
             };

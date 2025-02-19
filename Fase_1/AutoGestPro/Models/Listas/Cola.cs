@@ -8,6 +8,7 @@ namespace AutoGestPro.Models.Listas
     unsafe class Cola
     {
         public Servicio* inicio = null;
+        public Servicio* fin = null;
 
         public void Encolar(int id, int Id_Repuesto, int Id_Vehiculo, string detalles, double costo)
         {
@@ -17,19 +18,17 @@ namespace AutoGestPro.Models.Listas
             nuevoServicio->Id_Vehiculo = Id_Vehiculo;
             nuevoServicio->Detalles = detalles;
             nuevoServicio->Costo = costo;
+            nuevoServicio->siguiente = null;
             
             if (inicio == null)
             {
                 inicio = nuevoServicio;
+                fin = nuevoServicio;
             }
             else
             {
-                Servicio* servicioActual = inicio;
-                while (servicioActual->siguiente != null)
-                {
-                    servicioActual = servicioActual->siguiente;
-                }
-                servicioActual->siguiente = nuevoServicio;
+                fin->siguiente = nuevoServicio;
+                fin = nuevoServicio;
             }
         }
 
@@ -37,9 +36,11 @@ namespace AutoGestPro.Models.Listas
         {
             if (inicio != null)
             {
-                Servicio* servicioDesencolado = inicio;
-                inicio = inicio->siguiente;
-                return *servicioDesencolado;
+            Servicio* servicioDesencolado = inicio;
+            inicio = inicio->siguiente;
+            Servicio servicio = *servicioDesencolado;
+            NativeMemory.Free(servicioDesencolado);
+            return servicio;
             }
             return new Servicio();
         }

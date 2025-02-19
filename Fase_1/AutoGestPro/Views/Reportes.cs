@@ -224,20 +224,21 @@ namespace AutoGestPro.Views
 
         void GenerarReporteServicios()
         {
-            Cola colaServicios = ListasGlobales.colaServicios;
             string dotPath = "/usr/bin/dot";
 
             string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_servicios.png";
             string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_servicios.dot";
 
-            Servicio* actual = colaServicios.inicio;
             string dotContent = "digraph G {\n";
             dotContent += "node [shape=record];\n";
+
+            Cola colaServicios = ListasGlobales.colaServicios;
+            Servicio* actual = colaServicios.inicio;
             dotContent += "rankdir=LR;\n";
 
             while (actual != null)
             {
-                String id = actual->Id.ToString();
+                string id = actual->Id.ToString();
                 String idRepuesto = actual->Id_Repuesto.ToString();
                 String idVehiculo = actual->Id_Vehiculo.ToString();
                 String detalles = actual->Detalles;
@@ -245,7 +246,7 @@ namespace AutoGestPro.Views
                 dotContent += "node" + id + "[label=\"{ID: " + id + " | \nID Repuesto: " + idRepuesto + " | \nID Vehiculo: " + idVehiculo + " | \nDetalles: " + detalles + " | \nCosto: " + costo + "}\", shape=record];\n";
                 if (actual->siguiente != null)
                 {
-                    dotContent += $"node{id} -> node{actual->siguiente->Id};\n";
+                    dotContent += $"node{actual->Id} -> node{actual->siguiente->Id};\n";
                 }
                 actual = actual->siguiente;
             }
@@ -289,7 +290,7 @@ namespace AutoGestPro.Views
 
             while (actual != null)
             {
-                String id = actual->Id.ToString();
+                string id = actual->Id.ToString();
                 String idOrden = actual->Id_Orden.ToString();
                 String total = actual->Total.ToString();
                 dotContent += "node" + id + "[label=\"{ID: " + id + " | \nID Orden: " + idOrden + " | \nTotal: " + total + "}\", shape=record];\n";

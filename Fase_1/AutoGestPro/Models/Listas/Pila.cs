@@ -18,6 +18,7 @@ namespace AutoGestPro.Models.Listas
             if (sima == null)
             {
                 sima = nuevaFactura;
+                sima->abajo = null;
             }
             else
             {
@@ -30,11 +31,24 @@ namespace AutoGestPro.Models.Listas
         {
             if (sima != null)
             {
-                Factura* factura = sima;
-                sima = sima->abajo;
-                return *factura;   
+            Factura* factura = sima;
+            sima = sima->abajo;
+            Factura result = *factura;
+            NativeMemory.Free(factura);
+            return result;
             }
             return new Factura();
+        }
+
+        public Factura* DesapilarFactura()
+        {
+            if (sima != null)
+            {
+                Factura* factura = sima;
+                sima = sima->abajo;
+                return factura;
+            }
+            return null;
         }
     }
 }

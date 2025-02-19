@@ -50,4 +50,5 @@ node10[label="{ID: 10 |
 Repuesto: Batería | 
 Detalles: Batería de 12V 60Ah | 
 Costo: 100}", shape=record];
+node10 -> node1;
 }

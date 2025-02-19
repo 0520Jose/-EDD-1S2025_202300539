@@ -27,8 +27,8 @@ namespace AutoGestPro.Views
             table.WidthRequest = 800;
             subContenedor.PackStart(table, true, true, 5);
 
-            Label id = new Label("ID:");
-            table.Attach(id, 0, 1, 0, 1);
+            Label id_ = new Label("ID:");
+            table.Attach(id_, 0, 1, 0, 1);
 
             Label idActual = new Label("Null");
             table.Attach(idActual, 1, 2, 0, 1);
@@ -55,7 +55,7 @@ namespace AutoGestPro.Views
             ventana.ShowAll();
 
             Factura factura = ListasGlobales.pilaFacturas.Desapilar();
-            if (factura.Id < 1)
+            if (factura.Id is int id && id < 1)
             {
                 MessageDialog dialog = new MessageDialog(ventana, 
                     DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
