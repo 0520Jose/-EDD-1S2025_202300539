@@ -8,43 +8,47 @@ namespace AutoGestPro.Views
         public GestionDeUsuarios(Window menu)
         {
             Window ventana = new Window("Gestion de usuarios - Root");
-            ventana.SetDefaultSize(800,600);
+            ventana.SetDefaultSize(800, 600);
             ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
-            VBox contenedor = new VBox(false, 5);
+            VBox contenedor = new VBox(false, 10);
             ventana.Add(contenedor);
 
             Label titulo = new Label("Gestion de usuarios");
-            contenedor.PackStart(titulo, false, false, 5);
+            titulo.ModifyFont(Pango.FontDescription.FromString("Sans Bold 24"));
+            contenedor.PackStart(titulo, false, false, 20);
+
+            Table table = new Table(2, 2, true);
+            contenedor.PackStart(table, true, true, 10);
 
             Button EditarUsuario = new Button("Editar Usuario");
             EditarUsuario.Clicked += (sender, e) => {
                 new EditarUsuario(ventana);
                 ventana.Hide();
             };
-            contenedor.PackStart(EditarUsuario, false, false, 5);
+            table.Attach(EditarUsuario, 0, 1, 0, 1);
 
             Button VerUsuario = new Button("Ver Usuario");
             VerUsuario.Clicked += (sender, e) => {
-                new verUsuario(ventana);
+                new VerUsuario(ventana);
                 ventana.Hide();
             };
-            contenedor.PackStart(VerUsuario, false, false, 5);
+            table.Attach(VerUsuario, 1, 2, 0, 1);
 
             Button EliminarUsuario = new Button("Eliminar Usuario");
             EliminarUsuario.Clicked += (sender, e) => {
                 new EliminarUsuario(ventana);
                 ventana.Hide();
             };
-            contenedor.PackStart(EliminarUsuario, false, false, 5);
+            table.Attach(EliminarUsuario, 0, 1, 1, 2);
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
                 menu.Show();
                 ventana.Destroy();
             };
-            contenedor.PackStart(regresar, false, false, 5);
+            table.Attach(regresar, 1, 2, 1, 2);
 
             ventana.ShowAll();
         }

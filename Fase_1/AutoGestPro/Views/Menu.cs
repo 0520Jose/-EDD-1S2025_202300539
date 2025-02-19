@@ -8,64 +8,68 @@ namespace AutoGestPro.Views
         public Menu(Window cerrarSesion)
         {
             Window ventana = new Window("Menu - Root");
-            ventana.SetDefaultSize(800,600);
+            ventana.SetDefaultSize(800, 600);
             ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
             VBox contenedor = new VBox(false, 5);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Menu");
-            contenedor.PackStart(titulo, false, false, 5);
+            Label titulo = new Label("<span size='xx-large'>Menu</span>");
+            titulo.UseMarkup = true;
+            contenedor.PackStart(titulo, false, false, 20);
+
+            Table table = new Table(3, 2, true);
+            contenedor.PackStart(table, true, true, 10);
 
             Button cargaMasiva = new Button("Carga masiva");
             cargaMasiva.Clicked += (sender, e) => {
                 CargaMasiva cargaMasiva = new CargaMasiva(ventana);
                 ventana.Hide();
             };
-            contenedor.PackStart(cargaMasiva, false, false, 5);
+            table.Attach(cargaMasiva, 0, 1, 0, 1);
 
             Button ingresoIndividual = new Button("Ingreso individual");
             ingresoIndividual.Clicked += (sender, e) => {
                 IngresoIndividual ingresoIndividual = new IngresoIndividual(ventana);
                 ventana.Hide();
             };
-            contenedor.PackStart(ingresoIndividual, false, false, 5);
+            table.Attach(ingresoIndividual, 1, 2, 0, 1);
 
             Button gestionDeUsuarios = new Button("Gestión de usuarios");
             gestionDeUsuarios.Clicked += (sender, e) => {
                 GestionDeUsuarios gestionDeUsuarios = new GestionDeUsuarios(ventana);
                 ventana.Hide();
             };
-            contenedor.PackStart(gestionDeUsuarios, false, false, 5);
+            table.Attach(gestionDeUsuarios, 0, 1, 1, 2);
 
             Button generarServicio = new Button("Generar servicio");
             generarServicio.Clicked += (sender, e) => {
                 GenerarServicio generarServicio = new GenerarServicio(ventana);
                 ventana.Hide();
             };
-            contenedor.PackStart(generarServicio, false, false, 5);
+            table.Attach(generarServicio, 1, 2, 1, 2);
 
             Button cancelarFactura = new Button("Cancelar factura");
             cancelarFactura.Clicked += (sender, e) => {
                 CancelarFactura cancelarFactura = new CancelarFactura(ventana);
                 ventana.Hide();
             };
-            contenedor.PackStart(cancelarFactura, false, false, 5);
+            table.Attach(cancelarFactura, 0, 1, 2, 3);
 
             Button reportes = new Button("Reportes");
             reportes.Clicked += (sender, e) => {
                 Reportes reportes = new Reportes(ventana);
                 ventana.Hide();
             };
-            contenedor.PackStart(reportes, false, false, 5);
+            table.Attach(reportes, 1, 2, 2, 3);
 
-            Button CerrarSesion = new Button("Cerrar sesion");
+            Button CerrarSesion = new Button("Cerrar sesión");
             CerrarSesion.Clicked += (sender, e) => {
                 cerrarSesion.Show();
                 ventana.Destroy();
             };
-            contenedor.PackStart(CerrarSesion, false, false, 5);
+            contenedor.PackStart(CerrarSesion, false, false, 20);
 
             ventana.ShowAll();
         }

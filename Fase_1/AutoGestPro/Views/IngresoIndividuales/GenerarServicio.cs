@@ -1,5 +1,6 @@
 using System;
 using AutoGestPro.Models.Listas;
+using AutoGestPro.Models.Listas.MatrizDispersa;
 using AutoGestPro.Models;
 using Gtk;
 using AutoGestPro.Models.Entidades;
@@ -11,22 +12,21 @@ namespace AutoGestPro.Views
         public GenerarServicio(Window menu)
         {
             Window ventana = new Window("Crear Servicio - Root");
-            ventana.SetDefaultSize(800,600);
+            ventana.SetDefaultSize(600, 400);
             ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
-            VBox contenedor = new VBox(false, 5);
+            VBox contenedor = new VBox(false, 10);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Generar Servicio");
-            contenedor.PackStart(titulo, false, false, 5);
-
-            HBox subContenedor = new HBox(false, 5);
-            contenedor.PackStart(subContenedor, false, false, 5);
+            Label titulo = new Label("<span size='large'>Generar Servicio</span>");
+            titulo.UseMarkup = true;
+            contenedor.PackStart(titulo, false, false, 10);
 
             Table table = new Table(5, 2, false);
-            table.WidthRequest = 800;
-            subContenedor.PackStart(table, true, true, 5);
+            table.ColumnSpacing = 10;
+            table.RowSpacing = 10;
+            contenedor.PackStart(table, true, true, 10);
 
             Label id = new Label("ID:");
             table.Attach(id, 0, 1, 0, 1);
@@ -58,6 +58,10 @@ namespace AutoGestPro.Views
             Entry costoEntry = new Entry();
             table.Attach(costoEntry, 1, 2, 4, 5);
 
+            HButtonBox buttonBox = new HButtonBox();
+            buttonBox.Layout = ButtonBoxStyle.End;
+            contenedor.PackStart(buttonBox, false, false, 10);
+
             Button guardar = new Button("Guardar");
             guardar.Clicked += (sender, e) => {
                 int ID = Convert.ToInt32(idEntry.Text);
@@ -77,7 +81,7 @@ namespace AutoGestPro.Views
                 Boolean existe = true;
                 if (usuario.Nombre == null)
                 {
-                        MessageDialog dialog = new MessageDialog(ventana, 
+                    MessageDialog dialog = new MessageDialog(ventana, 
                         DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
                         "No existe el usuario ingresado.");
                     dialog.Run();
@@ -86,7 +90,7 @@ namespace AutoGestPro.Views
                 }
                 if (cRepuesto.detalle == null)
                 {
-                        MessageDialog dialog = new MessageDialog(ventana, 
+                    MessageDialog dialog = new MessageDialog(ventana, 
                         DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
                         "No existe el repuesto ingresado.");
                     dialog.Run();
@@ -95,7 +99,7 @@ namespace AutoGestPro.Views
                 }
                 if (vehiculo.Marca == null)
                 {
-                        MessageDialog dialog = new MessageDialog(ventana, 
+                    MessageDialog dialog = new MessageDialog(ventana, 
                         DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
                         "No existe el vehiculo ingresado.");
                     dialog.Run();
@@ -107,19 +111,19 @@ namespace AutoGestPro.Views
                     float costoRepuesto = cRepuesto.costo;
                     float total = costoRepuesto + (float)Costo;
                     ListasGlobales.pilaFacturas.Apilar(ID, IDVehiculo, total);
+                    Bitacora bitacora = new Bitacora(Detalles, IDVehiculo, IDRepuesto);
+                    ListasGlobales.matrizDispersa.insertar(ID, IDVehiculo, bitacora);
                 }
                 existe = true;
             };
-            HBox buttonContainer = new HBox(false, 5);
-            buttonContainer.PackStart(guardar, false, false, 4);
-            contenedor.PackStart(buttonContainer, false, false, 5);
+            buttonBox.PackStart(guardar, false, false, 5);
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
                 menu.Show();
                 ventana.Destroy();
             };
-            contenedor.PackStart(regresar, false, false, 5);
+            buttonBox.PackStart(regresar, false, false, 5);
 
             ventana.ShowAll();
         }

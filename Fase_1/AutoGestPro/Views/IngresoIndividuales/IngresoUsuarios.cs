@@ -10,22 +10,22 @@ namespace AutoGestPro.Views
         public IngresoUsuarios(Window ingresoIndividual)
         {
             Window ventana = new Window("Ingreso individual - Root");
-            ventana.SetDefaultSize(800,600);
+            ventana.SetDefaultSize(400, 300);
             ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
-            VBox contenedor = new VBox(false, 5);
+            VBox contenedor = new VBox(false, 10);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Ingreso de usuario");
-            contenedor.PackStart(titulo, false, false, 5);
+            Label titulo = new Label("<b>Ingreso de usuario</b>");
+            titulo.UseMarkup = true;
+            titulo.Justify = Justification.Center;
+            contenedor.PackStart(titulo, false, false, 10);
 
-            HBox subContenedor = new HBox(false, 5);
-            contenedor.PackStart(subContenedor, false, false, 5);
-    
             Table table = new Table(5, 2, false);
-            table.WidthRequest = 800;
-            subContenedor.PackStart(table, true, true, 5);
+            table.ColumnSpacing = 10;
+            table.RowSpacing = 10;
+            contenedor.PackStart(table, true, true, 10);
 
             Label id = new Label("ID:");
             table.Attach(id, 0, 1, 0, 1);
@@ -57,6 +57,9 @@ namespace AutoGestPro.Views
             Entry contraseniaEntry = new Entry();
             table.Attach(contraseniaEntry, 1, 2, 4, 5);
 
+            HBox buttonContainer = new HBox(true, 10);
+            contenedor.PackStart(buttonContainer, false, false, 10);
+
             Button guardar = new Button("Guardar");
             guardar.Clicked += (sender, e) => {
                 string nombre = nombreEntry.Text;
@@ -65,22 +68,20 @@ namespace AutoGestPro.Views
                 string contrasenia = contraseniaEntry.Text;
                 int id = int.Parse(idEntry.Text);
                 ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, contrasenia);
-                    MessageDialog dialog = new MessageDialog(ventana, 
+                MessageDialog dialog = new MessageDialog(ventana, 
                     DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
-                    "Carga masiva exitosa de usuarios");
+                    "Usuario guardado exitosamente");
                 dialog.Run();
                 dialog.Destroy();
             };
-            HBox buttonContainer = new HBox(false, 5);
-            buttonContainer.PackStart(guardar, false, false, 4);
-            contenedor.PackStart(buttonContainer, false, false, 5);
+            buttonContainer.PackStart(guardar, true, true, 0);
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
                 ingresoIndividual.Show();
                 ventana.Destroy();
             };
-            contenedor.PackStart(regresar, false, false, 5);
+            buttonContainer.PackStart(regresar, true, true, 0);
 
             ventana.ShowAll();
         }

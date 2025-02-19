@@ -10,41 +10,41 @@ namespace AutoGestPro.Views
         public EliminarUsuario(Window gestionUsuarios)
         {
             Window ventana = new Window("Gestion de usuarios - Root");
-            ventana.SetDefaultSize(800,600);
+            ventana.SetDefaultSize(400, 200);
             ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
-            VBox contenedor = new VBox(false, 5);
+            VBox contenedor = new VBox(false, 10);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Eliminar usuario");
-            contenedor.PackStart(titulo, false, false, 5);
+            Label titulo = new Label("<b><big>Eliminar usuario</big></b>");
+            titulo.UseMarkup = true;
+            contenedor.PackStart(titulo, false, false, 10);
 
-            HBox subContenedor = new HBox(false, 5);
-            contenedor.PackStart(subContenedor, false, false, 5);
+            HBox idContenedor = new HBox(false, 10);
+            contenedor.PackStart(idContenedor, false, false, 10);
 
-            Table table = new Table(5, 3, false);
-            table.WidthRequest = 800;
-            subContenedor.PackStart(table, true, true, 5);
-
-            Label id = new Label("ID:");
-            table.Attach(id, 0, 1, 0, 1);
+            Label idLabel = new Label("ID:");
+            idContenedor.PackStart(idLabel, false, false, 10);
 
             Entry idEntry = new Entry();
-            table.Attach(idEntry, 1, 2, 0, 1);
+            idContenedor.PackStart(idEntry, true, true, 10);
+
+            HBox botonesContenedor = new HBox(true, 10);
+            contenedor.PackStart(botonesContenedor, false, false, 10);
 
             Button eliminar = new Button("Eliminar");
-            table.Attach(eliminar, 2, 3, 0, 1);
             eliminar.Clicked += (sender, e) => {
                 ListasGlobales.listaUsuarios.EliminarUsuario(int.Parse(idEntry.Text));
             };
+            botonesContenedor.PackStart(eliminar, true, true, 10);
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
                 gestionUsuarios.Show();
                 ventana.Destroy();
             };
-            contenedor.PackStart(regresar, false, false, 5);
+            botonesContenedor.PackStart(regresar, true, true, 10);
 
             ventana.ShowAll();
         }

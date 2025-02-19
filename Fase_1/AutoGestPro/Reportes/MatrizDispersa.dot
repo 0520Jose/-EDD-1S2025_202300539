@@ -1,0 +1,23 @@
+digraph G {
+node [shape=record];
+rankdir=UD;
+	Fila1[style="filled", fillcolor="lightblue", label="1"];
+	Fila2[style="filled", fillcolor="lightblue", label="2"];
+	Fila3[style="filled", fillcolor="lightblue", label="3"];
+	Fila1 -> Fila2;
+	Fila2 -> Fila3;
+	Nodo1_1[style="filled", fillcolor="lightblue", label="1"];
+	Fila1 -> Nodo1_1;
+	Nodo2_2[style="filled", fillcolor="lightblue", label="2"];
+	Fila2 -> Nodo2_2;
+	Nodo3_3[style="filled", fillcolor="lightblue", label="3"];
+	Fila3 -> Nodo3_3;
+	Columna1 -> Nodo1_1;
+	Columna2 -> Nodo2_2;
+	Columna3 -> Nodo3_3;
+	Columna1[style="filled", fillcolor="lightblue", label="1"];
+	Columna2[style="filled", fillcolor="lightblue", label="2"];
+	Columna3[style="filled", fillcolor="lightblue", label="3"];
+	Columna1 -> Columna2;
+	Columna2 -> Columna3;
+}

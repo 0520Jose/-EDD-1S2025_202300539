@@ -10,22 +10,22 @@ namespace AutoGestPro.Views
         public CancelarFactura(Window menu)
         {
             Window ventana = new Window("Cancelar factura - Root");
-            ventana.SetDefaultSize(400,300);
+            ventana.SetDefaultSize(400, 300);
             ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
-            VBox contenedor = new VBox(false, 5);
+            VBox contenedor = new VBox(false, 10);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Facturacion");
-            contenedor.PackStart(titulo, false, false, 5);
+            Label titulo = new Label("<b>Facturación</b>");
+            titulo.UseMarkup = true;
+            titulo.Justify = Justification.Center;
+            contenedor.PackStart(titulo, false, false, 10);
 
-            HBox subContenedor = new HBox(false, 5);
-            contenedor.PackStart(subContenedor, false, false, 5);
-
-            Table table = new Table(5, 2, false);
-            table.WidthRequest = 800;
-            subContenedor.PackStart(table, true, true, 5);
+            Table table = new Table(3, 2, false);
+            table.ColumnSpacing = 10;
+            table.RowSpacing = 10;
+            contenedor.PackStart(table, true, true, 10);
 
             Label id_ = new Label("ID:");
             table.Attach(id_, 0, 1, 0, 1);
@@ -45,12 +45,16 @@ namespace AutoGestPro.Views
             Label totalActual = new Label("Null");
             table.Attach(totalActual, 1, 2, 2, 3);
 
+            HButtonBox buttonBox = new HButtonBox();
+            buttonBox.Layout = ButtonBoxStyle.End;
+            contenedor.PackStart(buttonBox, false, false, 10);
+
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
                 menu.Show();
                 ventana.Destroy();
             };
-            contenedor.PackStart(regresar, false, false, 5);
+            buttonBox.PackStart(regresar, false, false, 5);
 
             ventana.ShowAll();
 

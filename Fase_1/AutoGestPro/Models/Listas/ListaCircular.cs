@@ -4,6 +4,7 @@ using AutoGestPro.Models;
 unsafe class ListaCircular
 {
     public Repuesto* inicio = null;
+    public int tamanio = 0;
 
     public void Insertar(int id, string repuesto, string detalles, float costo)
     {
@@ -27,6 +28,7 @@ unsafe class ListaCircular
             nuevoRepuesto->siguiente = inicio;
             ultimo->siguiente = nuevoRepuesto;
         }
+        tamanio++;
     }
 
     public Repuesto buscarRepuesto(int id)

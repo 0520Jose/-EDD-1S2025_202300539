@@ -10,22 +10,22 @@ namespace AutoGestPro.Views
         public EditarUsuario(Window gestionUsuarios)
         {
             Window ventana = new Window("Gestion de usuarios - Root");
-            ventana.SetDefaultSize(800,600);
+            ventana.SetDefaultSize(600, 400);
             ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
-            VBox contenedor = new VBox(false, 5);
+            VBox contenedor = new VBox(false, 10);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Editor de usuario");
-            contenedor.PackStart(titulo, false, false, 5);
+            Label titulo = new Label("<b>Editor de usuario</b>");
+            titulo.UseMarkup = true;
+            titulo.Justify = Justification.Center;
+            contenedor.PackStart(titulo, false, false, 10);
 
-            HBox subContenedor = new HBox(false, 5);
-            contenedor.PackStart(subContenedor, false, false, 5);
-
-            Table table = new Table(5, 3, false);
-            table.WidthRequest = 800;
-            subContenedor.PackStart(table, true, true, 5);
+            Table table = new Table(4, 3, false);
+            table.ColumnSpacing = 10;
+            table.RowSpacing = 10;
+            contenedor.PackStart(table, true, true, 10);
 
             Label id = new Label("ID:");
             table.Attach(id, 0, 1, 0, 1);
@@ -34,7 +34,6 @@ namespace AutoGestPro.Views
             table.Attach(idEntry, 1, 2, 0, 1);
 
             Button buscar = new Button("Buscar");
-            
             table.Attach(buscar, 2, 3, 0, 1);
 
             Label nombre = new Label("Nombres:");
@@ -81,6 +80,9 @@ namespace AutoGestPro.Views
                 }
             };
 
+            HBox buttonContainer = new HBox(true, 10);
+            contenedor.PackStart(buttonContainer, false, false, 10);
+
             Button actualizar = new Button("Actualizar");
             actualizar.Clicked += (sender, e) => {
                 int id = int.Parse(idEntry.Text);
@@ -104,16 +106,14 @@ namespace AutoGestPro.Views
                 correoEntry.Text = "";
                 ListasGlobales.listaUsuarios.ActualizarUsuario(id, nombre_, apellido_, correo_);
             };
-            HBox buttonContainer = new HBox(false, 5);
-            buttonContainer.PackStart(actualizar, false, false, 4);
-            contenedor.PackStart(buttonContainer, false, false, 5);
+            buttonContainer.PackStart(actualizar, true, true, 0);
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
                 gestionUsuarios.Show();
                 ventana.Destroy();
             };
-            contenedor.PackStart(regresar, false, false, 5);
+            buttonContainer.PackStart(regresar, true, true, 0);
 
             ventana.ShowAll();
         }

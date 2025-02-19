@@ -10,70 +10,73 @@ namespace AutoGestPro.Views
         public IngresoRepuestos(Window ingresoIndividual)
         {
             Window ventana = new Window("Ingreso individual - Root");
-            ventana.SetDefaultSize(800,600);
+            ventana.SetDefaultSize(600, 400);
             ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
-            VBox contenedor = new VBox(false, 5);
+            VBox contenedor = new VBox(false, 10);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Ingreso de repuesto");
-            contenedor.PackStart(titulo, false, false, 5);
+            Label titulo = new Label("<b>Ingreso de Repuesto</b>");
+            titulo.UseMarkup = true;
+            titulo.Justify = Justification.Center;
+            contenedor.PackStart(titulo, false, false, 10);
 
-            HBox subContenedor = new HBox(false, 5);
-            contenedor.PackStart(subContenedor, false, false, 5);
-    
-            Table table = new Table(5, 2, false);
-            table.WidthRequest = 800;
-            subContenedor.PackStart(table, true, true, 5);
+            Table table = new Table(4, 2, false);
+            table.RowSpacing = 10;
+            table.ColumnSpacing = 10;
+            contenedor.PackStart(table, true, true, 10);
 
-            Label id = new Label("ID:");
-            table.Attach(id, 0, 1, 0, 1);
+            Label idLabel = new Label("ID:");
+            table.Attach(idLabel, 0, 1, 0, 1);
 
             Entry idEntry = new Entry();
             table.Attach(idEntry, 1, 2, 0, 1);
 
-            Label Repuesto = new Label("Repuesto:");
-            table.Attach(Repuesto, 0, 1, 1, 2);
+            Label repuestoLabel = new Label("Repuesto:");
+            table.Attach(repuestoLabel, 0, 1, 1, 2);
 
-            Entry RepuestoEntry = new Entry();
-            table.Attach(RepuestoEntry, 1, 2, 1, 2);
+            Entry repuestoEntry = new Entry();
+            table.Attach(repuestoEntry, 1, 2, 1, 2);
 
-            Label Detalles = new Label("Detalles:");
-            table.Attach(Detalles, 0, 1, 2, 3);
+            Label detallesLabel = new Label("Detalles:");
+            table.Attach(detallesLabel, 0, 1, 2, 3);
 
-            Entry DetallesEntry = new Entry();
-            table.Attach(DetallesEntry, 1, 2, 2, 3);
+            Entry detallesEntry = new Entry();
+            table.Attach(detallesEntry, 1, 2, 2, 3);
 
-            Label Costo = new Label("Costo:");
-            table.Attach(Costo, 0, 1, 3, 4);
+            Label costoLabel = new Label("Costo:");
+            table.Attach(costoLabel, 0, 1, 3, 4);
 
-            Entry CostoEntry = new Entry();
-            table.Attach(CostoEntry, 1, 2, 3, 4);
+            Entry costoEntry = new Entry();
+            table.Attach(costoEntry, 1, 2, 3, 4);
 
-            Button guardar = new Button("Guardar");
-            guardar.Clicked += (sender, e) => {
-                string Repuesto = RepuestoEntry.Text;
-                string Detalles = DetallesEntry.Text;
-                float Costo = float.Parse(CostoEntry.Text);
+            HButtonBox buttonBox = new HButtonBox();
+            buttonBox.Layout = ButtonBoxStyle.End;
+            buttonBox.Spacing = 10;
+            contenedor.PackStart(buttonBox, false, false, 10);
+
+            Button guardarButton = new Button("Guardar");
+            guardarButton.Clicked += (sender, e) => {
+                string repuesto = repuestoEntry.Text;
+                string detalles = detallesEntry.Text;
+                float costo = float.Parse(costoEntry.Text);
                 int id = int.Parse(idEntry.Text);
-                ListasGlobales.listaRepuestos.Insertar(id, Repuesto, Detalles, Costo);
-                    MessageDialog dialog = new MessageDialog(ventana, 
+                ListasGlobales.listaRepuestos.Insertar(id, repuesto, detalles, costo);
+                MessageDialog dialog = new MessageDialog(ventana, 
                     DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
-                    "Carga masiva exitosa de repuestos");
+                    "Carga exitosa de repuestos");
                 dialog.Run();
                 dialog.Destroy();
             };
-            HBox buttonContainer = new HBox(false, 5);
-            buttonContainer.PackStart(guardar, false, false, 4);
-            contenedor.PackStart(buttonContainer, false, false, 5);
+            buttonBox.PackStart(guardarButton, false, false, 0);
 
-            Button regresar = new Button("Regresar");
-            regresar.Clicked += (sender, e) => {
+            Button regresarButton = new Button("Regresar");
+            regresarButton.Clicked += (sender, e) => {
                 ingresoIndividual.Show();
                 ventana.Destroy();
             };
-            contenedor.PackStart(regresar, false, false, 5);
+            buttonBox.PackStart(regresarButton, false, false, 0);
 
             ventana.ShowAll();
         }

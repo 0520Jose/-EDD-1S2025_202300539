@@ -10,22 +10,22 @@ namespace AutoGestPro.Views
         public IngresoVehiculos(Window ingresoIndividual)
         {
             Window ventana = new Window("Ingreso individual - Root");
-            ventana.SetDefaultSize(800,600);
+            ventana.SetDefaultSize(400, 300);
             ventana.SetPosition(WindowPosition.Center);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
-            VBox contenedor = new VBox(false, 5);
+            VBox contenedor = new VBox(false, 10);
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Ingreso de vehiculo");
-            contenedor.PackStart(titulo, false, false, 5);
+            Label titulo = new Label("<b>Ingreso de Vehículo</b>");
+            titulo.UseMarkup = true;
+            titulo.Justify = Justification.Center;
+            contenedor.PackStart(titulo, false, false, 10);
 
-            HBox subContenedor = new HBox(false, 5);
-            contenedor.PackStart(subContenedor, false, false, 5);
-    
             Table table = new Table(5, 2, false);
-            table.WidthRequest = 800;
-            subContenedor.PackStart(table, true, true, 5);
+            table.ColumnSpacing = 10;
+            table.RowSpacing = 10;
+            contenedor.PackStart(table, true, true, 10);
 
             Label id = new Label("ID:");
             table.Attach(id, 0, 1, 0, 1);
@@ -39,23 +39,28 @@ namespace AutoGestPro.Views
             Entry IdUsuarioEntry = new Entry();
             table.Attach(IdUsuarioEntry, 1, 2, 1, 2);
 
-            Label marca = new Label("marca:");
+            Label marca = new Label("Marca:");
             table.Attach(marca, 0, 1, 2, 3);
 
             Entry marcaEntry = new Entry();
             table.Attach(marcaEntry, 1, 2, 2, 3);
 
-            Label modelo = new Label("modelo:");
+            Label modelo = new Label("Modelo:");
             table.Attach(modelo, 0, 1, 3, 4);
 
             Entry modeloEntry = new Entry();
             table.Attach(modeloEntry, 1, 2, 3, 4);
 
-            Label placa = new Label("Contraseña:");
+            Label placa = new Label("Placa:");
             table.Attach(placa, 0, 1, 4, 5);
 
             Entry placaEntry = new Entry();
             table.Attach(placaEntry, 1, 2, 4, 5);
+
+            HButtonBox buttonBox = new HButtonBox();
+            buttonBox.Layout = ButtonBoxStyle.End;
+            buttonBox.Spacing = 10;
+            contenedor.PackStart(buttonBox, false, false, 10);
 
             Button guardar = new Button("Guardar");
             guardar.Clicked += (sender, e) => {
@@ -65,22 +70,20 @@ namespace AutoGestPro.Views
                 string placa = placaEntry.Text;
                 int id = int.Parse(idEntry.Text);
                 ListasGlobales.listaVehiculos.Insertar(id, IdUsuario, marca, modelo, placa);
-                    MessageDialog dialog = new MessageDialog(ventana, 
+                MessageDialog dialog = new MessageDialog(ventana, 
                     DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
-                    "Carga masiva exitosa de vehiculos");
+                    "Vehículo guardado exitosamente");
                 dialog.Run();
                 dialog.Destroy();
             };
-            HBox buttonContainer = new HBox(false, 5);
-            buttonContainer.PackStart(guardar, false, false, 4);
-            contenedor.PackStart(buttonContainer, false, false, 5);
+            buttonBox.PackStart(guardar, false, false, 0);
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
                 ingresoIndividual.Show();
                 ventana.Destroy();
             };
-            contenedor.PackStart(regresar, false, false, 5);
+            buttonBox.PackStart(regresar, false, false, 0);
 
             ventana.ShowAll();
         }

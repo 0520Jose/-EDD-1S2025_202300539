@@ -8,29 +8,39 @@ namespace AutoGestPro.Views
     {
         public IniciarSesion()
         {
+            Application.Init();
             Window ventana = new Window("AutoGestPro");
-            ventana.SetDefaultSize(400,300);
+            ventana.Opacity = 0.75;
+            ventana.SetDefaultSize(400, 300);
             ventana.DeleteEvent += delegate { Application.Quit(); };
 
-            VBox contenedor = new VBox(false, 5);
+            VBox contenedor = new VBox(false, 10);
+            contenedor.BorderWidth = 20;
             ventana.Add(contenedor);
 
-            Label titulo = new Label("Iniciar Sesion");
-            contenedor.PackStart(titulo, false, false, 5);
+            Label titulo = new Label("<span size='xx-large' weight='bold'>Iniciar Sesión</span>");
+            titulo.UseMarkup = true;
+            contenedor.PackStart(titulo, false, false, 10);
 
-            Label tituloUsuario = new Label ("Usuario");
+            HBox usuarioBox = new HBox(false, 5);
+            Label tituloUsuario = new Label("Usuario:");
             Entry txtUsuario = new Entry();
-            contenedor.PackStart(tituloUsuario, false, false, 5);
-            contenedor.PackStart(txtUsuario, false, false, 5);
+            usuarioBox.PackStart(tituloUsuario, false, false, 5);
+            usuarioBox.PackStart(txtUsuario, true, true, 5);
+            contenedor.PackStart(usuarioBox, false, false, 5);
 
-            Label tituloContrasena = new Label ("Contraseña");
+            HBox contrasenaBox = new HBox(false, 5);
+            Label tituloContrasena = new Label("Contraseña:");
             Entry txtContrasena = new Entry();
-            contenedor.PackStart(tituloContrasena, false, false, 5);
-            contenedor.PackStart(txtContrasena, false, false, 5);
+            txtContrasena.Visibility = false;
+            contrasenaBox.PackStart(tituloContrasena, false, false, 5);
+            contrasenaBox.PackStart(txtContrasena, true, true, 5);
+            contenedor.PackStart(contrasenaBox, false, false, 5);
 
             Button iniciarSesion = new Button("Iniciar Sesión");
             iniciarSesion.Clicked += (sender, e) => {
-                if (txtUsuario.Text == "admin@usac.com" && txtContrasena.Text == "root"){
+                if (txtUsuario.Text == "admin@usac.com" && txtContrasena.Text == "root")
+                {
                     txtUsuario.Text = "";
                     txtContrasena.Text = "";
                     MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Bienvenido");
@@ -38,7 +48,9 @@ namespace AutoGestPro.Views
                     Menu menu = new Menu(ventana);
                     ventana.Hide();
                     mensaje.Destroy();
-                } else {
+                }
+                else
+                {
                     MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Usuario o contraseña incorrectos");
                     mensaje.Run();
                     mensaje.Destroy();
@@ -46,9 +58,10 @@ namespace AutoGestPro.Views
                     txtContrasena.Text = "";
                 }
             };
-            contenedor.PackStart(iniciarSesion, false, false, 5);
+            contenedor.PackStart(iniciarSesion, false, false, 20);
 
             ventana.ShowAll();
+            Application.Run();
         }
     }
 }

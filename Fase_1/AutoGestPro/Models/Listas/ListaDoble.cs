@@ -4,6 +4,7 @@ using AutoGestPro.Models;
 unsafe class ListaDoble
 {
     public Vehiculo* inicio = null;
+    public int tamanio = 0;
 
     public void Insertar(int id, int IdUsuario, string marca, string modelo, string placa)
     {
@@ -19,6 +20,7 @@ unsafe class ListaDoble
             inicio->anterior = nuevoVehiculo;
         }
         inicio = nuevoVehiculo;
+        tamanio++;
     }
 
     public Vehiculo buscarVehiculo(int id)
