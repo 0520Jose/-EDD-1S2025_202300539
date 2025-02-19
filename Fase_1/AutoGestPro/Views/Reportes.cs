@@ -31,6 +31,30 @@ namespace AutoGestPro.Views
             };
             contenedor.PackStart(reporteUsuarios, false, false, 5);
 
+            Button reporteVehiculos = new Button("Reporte de vehiculos");
+            reporteVehiculos.Clicked += (sender, e) => {
+                GenerarReporteVehiculos();
+            };
+            contenedor.PackStart(reporteVehiculos, false, false, 5);
+
+            Button reporteRepuestos = new Button("Reporte de repuestos");
+            reporteRepuestos.Clicked += (sender, e) => {
+                GenerarReporteRepuestos();
+            };
+            contenedor.PackStart(reporteRepuestos, false, false, 5);
+
+            Button reporteServicios = new Button("Reporte de servicios");
+            reporteServicios.Clicked += (sender, e) => {
+                GenerarReporteServicios();
+            };
+            contenedor.PackStart(reporteServicios, false, false, 5);
+
+            Button reporteFacturas = new Button("Reporte de facturas");
+            reporteFacturas.Clicked += (sender, e) => {
+                GenerarReporteFacturas();
+            };
+            contenedor.PackStart(reporteFacturas, false, false, 5);
+
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
                 menu.Show();
@@ -92,8 +116,8 @@ namespace AutoGestPro.Views
         void GenerarReporteVehiculos()
         {
             string dotPath = "/usr/bin/dot";
-            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.png";
-            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_vehiculos.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_vehiculos.dot";
 
             string dotContent = "digraph G {\n";
             dotContent += "node [shape=record];\n";
@@ -141,7 +165,6 @@ namespace AutoGestPro.Views
 
         void GenerarReporteRepuestos()
         {
-            ListaCircular listaRepuestos = ListasGlobales.listaRepuestos;
             string dotPath = "/usr/bin/dot";
             string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_repuestos.png";
             string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_repuestos.dot";
@@ -149,25 +172,30 @@ namespace AutoGestPro.Views
             string dotContent = "digraph G {\n";
             dotContent += "node [shape=record];\n";
 
+            ListaCircular listaRepuestos = ListasGlobales.listaRepuestos;
             Repuesto* nodoActual = listaRepuestos.inicio;
 
             dotContent += "rankdir=LR;\n";
-            while (nodoActual != null)
+
+            if (nodoActual != null)
+            {
+            do
             {
                 String repuesto = nodoActual->repuesto;
                 String detalles = nodoActual->detalle;
-                String costo = nodoActual->costo.ToString();
+                string costo = nodoActual->costo.ToString();
                 string id = nodoActual->Id.ToString();
                 dotContent += "node" + id + "[label=\"{ID: " + id + " | \nRepuesto: " + repuesto + " | \nDetalles: " + detalles + " | \nCosto: " + costo + "}\", shape=record];\n";
                 if (nodoActual->siguiente != listaRepuestos.inicio)
                 {
-                    dotContent += $"node{id} -> node{nodoActual->siguiente->Id};\n";
+                dotContent += $"node{id} -> node{nodoActual->siguiente->Id};\n";
                 }
                 if (nodoActual->siguiente == listaRepuestos.inicio)
                 {
-                    dotContent += $"node{id} -> node{listaRepuestos.inicio->Id};\n";
+                dotContent += $"node{id} -> node{listaRepuestos.inicio->Id};\n";
                 }
                 nodoActual = nodoActual->siguiente;
+            } while (nodoActual != listaRepuestos.inicio);
             }
 
             dotContent += "}";
@@ -176,19 +204,18 @@ namespace AutoGestPro.Views
 
             ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
             {
-                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
+            Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
             };
 
             using (Process process = Process.Start(startInfo))
             {
-                process.WaitForExit();
+            process.WaitForExit();
             }
 
             MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de repuestos generado exitosamente.");
-
             dialog.Run();
             dialog.Destroy();
 
