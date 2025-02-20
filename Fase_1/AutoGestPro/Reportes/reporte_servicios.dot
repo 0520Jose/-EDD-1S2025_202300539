@@ -2,20 +2,8 @@ digraph G {
 node [shape=rect];
 rankdir=LR;
 node1[label="ID: 1  
-ID Repuesto: 1  
-ID Vehiculo: 1  
+ID Repuesto: 7  
+ID Vehiculo: 7  
 Detalles: 1  
-Costo: 1", shape=rect];
-node1 -> node2;
-node2[label="ID: 2  
-ID Repuesto: 2  
-ID Vehiculo: 2  
-Detalles: 2  
-Costo: 2", shape=rect];
-node2 -> node3;
-node3[label="ID: 3  
-ID Repuesto: 3  
-ID Vehiculo: 3  
-Detalles: 3  
-Costo: 3", shape=rect];
+Costo: 5", shape=rect];
 }

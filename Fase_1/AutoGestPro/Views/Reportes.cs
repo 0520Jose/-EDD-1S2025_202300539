@@ -75,6 +75,8 @@ namespace AutoGestPro.Views
         }
         void GenerarReporteUsuarios()
         {
+            try
+            {
             string dotPath = "/usr/bin/dot";
             string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.png";
             string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.dot";
@@ -119,10 +121,19 @@ namespace AutoGestPro.Views
             dialog.Destroy();
 
             Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de usuarios.");
+                dialog.Run();
+                dialog.Destroy();
+            }
         }
 
         void GenerarReporteVehiculos()
         {
+            try
+            {
             string dotPath = "/usr/bin/dot";
             string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.png";
             string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.dot";
@@ -169,10 +180,19 @@ namespace AutoGestPro.Views
             dialog.Destroy();   
 
             Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de vehiculos.");
+                dialog.Run();
+                dialog.Destroy();
+            }
         }
 
         void GenerarReporteRepuestos()
         {
+            try
+            {
             ListaCircular listaRepuestos = ListasGlobales.listaRepuestos;
             string dotPath = "/usr/bin/dot";
             string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_repuestos.png";
@@ -225,10 +245,19 @@ namespace AutoGestPro.Views
             dialog.Destroy();
 
             Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de repuestos.");
+                dialog.Run();
+                dialog.Destroy();
+            }
         }
 
         void GenerarReporteServicios()
         {
+            try
+            {
             Cola colaServicios = ListasGlobales.colaServicios;
             string dotPath = "/usr/bin/dot";
 
@@ -277,10 +306,18 @@ namespace AutoGestPro.Views
             dialog.Destroy();
 
             Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de servicios.");
+                dialog.Run();
+                dialog.Destroy();
+            }
         }
 
         void GenerarReporteFacturas()
         {
+            try{
             Pila pilaFacturas = ListasGlobales.pilaFacturas;
             string dotPath = "/usr/bin/dot";
             string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_facturas.png";
@@ -326,6 +363,13 @@ namespace AutoGestPro.Views
             dialog.Destroy();
 
             Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de facturas.");
+                dialog.Run();
+                dialog.Destroy();
+            }
         }
         void GenerarReporteOrdenes()
         {

@@ -125,30 +125,38 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
 
         public void graficar()
         {
+            try
+            {
             string dotPath = "/usr/bin/dot";
             string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/MatrizDispersa.png";
             string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/MatrizDispersa.dot";
 
             string dotContent = "digraph G {\n";
-            dotContent += "node [shape=record];\n";
-            dotContent += "rankdir=UD;\n";
+            dotContent += "graph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"0.5\"]\n";
+            dotContent += "node [shape=box, height=0.8]\n";
 
             NodoCabecera* filaactual = filas.primero;
             string idFila = "";
             string conexionesFilas = "";
             string nodosInteriores = "";
+            string direccionesInteriores="";
             while (filaactual != null)
             {
                 bool primero = true;
                 NodoCelda* actual = filaactual->acceso;
-                idFila += $"\tFila{actual->x}[style=\"filled\", fillcolor=\"lightblue\", label=\"{actual->x}\"];\n";
+                idFila += $"\tFila{actual->x}[style=\"filled\", fillcolor=\"white\", label=\"{filaactual->id}\", group=0];\n";
                 if (filaactual->siguiente != null)
                 {
                     conexionesFilas += $"\tFila{actual->x} -> Fila{filaactual->siguiente->acceso->x};\n";
                 }
+                string actual_x = actual->x.ToString();
+                direccionesInteriores += "\t{rank = same; Fila" + actual_x + ";";
                 while (actual != null)
                 {
-                    nodosInteriores += $"\tNodo{actual->x}_{actual->y}[style=\"filled\", fillcolor=\"lightblue\", label=\"{actual->bitacora.Detalle}\"];\n";
+                    nodosInteriores += $"\tNodo{actual->x}_{actual->y}[style=\"filled\", fillcolor=\"lightblue\", label=\"{actual->bitacora.Detalle}\", group =\"{actual->y}\"];\n";
+                    actual_x = actual->x.ToString();
+                    string actual_y = actual->y.ToString();
+                    direccionesInteriores += $"\tNodo"+ actual_x + "_" + actual_y + ";";
                     if (primero)
                     {
                         nodosInteriores += $"\tFila{actual->x} -> Nodo{actual->x}_{actual->y};\n";
@@ -168,17 +176,21 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
                     actual = actual->derecha;
                 }
                 filaactual = filaactual->siguiente;
+                direccionesInteriores += "}\n";
             }
-            dotContent += idFila + conexionesFilas + nodosInteriores;
+            dotContent += idFila + conexionesFilas;
 
             NodoCabecera* columnaactual = columnas.primero;
             string idColumna = "";
             string conexionesColumnas = "";
+            string direccionesInteriores2 = "\t{rank = same;";
             while (columnaactual != null)
             {
                 bool primero = true;
                 NodoCelda* actual = columnaactual->acceso;
                 idColumna += $"\tColumna{actual->y}[style=\"filled\", fillcolor=\"lightblue\", label=\"{actual->y}\"];\n";
+                string actual_y = actual->y.ToString();
+                direccionesInteriores2 += "Columna" + actual_y + ";";
                 if (columnaactual->siguiente != null)
                 {
                     conexionesColumnas += $"\tColumna{actual->y} -> Columna{columnaactual->siguiente->acceso->y};\n";
@@ -188,6 +200,10 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
                     if (primero)
                     {
                         dotContent += $"\tColumna{actual->y} -> Nodo{actual->x}_{actual->y};\n";
+                        if (actual->abajo != null)
+                        {
+                            dotContent += $"\tNodo{actual->x}_{actual->y} -> Nodo{actual->abajo->x}_{actual->abajo->y};\n";
+                        }
                         primero = false;
                     }
                     else
@@ -201,7 +217,8 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
                 }
                 columnaactual = columnaactual->siguiente;
             }
-            dotContent += idColumna + conexionesColumnas;
+            direccionesInteriores2 += "}\n";
+            dotContent += idColumna + conexionesColumnas+ direccionesInteriores2 + nodosInteriores + direccionesInteriores;
 
             dotContent += "}";
             File.WriteAllText(dotFilePath, dotContent);
@@ -225,6 +242,13 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
             dialog.Destroy();
 
             Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, e.Message);
+                dialog.Run();
+                dialog.Destroy();
+            }
         }
     }
 }

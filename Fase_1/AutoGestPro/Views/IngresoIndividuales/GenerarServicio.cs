@@ -64,11 +64,45 @@ namespace AutoGestPro.Views
 
             Button guardar = new Button("Guardar");
             guardar.Clicked += (sender, e) => {
-                int ID = Convert.ToInt32(idEntry.Text);
-                int IDRepuesto = Convert.ToInt32(idRepuestoEntry.Text);
-                int IDVehiculo = Convert.ToInt32(idVehiculoEntry.Text);
+                int ID = 0;
+                int IDRepuesto = 0;
+                int IDVehiculo = 0;
+                double Costo = 0;
+                try
+                {
+                    ID = Convert.ToInt32(idEntry.Text);
+                    IDRepuesto = Convert.ToInt32(idRepuestoEntry.Text);
+                    IDVehiculo = Convert.ToInt32(idVehiculoEntry.Text);
+                    Costo = Convert.ToDouble(costoEntry.Text);
+                }
+                catch (FormatException)
+                {
+                    MessageDialog dialog = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                        "Por favor, ingrese un número en los campos ID, ID Repuesto e ID Vehiculo.");
+                    dialog.Run();
+                    dialog.Destroy();
+                    return;
+                }
                 string Detalles = detallesEntry.Text;
-                double Costo = Convert.ToDouble(costoEntry.Text);
+                if (ID == 0 || IDRepuesto == 0 || IDVehiculo == 0 || Detalles == "" || Costo == 0)
+                {
+                    MessageDialog dialog = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                        "Por favor, llene todos los campos.");
+                    dialog.Run();
+                    dialog.Destroy();
+                    return;
+                }
+                if (ID == null || IDRepuesto == null || IDVehiculo == null || Detalles == null || Costo == null)
+                {
+                    MessageDialog dialog = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                        "Por favor, llene todos los campos.");
+                    dialog.Run();
+                    dialog.Destroy();
+                    return;
+                }
                 ListasGlobales.colaServicios.Encolar(ID, IDRepuesto, IDVehiculo, Detalles, Costo);
                 idEntry.Text = "";
                 idRepuestoEntry.Text = "";
@@ -113,6 +147,11 @@ namespace AutoGestPro.Views
                     ListasGlobales.pilaFacturas.Apilar(ID, IDVehiculo, total);
                     Bitacora bitacora = new Bitacora(Detalles, IDVehiculo, IDRepuesto);
                     ListasGlobales.matrizDispersa.insertar(ID, IDVehiculo, bitacora);
+                    MessageDialog dialog = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                        "Servicio guardado con éxito.");
+                    dialog.Run();
+                    dialog.Destroy();
                 }
                 existe = true;
             };

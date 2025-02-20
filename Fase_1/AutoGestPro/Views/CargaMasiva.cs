@@ -77,55 +77,100 @@ namespace AutoGestPro.Views
                     if (opcionSeleccionada == "Usuarios")
                     {
                         string json = File.ReadAllText(filePath);
+                        bool error = false;
                         using (JsonDocument doc = JsonDocument.Parse(json))
                         {
                             JsonElement root = doc.RootElement;
                             foreach (JsonElement element in root.EnumerateArray())
                             {
-                                int id = element.GetProperty("ID").GetInt32();
-                                string nombre = element.GetProperty("Nombres").GetString();
-                                string apellido = element.GetProperty("Apellidos").GetString();
-                                string correo = element.GetProperty("Correo").GetString();
-                                string contrasenia = element.GetProperty("Contrasenia").GetString();
-                                ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, contrasenia);
+                                try
+                                {
+                                    int id = element.GetProperty("ID").GetInt32();
+                                    string nombre = element.GetProperty("Nombres").GetString();
+                                    string apellido = element.GetProperty("Apellidos").GetString();
+                                    string correo = element.GetProperty("Correo").GetString();
+                                    string contrasenia = element.GetProperty("Contrasenia").GetString();
+                                    ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, contrasenia);
+                                }
+                                catch (Exception ex)
+                                {
+                                    ListaSimple lista = new ListaSimple();
+                                    ListasGlobales.listaUsuarios = lista;
+                                    MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
+                                    error = true;
+                                    break;
+                                }
                             }
                         }
-                        MostrarMensaje(ventana, "Carga masiva exitosa");
+                        if (!error)
+                        {                            
+                            MostrarMensaje(ventana, "Carga masiva exitosa");
+                        }
                     }
                     else if (opcionSeleccionada == "Vehiculos")
                     {
                         string json = File.ReadAllText(filePath);
+                        bool error = false;
                         using (JsonDocument doc = JsonDocument.Parse(json))
                         {
                             JsonElement root = doc.RootElement;
                             foreach (JsonElement element in root.EnumerateArray())
                             {
-                                int id = element.GetProperty("ID").GetInt32();
-                                int idUsuario = element.GetProperty("ID_Usuario").GetInt32();
-                                string marca = element.GetProperty("Marca").GetString();
-                                string modelo = element.GetProperty("Modelo").GetString();
-                                string placa = element.GetProperty("Placa").GetString();
-                                ListasGlobales.listaVehiculos.Insertar(id, idUsuario, marca, modelo, placa);
+                                try
+                                {
+                                    int id = element.GetProperty("ID").GetInt32();
+                                    int idUsuario = element.GetProperty("ID_Usuario").GetInt32();
+                                    string marca = element.GetProperty("Marca").GetString();
+                                    string modelo = element.GetProperty("Modelo").GetString();
+                                    string placa = element.GetProperty("Placa").GetString();
+                                    ListasGlobales.listaVehiculos.Insertar(id, idUsuario, marca, modelo, placa);
+                                }
+                                catch (Exception ex)
+                                {
+                                    ListaDoble lista = new ListaDoble();
+                                    ListasGlobales.listaVehiculos = lista;
+                                    MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
+                                    error = true;
+                                    break;
+                                }
                             }
                         }
-                        MostrarMensaje(ventana, "Carga masiva exitosa");
+                        if (!error)
+                        {
+                            MostrarMensaje(ventana, "Carga masiva exitosa");
+                        }
                     }
                     else if (opcionSeleccionada == "Repuestos")
                     {
                         string json = File.ReadAllText(filePath);
+                        bool error = false;
                         using (JsonDocument doc = JsonDocument.Parse(json))
                         {
                             JsonElement root = doc.RootElement;
                             foreach (JsonElement element in root.EnumerateArray())
                             {
-                                int id = element.GetProperty("ID").GetInt32();
-                                string repuesto = element.GetProperty("Repuesto").GetString();
-                                string detalles = element.GetProperty("Detalles").GetString();
-                                float costo = element.GetProperty("Costo").GetSingle();
-                                ListasGlobales.listaRepuestos.Insertar(id, repuesto, detalles, costo);
+                                try
+                                {
+                                    int id = element.GetProperty("ID").GetInt32();
+                                    string repuesto = element.GetProperty("Repuesto").GetString();
+                                    string detalles = element.GetProperty("Detalles").GetString();
+                                    float costo = element.GetProperty("Costo").GetSingle();
+                                    ListasGlobales.listaRepuestos.Insertar(id, repuesto, detalles, costo);
+                                }
+                                catch (Exception ex)
+                                {
+                                    ListaCircular lista = new ListaCircular(); 
+                                    ListasGlobales.listaRepuestos = lista;
+                                    MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
+                                    error = true;
+                                    break;
+                                }
                             }
                         }
-                        MostrarMensaje(ventana, "Carga masiva exitosa");
+                        if (!error)
+                        {
+                            MostrarMensaje(ventana, "Carga masiva exitosa");
+                        }
                     }
                     else
                     {

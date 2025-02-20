@@ -39,7 +39,7 @@ namespace AutoGestPro.Views
 
             Button iniciarSesion = new Button("Iniciar Sesión");
             iniciarSesion.Clicked += (sender, e) => {
-                if (txtUsuario.Text == "admin@usac.com" && txtContrasena.Text == "root")
+                if (txtUsuario.Text == "root@gmail.com" && txtContrasena.Text == "root123")
                 {
                     txtUsuario.Text = "";
                     txtContrasena.Text = "";

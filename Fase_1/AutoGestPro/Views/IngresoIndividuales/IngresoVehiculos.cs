@@ -64,11 +64,57 @@ namespace AutoGestPro.Views
 
             Button guardar = new Button("Guardar");
             guardar.Clicked += (sender, e) => {
-                int IdUsuario = int.Parse(IdUsuarioEntry.Text);
                 string marca = marcaEntry.Text;
                 string modelo = modeloEntry.Text;
-                string placa = placaEntry.Text;
-                int id = int.Parse(idEntry.Text);
+                string placa = placaEntry.Text;               
+                if (IdUsuarioEntry.Text == "" || marca == "" || modelo == "" || placa == "" || idEntry.Text == "")
+                {
+                    MessageDialog dialogError = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "Por favor, llene todos los campos");
+                    dialogError.Run();
+                    dialogError.Destroy();
+                    return;
+                }
+                int id = 0;
+                int IdUsuario = 0;
+                try
+                {
+                    id = int.Parse(idEntry.Text);
+                    IdUsuario = int.Parse(IdUsuarioEntry.Text);
+                }
+                catch (FormatException)
+                {
+                    MessageDialog dialogError = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "Por favor, ingrese un número en los campos ID y IdUsuario");
+                    dialogError.Run();
+                    dialogError.Destroy();
+                    return;
+                }
+                if (id == null || IdUsuario == null || marca == null || modelo == null || placa == null)
+                {
+                    MessageDialog dialogError = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "Por favor, llene todos los campos");
+                    dialogError.Run();
+                    dialogError.Destroy();
+                    return;
+                }
+                if (ListasGlobales.listaVehiculos.buscarVehiculo(id).Id == id)
+                {
+                    MessageDialog dialogError = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "El vehículo ya existe");
+                    dialogError.Run();
+                    dialogError.Destroy();
+                    return;
+                }
+                idEntry.Text = "";
+                IdUsuarioEntry.Text = "";
+                marcaEntry.Text = "";
+                modeloEntry.Text = "";
+                placaEntry.Text = "";
                 ListasGlobales.listaVehiculos.Insertar(id, IdUsuario, marca, modelo, placa);
                 MessageDialog dialog = new MessageDialog(ventana, 
                     DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 

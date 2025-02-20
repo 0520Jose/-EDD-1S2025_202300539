@@ -79,10 +79,12 @@ unsafe class ListaSimple
                 if (usuarioAnterior == null)
                 {
                     inicio = usuarioActual->siguiente;
+                    NativeMemory.Free(usuarioActual);
                 }
                 else
                 {
                     usuarioAnterior->siguiente = usuarioActual->siguiente;
+                    NativeMemory.Free(usuarioActual);
                 }
                 return;
             }

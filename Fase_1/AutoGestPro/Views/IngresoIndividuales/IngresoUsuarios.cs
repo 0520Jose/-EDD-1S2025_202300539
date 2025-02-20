@@ -66,7 +66,52 @@ namespace AutoGestPro.Views
                 string apellido = apellidoEntry.Text;
                 string correo = correoEntry.Text;
                 string contrasenia = contraseniaEntry.Text;
-                int id = int.Parse(idEntry.Text);
+                if (idEntry.Text == "" || nombre == "" || apellido == "" || correo == "" || contrasenia == "")
+                {
+                    MessageDialog dialogError = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "Por favor, llene todos los campos");
+                    dialogError.Run();
+                    dialogError.Destroy();
+                    return;
+                }
+                int id = 0;
+                try
+                {
+                    id = int.Parse(idEntry.Text);
+                }
+                catch (FormatException)
+                {
+                    MessageDialog dialogError = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "El ID debe ser un número entero");
+                    dialogError.Run();
+                    dialogError.Destroy();
+                    return;
+                }
+                if (nombre == null || apellido == null || correo == null || contrasenia == null || idEntry.Text == null)
+                {
+                    MessageDialog dialogError = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "Por favor, llene todos los campos");
+                    dialogError.Run();
+                    dialogError.Destroy();
+                    return;
+                }
+                if (ListasGlobales.listaUsuarios.buscarUsuario(id).Id == id)
+                {
+                    MessageDialog dialogError = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "El usuario ya existe");
+                    dialogError.Run();
+                    dialogError.Destroy();
+                    return;
+                }
+                idEntry.Text = "";
+                nombreEntry.Text = "";
+                apellidoEntry.Text = "";
+                correoEntry.Text = "";
+                contraseniaEntry.Text = "";
                 ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, contrasenia);
                 MessageDialog dialog = new MessageDialog(ventana, 
                     DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 

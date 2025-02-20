@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using AutoGestPro.Models;
 using AutoGestPro.Models.Listas;
 using Gtk;
@@ -60,14 +61,56 @@ namespace AutoGestPro.Views
             guardarButton.Clicked += (sender, e) => {
                 string repuesto = repuestoEntry.Text;
                 string detalles = detallesEntry.Text;
-                float costo = float.Parse(costoEntry.Text);
-                int id = int.Parse(idEntry.Text);
+                if (repuesto == "" || detalles == "" || costoEntry.Text=="" || idEntry.Text=="")
+                {
+                    MessageDialog errorDialog = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "Por favor, llene todos los campos");
+                    errorDialog.Run();
+                    errorDialog.Destroy();
+                    return;
+                }
+                float costo = 0;
+                int id = 0;
+                try {
+                    costo = float.Parse(costoEntry.Text);
+                    id = int.Parse(idEntry.Text);
+                } catch (FormatException) {
+                    MessageDialog errorDialog = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "Por favor, ingrese un número en el campo de costo");
+                    errorDialog.Run();
+                    errorDialog.Destroy();
+                    return;
+                }
+                if (repuesto == null || detalles == null || costo == null || id == null)
+                {
+                    MessageDialog errorDialog = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "Por favor, llene todos los campos");
+                    errorDialog.Run();
+                    errorDialog.Destroy();
+                    return;
+                }
+                if (ListasGlobales.listaRepuestos.buscarRepuesto(id).Id == id)
+                {
+                    MessageDialog errorDialog = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                        "El repuesto ya existe");
+                    errorDialog.Run();
+                    errorDialog.Destroy();
+                    return;
+                }
+                idEntry.Text = "";
+                repuestoEntry.Text = "";
+                detallesEntry.Text = "";
+                costoEntry.Text = "";
                 ListasGlobales.listaRepuestos.Insertar(id, repuesto, detalles, costo);
-                MessageDialog dialog = new MessageDialog(ventana, 
+                MessageDialog successDialog = new MessageDialog(ventana, 
                     DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
                     "Carga exitosa de repuestos");
-                dialog.Run();
-                dialog.Destroy();
+                successDialog.Run();
+                successDialog.Destroy();
             };
             buttonBox.PackStart(guardarButton, false, false, 0);
 

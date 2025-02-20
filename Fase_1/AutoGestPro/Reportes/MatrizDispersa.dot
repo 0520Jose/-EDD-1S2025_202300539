@@ -1,23 +1,11 @@
 digraph G {
-node [shape=record];
-rankdir=UD;
-	Fila1[style="filled", fillcolor="lightblue", label="1"];
-	Fila2[style="filled", fillcolor="lightblue", label="2"];
-	Fila3[style="filled", fillcolor="lightblue", label="3"];
-	Fila1 -> Fila2;
-	Fila2 -> Fila3;
-	Nodo1_1[style="filled", fillcolor="lightblue", label="1"];
-	Fila1 -> Nodo1_1;
-	Nodo2_2[style="filled", fillcolor="lightblue", label="2"];
-	Fila2 -> Nodo2_2;
-	Nodo3_3[style="filled", fillcolor="lightblue", label="3"];
-	Fila3 -> Nodo3_3;
-	Columna1 -> Nodo1_1;
-	Columna2 -> Nodo2_2;
-	Columna3 -> Nodo3_3;
-	Columna1[style="filled", fillcolor="lightblue", label="1"];
-	Columna2[style="filled", fillcolor="lightblue", label="2"];
-	Columna3[style="filled", fillcolor="lightblue", label="3"];
-	Columna1 -> Columna2;
-	Columna2 -> Columna3;
+graph [pad="0.5", nodesep="0.5", ranksep="0.5"]
+node [shape=box, height=0.8]
+	Fila1[style="filled", fillcolor="white", label="1", group=0];
+	Columna7 -> Nodo1_7;
+	Columna7[style="filled", fillcolor="lightblue", label="7"];
+	{rank = same;Columna7;}
+	Nodo1_7[style="filled", fillcolor="lightblue", label="1", group ="7"];
+	Fila1 -> Nodo1_7;
+	{rank = same; Fila1;	Nodo1_7;}
 }

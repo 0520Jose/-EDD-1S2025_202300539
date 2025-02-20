@@ -35,8 +35,34 @@ namespace AutoGestPro.Views
 
             Button eliminar = new Button("Eliminar");
             eliminar.Clicked += (sender, e) => {
-                ListasGlobales.listaUsuarios.EliminarUsuario(int.Parse(idEntry.Text));
+                if (idEntry.Text == "")
+                {
+                    MessageDialog dialog = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Debe ingresar un ID");
+                    dialog.Run();
+                    dialog.Destroy();
+                    return;
+                }
+                else 
+                {
+                    if (ListasGlobales.listaUsuarios.buscarUsuario(int.Parse(idEntry.Text)).Nombre == null)
+                    {
+                        MessageDialog dialog = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "El usuario no existe");
+                        dialog.Run();
+                        dialog.Destroy();
+                        return;
+                    }
+                    else
+                    {
+                        ListasGlobales.listaUsuarios.EliminarUsuario(int.Parse(idEntry.Text));
+                        MessageDialog dialog = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Usuario eliminado");
+                        dialog.Run();
+                        dialog.Destroy();
+                        idEntry.Text = "";
+
+                    }
+                }
             };
+            
             botonesContenedor.PackStart(eliminar, true, true, 10);
 
             Button regresar = new Button("Regresar");
