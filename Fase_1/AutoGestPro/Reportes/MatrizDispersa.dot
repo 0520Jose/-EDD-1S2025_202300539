@@ -5,21 +5,33 @@ node [shape=box, height=0.8]
 	Fila2[style="filled", fillcolor="white", label="2", group=0];
 	Fila3[style="filled", fillcolor="white", label="3", group=0];
 	Fila1 -> Fila2;
+	Fila2 -> Fila1;
 	Fila2 -> Fila3;
+	Fila3 -> Fila2;
 	Columna1 -> Nodo1_1;
+	Nodo1_1 -> Columna1;
 	Columna2 -> Nodo2_2;
-	Nodo2_2 -> Nodo3_2;
+	Nodo2_2 -> Columna2;
+	Columna3 -> Nodo3_3;
+	Nodo3_3 -> Columna3;
 	Columna1[style="filled", fillcolor="lightblue", label="1"];
 	Columna2[style="filled", fillcolor="lightblue", label="2"];
+	Columna3[style="filled", fillcolor="lightblue", label="3"];
 	Columna1 -> Columna2;
-	{rank = same;Columna1;Columna2;}
-	Nodo1_1[style="filled", fillcolor="lightblue", label="1", group ="1"];
+	Columna2 -> Columna1;
+	Columna2 -> Columna3;
+	Columna3 -> Columna2;
+	{rank = same;Columna1;Columna2;Columna3;}
+	Nodo1_1[style="filled", fillcolor="lightblue", label="Aceite", group ="1"];
 	Fila1 -> Nodo1_1;
-	Nodo2_2[style="filled", fillcolor="lightblue", label="2", group ="2"];
+	Nodo1_1 -> Fila1;
+	Nodo2_2[style="filled", fillcolor="lightblue", label="Motor", group ="2"];
 	Fila2 -> Nodo2_2;
-	Nodo3_2[style="filled", fillcolor="lightblue", label="2", group ="2"];
-	Fila3 -> Nodo3_2;
+	Nodo2_2 -> Fila2;
+	Nodo3_3[style="filled", fillcolor="lightblue", label="Bujia", group ="3"];
+	Fila3 -> Nodo3_3;
+	Nodo3_3 -> Fila3;
 	{rank = same; Fila1;	Nodo1_1;}
 	{rank = same; Fila2;	Nodo2_2;}
-	{rank = same; Fila3;	Nodo3_2;}
+	{rank = same; Fila3;	Nodo3_3;}
 }
