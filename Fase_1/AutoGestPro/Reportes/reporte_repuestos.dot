@@ -2,11 +2,6 @@ digraph G {
 node [shape=rect];
 rankdir=LR;
 node1[label="ID: 1  
-Repuesto: g  
-Detalles: gg  
-Costo: 1", shape=rect];
-node1 -> node1;
-node1[label="ID: 1  
 Repuesto: Filtro de aceite  
 Detalles: Filtro de aceite para motor 1.8L  
 Costo: 15.75", shape=rect];

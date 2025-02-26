@@ -3,70 +3,70 @@
     "ID": 1, 
     "ID_Usuario": 1, 
     "Marca": "Toyota", 
-    "Modelo": "Corolla", 
+    "Modelo": 2020, 
     "Placa": "ABC123" 
   }, 
   { 
     "ID": 2, 
     "ID_Usuario": 2, 
     "Marca": "Ford", 
-    "Modelo": "Focus", 
+    "Modelo": 2021, 
     "Placa": "XYZ456" 
   }, 
   { 
     "ID": 3, 
     "ID_Usuario": 3, 
     "Marca": "Chevrolet", 
-    "Modelo": "Spark", 
+    "Modelo": 2020, 
     "Placa": "DEF789" 
   },
   { 
     "ID": 4, 
     "ID_Usuario": 4, 
     "Marca": "Nissan", 
-    "Modelo": "Sentra", 
+    "Modelo": 2019, 
     "Placa": "GHI101" 
   },
   { 
     "ID": 5, 
     "ID_Usuario": 5, 
     "Marca": "Honda", 
-    "Modelo": "Civic", 
+    "Modelo": 2017, 
     "Placa": "JKL112" 
   },
   { 
     "ID": 6, 
     "ID_Usuario": 6, 
     "Marca": "Mazda", 
-    "Modelo": "3", 
+    "Modelo": 2016, 
     "Placa": "MNO131" 
   },
   { 
     "ID": 7, 
     "ID_Usuario": 7, 
     "Marca": "Volkswagen", 
-    "Modelo": "Jetta", 
+    "Modelo": 2020, 
     "Placa": "PQR141" 
   },
   { 
     "ID": 8, 
     "ID_Usuario": 8, 
     "Marca": "Kia", 
-    "Modelo": "Rio", 
+    "Modelo": 2018, 
     "Placa": "STU151" 
   },
   { 
     "ID": 9, 
     "ID_Usuario": 9, 
     "Marca": "Hyundai", 
-    "Modelo": "Accent", 
+    "Modelo": 2019, 
     "Placa": "VWX161" 
   },
   { 
     "ID": 10, 
     "ID_Usuario": 10, 
     "Marca": "Renault", 
-    "Modelo": "Logan", 
+    "Modelo": 2017, 
     "Placa": "YZA171" 
   }
 ]

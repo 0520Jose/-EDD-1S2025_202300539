@@ -44,5 +44,19 @@ namespace AutoGestPro.Models.Listas
             }
             return new Servicio();
         }
+
+        public Servicio buscar(int id)
+        {
+            Servicio* actual = inicio;
+            while (actual != null)
+            {
+                if (actual->Id == id)
+                {
+                    return *actual;
+                }
+                actual = actual->siguiente;
+            }
+            return new Servicio();
+        }
     }
 }

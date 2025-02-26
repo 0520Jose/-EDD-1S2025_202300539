@@ -64,6 +64,13 @@ namespace AutoGestPro.Views
             };
             table.Attach(reportes, 1, 2, 2, 3);
 
+            Button tops = new Button("Tops");
+            tops.Clicked += (sender, e) => {
+                TopVehiculos tops = new TopVehiculos(ventana);
+                ventana.Hide();
+            };
+            table.Attach(tops, 0, 1, 3, 4);
+
             Button CerrarSesion = new Button("Cerrar sesión");
             CerrarSesion.Clicked += (sender, e) => {
                 cerrarSesion.Show();

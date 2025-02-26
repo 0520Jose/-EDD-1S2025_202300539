@@ -4,6 +4,7 @@ using System.Text.Json;
 using Gtk;
 using AutoGestPro.Models;
 using AutoGestPro.Models.Listas;
+using System.ComponentModel;
 
 namespace AutoGestPro.Views
 {
@@ -121,8 +122,14 @@ namespace AutoGestPro.Views
                                     int id = element.GetProperty("ID").GetInt32();
                                     int idUsuario = element.GetProperty("ID_Usuario").GetInt32();
                                     string marca = element.GetProperty("Marca").GetString();
-                                    string modelo = element.GetProperty("Modelo").GetString();
+                                    string modelo = element.GetProperty("Modelo").GetInt32().ToString();
                                     string placa = element.GetProperty("Placa").GetString();
+                                    if (ListasGlobales.listaUsuarios.buscarUsuario(idUsuario).Id == null)
+                                    {
+                                        MostrarMensaje(ventana, $"Error al procesar el archivo: Usuario con ID {idUsuario} no existe");
+                                        error = true;
+                                        break;
+                                    }
                                     ListasGlobales.listaVehiculos.Insertar(id, idUsuario, marca, modelo, placa);
                                 }
                                 catch (Exception ex)

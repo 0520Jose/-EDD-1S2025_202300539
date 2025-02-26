@@ -20,6 +20,7 @@ unsafe class ListaDoble
             inicio->anterior = nuevoVehiculo;
         }
         inicio = nuevoVehiculo;
+        nuevoVehiculo->anterior = null;
         tamanio++;
     }
 

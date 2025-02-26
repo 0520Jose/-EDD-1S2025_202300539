@@ -10,9 +10,9 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
         public NodoCabecera* ultimo;
         public int tamanio;
 
-        public ListaCabecera(string coordenada)
+        public ListaCabecera(string Coordenada)
         {
-            coordenada = coordenada;
+            coordenada = Coordenada;
             primero = null;
             ultimo = null;
             tamanio = 0;

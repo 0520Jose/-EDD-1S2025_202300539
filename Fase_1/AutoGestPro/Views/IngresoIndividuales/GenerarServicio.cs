@@ -103,25 +103,24 @@ namespace AutoGestPro.Views
                     dialog.Destroy();
                     return;
                 }
-                ListasGlobales.colaServicios.Encolar(ID, IDRepuesto, IDVehiculo, Detalles, Costo);
+                Servicio servicio = ListasGlobales.colaServicios.buscar(ID);
+                if (servicio.Id == ID)
+                {
+                    MessageDialog dialog = new MessageDialog(ventana, 
+                        DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                        "Ya existe un servicio con ese ID.");
+                    dialog.Run();
+                    dialog.Destroy();
+                    return;
+                }
                 idEntry.Text = "";
                 idRepuestoEntry.Text = "";
                 idVehiculoEntry.Text = "";
                 detallesEntry.Text = "";
                 costoEntry.Text = "";
-                Usuario usuario = ListasGlobales.listaUsuarios.buscarUsuario(ID);
                 Repuesto cRepuesto = ListasGlobales.listaRepuestos.buscarRepuesto(IDRepuesto);
                 Vehiculo vehiculo = ListasGlobales.listaVehiculos.buscarVehiculo(IDVehiculo);
                 Boolean existe = true;
-                if (usuario.Nombre == null)
-                {
-                    MessageDialog dialog = new MessageDialog(ventana, 
-                        DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
-                        "No existe el usuario ingresado.");
-                    dialog.Run();
-                    dialog.Destroy();
-                    existe = false;
-                }
                 if (cRepuesto.detalle == null)
                 {
                     MessageDialog dialog = new MessageDialog(ventana, 
@@ -144,6 +143,7 @@ namespace AutoGestPro.Views
                 {
                     float costoRepuesto = cRepuesto.costo;
                     float total = costoRepuesto + (float)Costo;
+                    ListasGlobales.colaServicios.Encolar(ID, IDRepuesto, IDVehiculo, Detalles, Costo);
                     ListasGlobales.pilaFacturas.Apilar(ID, IDVehiculo, total);
                     Bitacora bitacora = new Bitacora(Detalles, IDVehiculo, IDRepuesto);
                     ListasGlobales.matrizDispersa.insertar(ID, IDVehiculo, bitacora);
