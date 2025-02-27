@@ -25,6 +25,8 @@ Las diferentes entidades que seran utilizadas para las distintas funcionalidades
 
 ### Usuario
 
+Entidad necesaria para la administracion de los usuarios que estaran en la bases de datos del taller.
+
 + Código:
 ```csharp
 namespace AutoGestPro.Models
@@ -50,6 +52,8 @@ namespace AutoGestPro.Models
 }
 ```
 ### Vehiculo
+
+Entidad necesaria para la administracion de los vehiculos a los cuales se realizara los registros.
 
 + Código:
 ```csharp
@@ -599,7 +603,7 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
 }
 ```
 
-La matriz disperza necesita dos tipo de ondos y un lista cabecera poder acceder a los datos contenidos
+La matriz disperza necesita dos tipo de nodos cabecera y nodos celda para referenciar y almacenar los datos necesarios para su funcionamiento y una lista cabecera poder acceder a los datos contenidos y saber la pasion en la que se encuentran.
 
 #### NodoCabecera
 
@@ -625,7 +629,7 @@ amespace AutoGestPro.Models.Listas.MatrizDispersa
 }
 ```
 
-### Lista Cabecera
+#### Lista Cabecera
 
 + Código:
 ```csharp
@@ -738,7 +742,7 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
 }
 ```
 
-### Nodo Celda
+#### Nodo Celda
 
 + Código:
 ```csharp
@@ -787,6 +791,879 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
             Id_Repuesto = idRepuesto;
         }
 
+    }
+}
+```
+
+## Views
+
+Las posibles ventanas que podemos visualizar en el proyecto contanta de un menu de inicio de sesion, un menu principal de seleccion, ademas cada apartado cuenta con su propia interfaz para que todo pueda ser accedido de manera secuencial o no entre ventanas.
+
+Las distintas implimentaciones para las ventanas requeridas fuerono separadas en namespaces con el objetivo que puedan acceder entre si de namera agil, ademas que cada ventana recibe como parametro la ventana anterior a la que se accedio para que no solo de pueda avanzar entre ventanas si no tambien retroceder y con ello poder acceder nuevamente al menu principal o hasta cerrar la sesion acutal.
+
+### Inicio de sesión
+
++ Código:
+
+```csharp
+namespace AutoGestPro.Views
+{
+    class IniciarSesion
+    {
+        public IniciarSesion()
+        {
+            Application.Init();
+            Window ventana = new Window("AutoGestPro");
+            ventana.Opacity = 0.75;
+            ventana.SetDefaultSize(400, 300);
+            ventana.DeleteEvent += delegate { Application.Quit(); };
+
+            VBox contenedor = new VBox(false, 10);
+            contenedor.BorderWidth = 20;
+            ventana.Add(contenedor);
+
+            Label titulo = new Label("<span size='xx-large' weight='bold'>Iniciar Sesión</span>");
+            titulo.UseMarkup = true;
+            contenedor.PackStart(titulo, false, false, 10);
+
+            HBox usuarioBox = new HBox(false, 5);
+            Label tituloUsuario = new Label("Usuario:");
+            Entry txtUsuario = new Entry();
+            usuarioBox.PackStart(tituloUsuario, false, false, 5);
+            usuarioBox.PackStart(txtUsuario, true, true, 5);
+            contenedor.PackStart(usuarioBox, false, false, 5);
+
+            HBox contrasenaBox = new HBox(false, 5);
+            Label tituloContrasena = new Label("Contraseña:");
+            Entry txtContrasena = new Entry();
+            txtContrasena.Visibility = false;
+            contrasenaBox.PackStart(tituloContrasena, false, false, 5);
+            contrasenaBox.PackStart(txtContrasena, true, true, 5);
+            contenedor.PackStart(contrasenaBox, false, false, 5);
+
+            Button iniciarSesion = new Button("Iniciar Sesión");
+            iniciarSesion.Clicked += (sender, e) => {
+                if (txtUsuario.Text == "root@gmail.com" && txtContrasena.Text == "root123")
+                {
+                    txtUsuario.Text = "";
+                    txtContrasena.Text = "";
+                    MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Bienvenido");
+                    mensaje.Run();
+                    Menu menu = new Menu(ventana);
+                    ventana.Hide();
+                    mensaje.Destroy();
+                }
+                else
+                {
+                    MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Usuario o contraseña incorrectos");
+                    mensaje.Run();
+                    mensaje.Destroy();
+                    txtUsuario.Text = "";
+                    txtContrasena.Text = "";
+                }
+            };
+            contenedor.PackStart(iniciarSesion, false, false, 20);
+
+            ventana.ShowAll();
+            Application.Run();
+        }
+    }
+}
+```
+
+### Menu
+
++ Código:
+
+```csharp
+namespace AutoGestPro.Views
+{
+    class Menu
+    {
+        public Menu(Window cerrarSesion)
+        {
+            Window ventana = new Window("Menu - Root");
+            ventana.SetDefaultSize(800, 600);
+            ventana.SetPosition(WindowPosition.Center);
+            ventana.DeleteEvent += delegate { Application.Quit(); };
+
+            VBox contenedor = new VBox(false, 5);
+            ventana.Add(contenedor);
+
+            Label titulo = new Label("<span size='xx-large'>Menu</span>");
+            titulo.UseMarkup = true;
+            contenedor.PackStart(titulo, false, false, 20);
+
+            Table table = new Table(3, 2, true);
+            contenedor.PackStart(table, true, true, 10);
+
+            Button cargaMasiva = new Button("Carga masiva");
+            cargaMasiva.Clicked += (sender, e) => {
+                CargaMasiva cargaMasiva = new CargaMasiva(ventana);
+                ventana.Hide();
+            };
+            table.Attach(cargaMasiva, 0, 1, 0, 1);
+
+            Button ingresoIndividual = new Button("Ingreso individual");
+            ingresoIndividual.Clicked += (sender, e) => {
+                IngresoIndividual ingresoIndividual = new IngresoIndividual(ventana);
+                ventana.Hide();
+            };
+            table.Attach(ingresoIndividual, 1, 2, 0, 1);
+
+            Button gestionDeUsuarios = new Button("Gestión de usuarios");
+            gestionDeUsuarios.Clicked += (sender, e) => {
+                GestionDeUsuarios gestionDeUsuarios = new GestionDeUsuarios(ventana);
+                ventana.Hide();
+            };
+            table.Attach(gestionDeUsuarios, 0, 1, 1, 2);
+
+            Button generarServicio = new Button("Generar servicio");
+            generarServicio.Clicked += (sender, e) => {
+                GenerarServicio generarServicio = new GenerarServicio(ventana);
+                ventana.Hide();
+            };
+            table.Attach(generarServicio, 1, 2, 1, 2);
+
+            Button cancelarFactura = new Button("Cancelar factura");
+            cancelarFactura.Clicked += (sender, e) => {
+                CancelarFactura cancelarFactura = new CancelarFactura(ventana);
+                ventana.Hide();
+            };
+            table.Attach(cancelarFactura, 0, 1, 2, 3);
+
+            Button reportes = new Button("Reportes");
+            reportes.Clicked += (sender, e) => {
+                Reportes reportes = new Reportes(ventana);
+                ventana.Hide();
+            };
+            table.Attach(reportes, 1, 2, 2, 3);
+
+            Button tops = new Button("Tops");
+            tops.Clicked += (sender, e) => {
+                TopVehiculos tops = new TopVehiculos(ventana);
+                ventana.Hide();
+            };
+            table.Attach(tops, 0, 1, 3, 4);
+
+            Button CerrarSesion = new Button("Cerrar sesión");
+            CerrarSesion.Clicked += (sender, e) => {
+                cerrarSesion.Show();
+                ventana.Destroy();
+            };
+            contenedor.PackStart(CerrarSesion, false, false, 20);
+
+            ventana.ShowAll();
+        }
+    }
+}
+```
+
+### Carga masiva
+
++ Código:
+
+```csharp
+namespace AutoGestPro.Views
+{
+    class CargaMasiva 
+    {
+        public CargaMasiva(Window menu)
+        {
+            Window ventana = new Window("Carga masiva - Root");
+            ventana.SetDefaultSize(800, 600);
+            ventana.SetPosition(WindowPosition.Center);
+            ventana.DeleteEvent += delegate { Application.Quit(); };
+
+            VBox contenedor = new VBox(false, 10);
+            ventana.Add(contenedor);
+
+            Label titulo = new Label("<span size='xx-large'>Carga masiva</span>");
+            titulo.UseMarkup = true;
+            contenedor.PackStart(titulo, false, false, 10);
+
+            Table table = new Table(3, 2, false);
+            contenedor.PackStart(table, false, false, 10);
+
+            Label tituloOpciones = new Label("Seleccione una opción:");
+            table.Attach(tituloOpciones, 0, 1, 0, 1, AttachOptions.Fill, AttachOptions.Fill, 5, 5);
+
+            ComboBox opciones = new ComboBox();
+            ListStore store = new ListStore(typeof(string));
+            opciones.Model = store;
+
+            CellRendererText celda = new CellRendererText();
+            opciones.PackStart(celda, false);
+            opciones.AddAttribute(celda, "text", 0);
+
+            store.AppendValues("Usuarios");
+            store.AppendValues("Vehiculos");
+            store.AppendValues("Repuestos");
+
+            opciones.Active = 0;
+            string opcionSeleccionada = "Usuarios";
+            opciones.Changed += (sender, e) => {
+                TreeIter iter;
+                if (((ComboBox)sender).GetActiveIter(out iter))
+                {
+                    opcionSeleccionada = (string)((ComboBox)sender).Model.GetValue(iter, 0);
+                }
+            };
+
+            opciones.WidthRequest = 200;
+            opciones.HeightRequest = 40;
+            table.Attach(opciones, 1, 2, 0, 1, AttachOptions.Fill, AttachOptions.Fill, 5, 5);
+
+            Button cargar = new Button("Cargar");
+            cargar.WidthRequest = 100;
+            cargar.HeightRequest = 40;
+            cargar.Clicked += (sender, e) => {
+                FileChooserDialog fileChooser = new FileChooserDialog(
+                    "Seleccione un archivo .json",
+                    null,
+                    FileChooserAction.Open,
+                    "Cancelar", ResponseType.Cancel,
+                    "Abrir", ResponseType.Accept
+                );
+
+                FileFilter filter = new FileFilter();
+                filter.AddPattern("*.json");
+                fileChooser.Filter = filter;
+
+                if (fileChooser.Run() == (int)ResponseType.Accept)
+                {
+                    string filePath = fileChooser.Filename;
+                    if (opcionSeleccionada == "Usuarios")
+                    {
+                        string json = File.ReadAllText(filePath);
+                        bool error = false;
+                        using (JsonDocument doc = JsonDocument.Parse(json))
+                        {
+                            JsonElement root = doc.RootElement;
+                            foreach (JsonElement element in root.EnumerateArray())
+                            {
+                                try
+                                {
+                                    int id = element.GetProperty("ID").GetInt32();
+                                    string nombre = element.GetProperty("Nombres").GetString();
+                                    string apellido = element.GetProperty("Apellidos").GetString();
+                                    string correo = element.GetProperty("Correo").GetString();
+                                    string contrasenia = element.GetProperty("Contrasenia").GetString();
+                                    ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, contrasenia);
+                                }
+                                catch (Exception ex)
+                                {
+                                    ListaSimple lista = new ListaSimple();
+                                    ListasGlobales.listaUsuarios = lista;
+                                    MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
+                                    error = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!error)
+                        {                            
+                            MostrarMensaje(ventana, "Carga masiva exitosa");
+                        }
+                    }
+                    else if (opcionSeleccionada == "Vehiculos")
+                    {
+                        string json = File.ReadAllText(filePath);
+                        bool error = false;
+                        using (JsonDocument doc = JsonDocument.Parse(json))
+                        {
+                            JsonElement root = doc.RootElement;
+                            foreach (JsonElement element in root.EnumerateArray())
+                            {
+                                try
+                                {
+                                    int id = element.GetProperty("ID").GetInt32();
+                                    int idUsuario = element.GetProperty("ID_Usuario").GetInt32();
+                                    string marca = element.GetProperty("Marca").GetString();
+                                    string modelo = element.GetProperty("Modelo").GetInt32().ToString();
+                                    string placa = element.GetProperty("Placa").GetString();
+                                    if (ListasGlobales.listaUsuarios.buscarUsuario(idUsuario).Id == null)
+                                    {
+                                        MostrarMensaje(ventana, $"Error al procesar el archivo: Usuario con ID {idUsuario} no existe");
+                                        error = true;
+                                        break;
+                                    }
+                                    ListasGlobales.listaVehiculos.Insertar(id, idUsuario, marca, modelo, placa);
+                                }
+                                catch (Exception ex)
+                                {
+                                    ListaDoble lista = new ListaDoble();
+                                    ListasGlobales.listaVehiculos = lista;
+                                    MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
+                                    error = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!error)
+                        {
+                            MostrarMensaje(ventana, "Carga masiva exitosa");
+                        }
+                    }
+                    else if (opcionSeleccionada == "Repuestos")
+                    {
+                        string json = File.ReadAllText(filePath);
+                        bool error = false;
+                        using (JsonDocument doc = JsonDocument.Parse(json))
+                        {
+                            JsonElement root = doc.RootElement;
+                            foreach (JsonElement element in root.EnumerateArray())
+                            {
+                                try
+                                {
+                                    int id = element.GetProperty("ID").GetInt32();
+                                    string repuesto = element.GetProperty("Repuesto").GetString();
+                                    string detalles = element.GetProperty("Detalles").GetString();
+                                    float costo = element.GetProperty("Costo").GetSingle();
+                                    ListasGlobales.listaRepuestos.Insertar(id, repuesto, detalles, costo);
+                                }
+                                catch (Exception ex)
+                                {
+                                    ListaCircular lista = new ListaCircular(); 
+                                    ListasGlobales.listaRepuestos = lista;
+                                    MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
+                                    error = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!error)
+                        {
+                            MostrarMensaje(ventana, "Carga masiva exitosa");
+                        }
+                    }
+                    else
+                    {
+                        MostrarMensaje(ventana, "Error archivo no válido");
+                    }
+                }
+                fileChooser.Destroy();
+            };
+            table.Attach(cargar, 0, 1, 1, 2, AttachOptions.Fill, AttachOptions.Fill, 5, 5);
+
+            Button regresar = new Button("Regresar");
+            regresar.WidthRequest = 100;
+            regresar.HeightRequest = 40;
+            regresar.Clicked += (sender, e) => {
+                menu.Show();
+                ventana.Destroy();
+            };
+            table.Attach(regresar, 1, 2, 1, 2, AttachOptions.Fill, AttachOptions.Fill, 5, 5);
+
+            ventana.ShowAll();
+        }
+
+        private void MostrarMensaje(Window ventana, string mensaje)
+        {
+            MessageDialog dialog = new MessageDialog(ventana, 
+                DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, mensaje);
+            dialog.Run();
+            dialog.Destroy();
+        }
+    }
+}
+```
+
+### Reportse
+
++ Código:
+
+```csharp
+namespace AutoGestPro.Views
+{
+    unsafe class Reportes 
+    {
+        public Reportes(Window menu)
+        {
+            Window ventana = new Window("Reportes - Root");
+            ventana.SetDefaultSize(800, 600);
+            ventana.SetPosition(WindowPosition.Center);
+            ventana.DeleteEvent += delegate { Application.Quit(); };
+
+            VBox contenedor = new VBox(false, 5);
+            ventana.Add(contenedor);
+
+            Label titulo = new Label("Generar reportes");
+            titulo.ModifyFont(Pango.FontDescription.FromString("Arial 24"));
+            contenedor.PackStart(titulo, false, false, 10);
+
+            Table tabla = new Table(3, 2, true);
+            contenedor.PackStart(tabla, true, true, 10);
+
+            Button reporteUsuarios = new Button("Reporte de usuarios");
+            reporteUsuarios.Clicked += (sender, e) => {
+                GenerarReporteUsuarios();
+            };
+            tabla.Attach(reporteUsuarios, 0, 1, 0, 1);
+
+            Button reporteVehiculos = new Button("Reporte de vehiculos");
+            reporteVehiculos.Clicked += (sender, e) => {
+                GenerarReporteVehiculos();
+            };
+            tabla.Attach(reporteVehiculos, 1, 2, 0, 1);
+
+            Button reporteRepuestos = new Button("Reporte de repuestos");
+            reporteRepuestos.Clicked += (sender, e) => {
+                GenerarReporteRepuestos();
+            };
+            tabla.Attach(reporteRepuestos, 0, 1, 1, 2);
+
+            Button reporteServicios = new Button("Reporte de servicios");
+            reporteServicios.Clicked += (sender, e) => {
+                GenerarReporteServicios();
+            };
+            tabla.Attach(reporteServicios, 1, 2, 1, 2);
+
+            Button reporteFacturas = new Button("Reporte de facturas");
+            reporteFacturas.Clicked += (sender, e) => {
+                GenerarReporteFacturas();
+            };
+            tabla.Attach(reporteFacturas, 0, 1, 2, 3);
+
+            Button reporteOrdenes = new Button("Reporte de ordenes");
+            reporteOrdenes.Clicked += (sender, e) => {
+                GenerarReporteOrdenes();
+            };
+            tabla.Attach(reporteOrdenes, 1, 2, 2, 3);
+
+            Button regresar = new Button("Regresar");
+            regresar.Clicked += (sender, e) => {
+                menu.Show();
+                ventana.Destroy();
+            };
+            contenedor.PackStart(regresar, false, false, 10);
+
+            ventana.ShowAll();
+        }
+        void GenerarReporteUsuarios()
+        {
+            try
+            {
+            string dotPath = "/usr/bin/dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.dot";
+
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+            ListaSimple listaUsuarios = ListasGlobales.listaUsuarios;
+            Usuario* actual = listaUsuarios.inicio;
+            dotContent += "rankdir=LR;\n";
+            while (actual != null)
+            {
+                String nombre = actual->Nombre;
+                String apellido = actual->Apellido;
+                String correo = actual->Correo;
+                string id = actual->Id.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + " \nNombre y Apellido: " + nombre + " " + apellido + " \nCorreo: " + correo + "\", shape=rect, width=3];\n";
+                if (actual->siguiente != null)
+                {
+                    dotContent += $"node{actual->Id} -> node{actual->siguiente->Id};\n";
+                }
+                actual = actual->siguiente;
+            }
+            dotContent += "}";
+
+            File.WriteAllText(dotFilePath, dotContent);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de usuarios generado exitosamente.");
+            dialog.Run();
+            dialog.Destroy();
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de usuarios.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+
+        void GenerarReporteVehiculos()
+        {
+            try
+            {
+            string dotPath = "/usr/bin/dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.dot";
+
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+
+            ListaDoble listaVehiculos = ListasGlobales.listaVehiculos;
+            Vehiculo* actual = listaVehiculos.inicio;
+            dotContent += "rankdir=LR;\n";
+
+            while (actual != null)
+            {
+                String marca = actual->Marca;
+                String modelo = actual->Modelo;
+                String placa = actual->Placa;
+                string id = actual->Id.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + "  \nMarca: " + marca + "  \nModelo: " + modelo + "  \nPlaca: " + placa + "\", shape=rect];\n";
+                if (actual->siguiente != null)
+                {
+                    dotContent += $"node{actual->Id} -> node{actual->siguiente->Id};\n";
+                    dotContent += $"node{actual->siguiente->Id} -> node{actual->Id};\n";
+                }
+                actual = actual->siguiente;
+            }
+
+            dotContent += "}";
+            File.WriteAllText(dotFilePath, dotContent);
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de vehiculos generado exitosamente.");
+            dialog.Run();
+            dialog.Destroy();   
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de vehiculos.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+
+        void GenerarReporteRepuestos()
+        {
+            try
+            {
+            ListaCircular listaRepuestos = ListasGlobales.listaRepuestos;
+            string dotPath = "/usr/bin/dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_repuestos.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_repuestos.dot";
+
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+
+            Repuesto* nodoActual = listaRepuestos.inicio;
+
+            dotContent += "rankdir=LR;\n";
+            while (nodoActual->siguiente != listaRepuestos.inicio)
+            {
+                String repuesto = nodoActual->repuesto;
+                String detalles = nodoActual->detalle;
+                String costo = nodoActual->costo.ToString();
+                string id = nodoActual->Id.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + "  \nRepuesto: " + repuesto + "  \nDetalles: " + detalles + "  \nCosto: " + costo + "\", shape=rect];\n";
+                if (nodoActual->siguiente != listaRepuestos.inicio)
+                {
+                    dotContent += $"node{id} -> node{nodoActual->siguiente->Id};\n";
+                }
+                nodoActual = nodoActual->siguiente;
+            }
+            if (nodoActual->siguiente == listaRepuestos.inicio)
+            {
+                dotContent += $"node{nodoActual->Id} -> node{listaRepuestos.inicio->Id};\n";
+            }
+
+            dotContent += "}";
+
+            File.WriteAllText(dotFilePath, dotContent);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de repuestos generado exitosamente.");
+
+            dialog.Run();
+            dialog.Destroy();
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de repuestos.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+
+        void GenerarReporteServicios()
+        {
+            try
+            {
+            Cola colaServicios = ListasGlobales.colaServicios;
+            string dotPath = "/usr/bin/dot";
+
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_servicios.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_servicios.dot";
+
+            Servicio* actual = colaServicios.inicio;
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+            dotContent += "rankdir=LR;\n";
+
+            while (actual != null)
+            {
+                String id = actual->Id.ToString();
+                String idRepuesto = actual->Id_Repuesto.ToString();
+                String idVehiculo = actual->Id_Vehiculo.ToString();
+                String detalles = actual->Detalles;
+                String costo = actual->Costo.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + "  \nID Repuesto: " + idRepuesto + "  \nID Vehiculo: " + idVehiculo + "  \nDetalles: " + detalles + "  \nCosto: " + costo + "\", shape=rect];\n";
+                if (actual->siguiente != null)
+                {
+                    dotContent += $"node{id} -> node{actual->siguiente->Id};\n";
+                }
+                actual = actual->siguiente;
+            }
+
+            dotContent += "}";
+
+            File.WriteAllText(dotFilePath, dotContent);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de servicios generado exitosamente.");
+            dialog.Run();
+            dialog.Destroy();
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de servicios.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+
+        void GenerarReporteFacturas()
+        {
+            try{
+            Pila pilaFacturas = ListasGlobales.pilaFacturas;
+            string dotPath = "/usr/bin/dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_facturas.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_facturas.dot";
+
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+            dotContent += "rankdir=TB;\n";
+
+            Factura* actual = pilaFacturas.sima;
+
+            while (actual != null)
+            {
+                String id = actual->Id.ToString();
+                String idOrden = actual->Id_Orden.ToString();
+                String total = actual->Total.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + "  \nID Orden: " + idOrden + "  \nTotal: " + total + "\", shape=rect];\n";
+                if (actual->abajo != null)
+                {
+                    dotContent += $"node{id} -> node{actual->abajo->Id};\n";
+                }
+                actual = actual->abajo;
+            }
+
+            dotContent += "}";
+            File.WriteAllText(dotFilePath, dotContent);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de facturas generado exitosamente.");
+            dialog.Run();
+            dialog.Destroy();
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de facturas.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+        void GenerarReporteOrdenes()
+        {
+            ListasGlobales.matrizDispersa.graficar();
+        }
+    }
+}
+```
+
+### Top vehiculos
+
++ Código:
+
+```csharp
+namespace AutoGestPro.Views
+{
+    unsafe class TopVehiculos
+    {
+        public TopVehiculos(Window menu)
+        {
+            Window ventana = new Window("Top Vehiculos");
+            ventana.SetDefaultSize(800, 600);
+            ventana.SetPosition(WindowPosition.Center);
+            ventana.DeleteEvent += delegate { Application.Quit(); };
+
+            VBox container = new VBox(false, 10);
+            ventana.Add(container);
+
+            Label title = new Label("<span size='xx-large'>Top Vehiculos</span>");
+            title.UseMarkup = true;
+            container.PackStart(title, false, false, 10);
+
+            Label masServicios = new Label("Vehiculos con más servicios:");
+            container.PackStart(masServicios, false, false, 10);
+
+            Label top1 = new Label("");
+            container.PackStart(top1, false, false, 10);
+
+            Label top2 = new Label("");
+            container.PackStart(top2, false, false, 10);
+
+            Label top3 = new Label("");
+            container.PackStart(top3, false, false, 10);
+
+            Label top4 = new Label("");
+            container.PackStart(top4, false, false, 10);
+
+            Label top5 = new Label("");
+            container.PackStart(top5, false, false, 10);
+
+            Label masAntiguo = new Label("Vehiculos más antiguos:");
+            container.PackStart(masAntiguo, false, false, 10);
+
+            Label top1Antiguo = new Label("");
+            container.PackStart(top1Antiguo, false, false, 10);
+
+            Label top2Antiguo = new Label("");
+            container.PackStart(top2Antiguo, false, false, 10);
+
+            Label top3Antiguo = new Label("");
+            container.PackStart(top3Antiguo, false, false, 10);
+
+            Label top4Antiguo = new Label("");
+            container.PackStart(top4Antiguo, false, false, 10);
+
+            Label top5Antiguo = new Label("");
+            container.PackStart(top5Antiguo, false, false, 10);
+
+
+            Dictionary<int, int> vehiculoServicios = new Dictionary<int, int>();
+
+            Cola servicios = ListasGlobales.colaServicios;
+            ListaDoble listaVehiculos = ListasGlobales.listaVehiculos;
+            Vehiculo* actual = listaVehiculos.inicio;
+            Servicio* aux = servicios.inicio;
+
+            while (aux != null)
+            {
+                if (vehiculoServicios.ContainsKey(aux->Id_Vehiculo))
+                {
+                    vehiculoServicios[aux->Id_Vehiculo]++;
+                }
+                else
+                {
+                    vehiculoServicios[aux->Id_Vehiculo] = 1;
+                }
+                aux = aux->siguiente;
+            }
+
+            var topVehiculos = vehiculoServicios.OrderByDescending(v => v.Value).Take(5).ToList();
+
+            if (topVehiculos.Count > 0) top1.Text = "1. " + topVehiculos[0].Key + " con " + topVehiculos[0].Value + " servicios";
+            if (topVehiculos.Count > 1) top2.Text = "2. " + topVehiculos[1].Key + " con " + topVehiculos[1].Value + " servicios";
+            if (topVehiculos.Count > 2) top3.Text = "3. " + topVehiculos[2].Key + " con " + topVehiculos[2].Value + " servicios";
+            if (topVehiculos.Count > 3) top4.Text = "4. " + topVehiculos[3].Key + " con " + topVehiculos[3].Value + " servicios";
+            if (topVehiculos.Count > 4) top5.Text = "5. " + topVehiculos[4].Key + " con " + topVehiculos[4].Value + " servicios";
+
+
+            Vehiculo* actual2 = listaVehiculos.inicio;
+            Dictionary<int, int> vehiculoAntiguedad = new Dictionary<int, int>();
+
+            while (actual2 != null)
+            {
+                vehiculoAntiguedad[actual2->Id] = DateTime.Now.Year - int.Parse(actual2->Modelo);
+                actual2 = actual2->siguiente;
+            }
+
+            var topVehiculosAntiguedad = vehiculoAntiguedad.OrderByDescending(v => v.Value).Take(5).ToList();
+
+            if (topVehiculosAntiguedad.Count > 0) top1Antiguo.Text = "1. " + topVehiculosAntiguedad[0].Key + " con " + topVehiculosAntiguedad[0].Value + " años";
+            if (topVehiculosAntiguedad.Count > 1) top2Antiguo.Text = "2. " + topVehiculosAntiguedad[1].Key + " con " + topVehiculosAntiguedad[1].Value + " años";
+            if (topVehiculosAntiguedad.Count > 2) top3Antiguo.Text = "3. " + topVehiculosAntiguedad[2].Key + " con " + topVehiculosAntiguedad[2].Value + " años";
+            if (topVehiculosAntiguedad.Count > 3) top4Antiguo.Text = "4. " + topVehiculosAntiguedad[3].Key + " con " + topVehiculosAntiguedad[3].Value + " años";
+            if (topVehiculosAntiguedad.Count > 4) top5Antiguo.Text = "5. " + topVehiculosAntiguedad[4].Key + " con " + topVehiculosAntiguedad[4].Value + " años";
+
+            Button regresar = new Button("Regresar");
+            regresar.WidthRequest = 100;
+            regresar.HeightRequest = 40;
+            regresar.Clicked += (sender, e) => {
+                menu.Show();
+                ventana.Destroy();
+            };
+            container.PackStart(regresar, false, false, 10);
+            
+            ventana.ShowAll();
+
+        }
     }
 }
 ```
