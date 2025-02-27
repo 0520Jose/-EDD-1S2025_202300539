@@ -84,6 +84,8 @@ namespace AutoGestPro.Models
 
 ### Repuesto
 
+Entidad necesaria para administrar los repuestos que se almacenan para los registros de los servicios.
+
 + Código:
 ```csharp
 namespace AutoGestPro.Models
@@ -112,6 +114,8 @@ namespace AutoGestPro.Models
 
 ### Servicio
 
+Entidad necesaria para poder llevar los registros de todo lo realizado a vehiculos dentro del taller.
+
 + Código:
 ```csharp
 namespace AutoGestPro.Models.Entidades
@@ -139,6 +143,8 @@ namespace AutoGestPro.Models.Entidades
 
 ### Factura
 
+Entidad necesaria para poder almacenar los datos al momento de cancelar un servicio.
+
 + Código:
 ```csharp
 namespace AutoGestPro.Models.Entidades
@@ -160,6 +166,8 @@ namespace AutoGestPro.Models.Entidades
 ```
 
 ## Estructuras
+
+Las estructuras son todas las necesarias para poder almacenar todos los registro de las entidades utilizadas dentro del programa.
 
 ### Lista simple - Lista Usuarios
 
@@ -801,7 +809,11 @@ Las posibles ventanas que podemos visualizar en el proyecto contanta de un menu 
 
 Las distintas implimentaciones para las ventanas requeridas fuerono separadas en namespaces con el objetivo que puedan acceder entre si de namera agil, ademas que cada ventana recibe como parametro la ventana anterior a la que se accedio para que no solo de pueda avanzar entre ventanas si no tambien retroceder y con ello poder acceder nuevamente al menu principal o hasta cerrar la sesion acutal.
 
+A continuación se muestran las ventanas mas relevantes:
+
 ### Inicio de sesión
+
+En esta ventana se muestra el espacio para que el usuario inicie sesión.
 
 + Código:
 
@@ -872,6 +884,8 @@ namespace AutoGestPro.Views
 ```
 
 ### Menu
+
+El este espacio el usuario puede acceder a todas las opciones que tiene disponible.
 
 + Código:
 
@@ -960,6 +974,8 @@ namespace AutoGestPro.Views
 ```
 
 ### Carga masiva
+
+El este espacio el usuario puede cargar todos los datos con los que se llevan los registros dentro del programa.
 
 + Código:
 
@@ -1170,6 +1186,8 @@ namespace AutoGestPro.Views
 ```
 
 ### Reportse
+
+En este espacio el usuario podra generar reportes sobre todas las estructuras que son utilizadas dentro del programa.
 
 + Código:
 
@@ -1547,6 +1565,8 @@ namespace AutoGestPro.Views
 ```
 
 ### Top vehiculos
+
+En este espacio el usuario puede visualizar los top mas relevantes sobre los vehiculos almacenados dentro del programa.
 
 + Código:
 
