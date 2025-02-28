@@ -1,0 +1,7 @@
+digraph G {
+node [shape=rect];
+rankdir=TB;
+node1[label="ID: 1  
+ID Orden: 5  
+Total: 650.5", shape=rect];
+}

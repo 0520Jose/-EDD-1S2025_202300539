@@ -1,0 +1,96 @@
+using System;
+using System.Runtime.InteropServices;
+using AutoGestPro.Models;
+unsafe class ListaSimple
+{
+    public Usuario* inicio = null;
+
+    public void Insertar(int id, string nombre, string apellido, string correo, string contrasenia)
+    {
+        Usuario* nuevoUsuario = (Usuario*)NativeMemory.Alloc((nuint)sizeof(Usuario));
+        nuevoUsuario->Id = id;
+        nuevoUsuario->Nombre = nombre;
+        nuevoUsuario->Apellido = apellido;
+        nuevoUsuario->Correo = correo;
+        nuevoUsuario->Contrasenia = contrasenia;
+        nuevoUsuario->siguiente = null;
+        if (inicio == null)
+        {
+            inicio = nuevoUsuario;
+        }
+        else
+        {
+            Usuario* usuarioActual = inicio;
+            while (usuarioActual->siguiente != null)
+            {
+                usuarioActual = usuarioActual->siguiente;
+            }
+            usuarioActual->siguiente = nuevoUsuario;
+        }
+    }
+
+    public Usuario buscarUsuario(int id)
+    {
+        Usuario* usuarioActual = inicio;
+        while (usuarioActual != null)
+        {
+            if (usuarioActual->Id == id)
+            {
+                return *usuarioActual;
+            }
+            usuarioActual = usuarioActual->siguiente;
+        }
+        return new Usuario();
+    }
+
+    public void ActualizarUsuario(int id, string nombre, string apellido, string correo)
+    {
+        Usuario* usuarioActual = inicio;
+        while (usuarioActual != null)
+        {
+            if (usuarioActual->Id == id)
+            {
+                if (nombre != "") 
+                {
+                    usuarioActual->Nombre = nombre;
+                }
+                if (apellido != "") 
+                {
+                    usuarioActual->Apellido = apellido;
+                }
+                if (correo != "") 
+                {
+                    usuarioActual->Correo = correo;
+                }
+                return;
+            }
+            usuarioActual = usuarioActual->siguiente;
+        }
+    }
+
+    public void EliminarUsuario(int id)
+    {
+        Usuario* usuarioActual = inicio;
+        Usuario* usuarioAnterior = null;
+        while (usuarioActual != null)
+        {
+            if (usuarioActual->Id == id)
+            {
+                if (usuarioAnterior == null)
+                {
+                    inicio = usuarioActual->siguiente;
+                    NativeMemory.Free(usuarioActual);
+                }
+                else
+                {
+                    usuarioAnterior->siguiente = usuarioActual->siguiente;
+                    NativeMemory.Free(usuarioActual);
+                }
+                return;
+            }
+            usuarioAnterior = usuarioActual;
+            usuarioActual = usuarioActual->siguiente;
+        }
+    }
+
+}

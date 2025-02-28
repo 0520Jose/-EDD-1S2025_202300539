@@ -1,0 +1,380 @@
+using System;
+using System.IO;
+using System.Text.Json;
+using Gtk;
+using AutoGestPro.Models;
+using AutoGestPro.Models.Listas;
+using System.Diagnostics;
+using AutoGestPro.Models.Entidades;
+
+namespace AutoGestPro.Views
+{
+    unsafe class Reportes 
+    {
+        public Reportes(Window menu)
+        {
+            Window ventana = new Window("Reportes - Root");
+            ventana.SetDefaultSize(800, 600);
+            ventana.SetPosition(WindowPosition.Center);
+            ventana.DeleteEvent += delegate { Application.Quit(); };
+
+            VBox contenedor = new VBox(false, 5);
+            ventana.Add(contenedor);
+
+            Label titulo = new Label("Generar reportes");
+            titulo.ModifyFont(Pango.FontDescription.FromString("Arial 24"));
+            contenedor.PackStart(titulo, false, false, 10);
+
+            Table tabla = new Table(3, 2, true);
+            contenedor.PackStart(tabla, true, true, 10);
+
+            Button reporteUsuarios = new Button("Reporte de usuarios");
+            reporteUsuarios.Clicked += (sender, e) => {
+                GenerarReporteUsuarios();
+            };
+            tabla.Attach(reporteUsuarios, 0, 1, 0, 1);
+
+            Button reporteVehiculos = new Button("Reporte de vehiculos");
+            reporteVehiculos.Clicked += (sender, e) => {
+                GenerarReporteVehiculos();
+            };
+            tabla.Attach(reporteVehiculos, 1, 2, 0, 1);
+
+            Button reporteRepuestos = new Button("Reporte de repuestos");
+            reporteRepuestos.Clicked += (sender, e) => {
+                GenerarReporteRepuestos();
+            };
+            tabla.Attach(reporteRepuestos, 0, 1, 1, 2);
+
+            Button reporteServicios = new Button("Reporte de servicios");
+            reporteServicios.Clicked += (sender, e) => {
+                GenerarReporteServicios();
+            };
+            tabla.Attach(reporteServicios, 1, 2, 1, 2);
+
+            Button reporteFacturas = new Button("Reporte de facturas");
+            reporteFacturas.Clicked += (sender, e) => {
+                GenerarReporteFacturas();
+            };
+            tabla.Attach(reporteFacturas, 0, 1, 2, 3);
+
+            Button reporteOrdenes = new Button("Reporte de ordenes");
+            reporteOrdenes.Clicked += (sender, e) => {
+                GenerarReporteOrdenes();
+            };
+            tabla.Attach(reporteOrdenes, 1, 2, 2, 3);
+
+            Button regresar = new Button("Regresar");
+            regresar.Clicked += (sender, e) => {
+                menu.Show();
+                ventana.Destroy();
+            };
+            contenedor.PackStart(regresar, false, false, 10);
+
+            ventana.ShowAll();
+        }
+        void GenerarReporteUsuarios()
+        {
+            try
+            {
+            string dotPath = "/usr/bin/dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.dot";
+
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+            ListaSimple listaUsuarios = ListasGlobales.listaUsuarios;
+            Usuario* actual = listaUsuarios.inicio;
+            dotContent += "rankdir=LR;\n";
+            while (actual != null)
+            {
+                String nombre = actual->Nombre;
+                String apellido = actual->Apellido;
+                String correo = actual->Correo;
+                string id = actual->Id.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + " \nNombre y Apellido: " + nombre + " " + apellido + " \nCorreo: " + correo + "\", shape=rect, width=3];\n";
+                if (actual->siguiente != null)
+                {
+                    dotContent += $"node{actual->Id} -> node{actual->siguiente->Id};\n";
+                }
+                actual = actual->siguiente;
+            }
+            dotContent += "}";
+
+            File.WriteAllText(dotFilePath, dotContent);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de usuarios generado exitosamente.");
+            dialog.Run();
+            dialog.Destroy();
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de usuarios.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+
+        void GenerarReporteVehiculos()
+        {
+            try
+            {
+            string dotPath = "/usr/bin/dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_usuarios.dot";
+
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+
+            ListaDoble listaVehiculos = ListasGlobales.listaVehiculos;
+            Vehiculo* actual = listaVehiculos.inicio;
+            dotContent += "rankdir=LR;\n";
+
+            while (actual != null)
+            {
+                String marca = actual->Marca;
+                String modelo = actual->Modelo;
+                String placa = actual->Placa;
+                string id = actual->Id.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + "  \nMarca: " + marca + "  \nModelo: " + modelo + "  \nPlaca: " + placa + "\", shape=rect];\n";
+                if (actual->siguiente != null)
+                {
+                    dotContent += $"node{actual->Id} -> node{actual->siguiente->Id};\n";
+                    dotContent += $"node{actual->siguiente->Id} -> node{actual->Id};\n";
+                }
+                actual = actual->siguiente;
+            }
+
+            dotContent += "}";
+            File.WriteAllText(dotFilePath, dotContent);
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de vehiculos generado exitosamente.");
+            dialog.Run();
+            dialog.Destroy();   
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de vehiculos.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+
+        void GenerarReporteRepuestos()
+        {
+            try
+            {
+            ListaCircular listaRepuestos = ListasGlobales.listaRepuestos;
+            string dotPath = "/usr/bin/dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_repuestos.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_repuestos.dot";
+
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+
+            Repuesto* nodoActual = listaRepuestos.inicio;
+
+            dotContent += "rankdir=LR;\n";
+            while (nodoActual->siguiente != listaRepuestos.inicio)
+            {
+                String repuesto = nodoActual->repuesto;
+                String detalles = nodoActual->detalle;
+                String costo = nodoActual->costo.ToString();
+                string id = nodoActual->Id.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + "  \nRepuesto: " + repuesto + "  \nDetalles: " + detalles + "  \nCosto: " + costo + "\", shape=rect];\n";
+                if (nodoActual->siguiente != listaRepuestos.inicio)
+                {
+                    dotContent += $"node{id} -> node{nodoActual->siguiente->Id};\n";
+                }
+                nodoActual = nodoActual->siguiente;
+            }
+            if (nodoActual->siguiente == listaRepuestos.inicio)
+            {
+                dotContent += $"node{nodoActual->Id} -> node{listaRepuestos.inicio->Id};\n";
+            }
+
+            dotContent += "}";
+
+            File.WriteAllText(dotFilePath, dotContent);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de repuestos generado exitosamente.");
+
+            dialog.Run();
+            dialog.Destroy();
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de repuestos.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+
+        void GenerarReporteServicios()
+        {
+            try
+            {
+            Cola colaServicios = ListasGlobales.colaServicios;
+            string dotPath = "/usr/bin/dot";
+
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_servicios.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_servicios.dot";
+
+            Servicio* actual = colaServicios.inicio;
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+            dotContent += "rankdir=LR;\n";
+
+            while (actual != null)
+            {
+                String id = actual->Id.ToString();
+                String idRepuesto = actual->Id_Repuesto.ToString();
+                String idVehiculo = actual->Id_Vehiculo.ToString();
+                String detalles = actual->Detalles;
+                String costo = actual->Costo.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + "  \nID Repuesto: " + idRepuesto + "  \nID Vehiculo: " + idVehiculo + "  \nDetalles: " + detalles + "  \nCosto: " + costo + "\", shape=rect];\n";
+                if (actual->siguiente != null)
+                {
+                    dotContent += $"node{id} -> node{actual->siguiente->Id};\n";
+                }
+                actual = actual->siguiente;
+            }
+
+            dotContent += "}";
+
+            File.WriteAllText(dotFilePath, dotContent);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de servicios generado exitosamente.");
+            dialog.Run();
+            dialog.Destroy();
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de servicios.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+
+        void GenerarReporteFacturas()
+        {
+            try{
+            Pila pilaFacturas = ListasGlobales.pilaFacturas;
+            string dotPath = "/usr/bin/dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_facturas.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/reporte_facturas.dot";
+
+            string dotContent = "digraph G {\n";
+            dotContent += "node [shape=rect];\n";
+            dotContent += "rankdir=TB;\n";
+
+            Factura* actual = pilaFacturas.sima;
+
+            while (actual != null)
+            {
+                String id = actual->Id.ToString();
+                String idOrden = actual->Id_Orden.ToString();
+                String total = actual->Total.ToString();
+                dotContent += "node" + id + "[label=\"ID: " + id + "  \nID Orden: " + idOrden + "  \nTotal: " + total + "\", shape=rect];\n";
+                if (actual->abajo != null)
+                {
+                    dotContent += $"node{id} -> node{actual->abajo->Id};\n";
+                }
+                actual = actual->abajo;
+            }
+
+            dotContent += "}";
+            File.WriteAllText(dotFilePath, dotContent);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte de facturas generado exitosamente.");
+            dialog.Run();
+            dialog.Destroy();
+
+            Process.Start("xdg-open", outputPath);
+            }
+            catch (Exception e)
+            {
+                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error al generar el reporte de facturas.");
+                dialog.Run();
+                dialog.Destroy();
+            }
+        }
+        void GenerarReporteOrdenes()
+        {
+            ListasGlobales.matrizDispersa.graficar();
+        }
+    }
+}
+
