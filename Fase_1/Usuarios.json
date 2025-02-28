@@ -1,72 +1,72 @@
-[ 
-    { 
-      "ID": 1, 
-      "Nombres": "Juan", 
-      "Apellidos": "Pérez", 
-      "Correo": "juan.perez@mail.com", 
-      "Contrasenia": "123456" 
-    }, 
-    { 
-    "ID": 2, 
-    "Nombres": "María", 
-    "Apellidos": "Gómez", 
-    "Correo": "maria.gomez@mail.com", 
-    "Contrasenia": "password123" 
-    },
-    {
-      "ID": 3,
-      "Nombres": "Carlos",
-      "Apellidos": "López",
-      "Correo": "carlos.lopez@mail.com",
-      "Contrasenia": "clave123"
-    },
-    {
-      "ID": 4,
-      "Nombres": "Ana",
-      "Apellidos": "Martínez",
-      "Correo": "ana.martinez@mail.com",
-      "Contrasenia": "contrasenia123"
-    },
-    {
-      "ID": 5,
-      "Nombres": "Pedro",
-      "Apellidos": "Rodríguez",
-      "Correo": "pedro.rodriguez@mail.com",
-      "Contrasenia": "password456"
-    },
-    {
-      "ID": 6,
-      "Nombres": "Lucía",
-      "Apellidos": "Fernández",
-      "Correo": "lucia.fernandez@mail.com",
-      "Contrasenia": "lucia123"
-    },
-    {
-      "ID": 7,
-      "Nombres": "Miguel",
-      "Apellidos": "Sánchez",
-      "Correo": "miguel.sanchez@mail.com",
-      "Contrasenia": "miguel123"
-    },
-    {
-      "ID": 8,
-      "Nombres": "Laura",
-      "Apellidos": "García",
-      "Correo": "laura.garcia@mail.com",
-      "Contrasenia": "laura123"
-    },
-    {
-      "ID": 9,
-      "Nombres": "Jorge",
-      "Apellidos": "Hernández",
-      "Correo": "jorge.hernandez@mail.com",
-      "Contrasenia": "jorge123"
-    },
-    {
-      "ID": 10,
-      "Nombres": "Elena",
-      "Apellidos": "Ruiz",
-      "Correo": "elena.ruiz@mail.com",
-      "Contrasenia": "elena123"
-    }
+[
+  {
+    "ID": 1,
+    "Nombres": "Carlos Alberto",
+    "Apellidos": "Gomez Martinez",
+    "Correo": "carlos.alberto@usac.com",
+    "Contrasenia": "CarlosMartinez"
+  },
+  {
+    "ID": 2,
+    "Nombres": "Ana Lucia",
+    "Apellidos": "Martinez Lopez",
+    "Correo": "ana.lucia@usac.com",
+    "Contrasenia": "AnaLopez"
+  },
+  {
+    "ID": 3,
+    "Nombres": "Luis Enrique",
+    "Apellidos": "Perez Ramirez",
+    "Correo": "luis.enrique@usac.com",
+    "Contrasenia": "LuisRamirez"
+  },
+  {
+    "ID": 4,
+    "Nombres": "Marta Isabel",
+    "Apellidos": "Lopez Perez",
+    "Correo": "marta.isabel@usac.com",
+    "Contrasenia": "MartaPerez"
+  },
+  {
+    "ID": 5,
+    "Nombres": "Juan Carlos",
+    "Apellidos": "Hernandez Lopez",
+    "Correo": "juan.carlos@usac.com",
+    "Contrasenia": "JuanLopez"
+  },
+  {
+    "ID": 6,
+    "Nombres": "Maria Fernanda",
+    "Apellidos": "Garcia Lopez",
+    "Correo": "maria.fernanda@usac.com",
+    "Contrasenia": "MariaLopez"
+  },
+  {
+    "ID": 7,
+    "Nombres": "Pedro Pablo",
+    "Apellidos": "Rodriguez Torres",
+    "Correo": "pedro.pablo@usac.com",
+    "Contrasenia": "PedroTorres"
+  },
+  {
+    "ID": 8,
+    "Nombres": "Laura Isabel",
+    "Apellidos": "Sanchez Morales",
+    "Correo": "laura.isabel@usac.com",
+    "Contrasenia": "LauraMorales"
+  },
+  {
+    "ID": 9,
+    "Nombres": "Rafael Alejandro",
+    "Apellidos": "Ramirez Diaz",
+    "Correo": "rafael.alejandro@usac.com",
+    "Contrasenia": "RafaelDiaz"
+  },
+  {
+    "ID": 10,
+    "Nombres": "Isabel Cristina",
+    "Apellidos": "Diaz Lopez",
+    "Correo": "isabel.cristina@usac.com",
+    "Contrasenia": "IsabelLopez"
+  }
 ]

@@ -146,7 +146,7 @@ namespace AutoGestPro.Views
                     ListasGlobales.colaServicios.Encolar(ID, IDRepuesto, IDVehiculo, Detalles, Costo);
                     ListasGlobales.pilaFacturas.Apilar(ID, IDVehiculo, total);
                     Bitacora bitacora = new Bitacora(Detalles, IDVehiculo, IDRepuesto);
-                    ListasGlobales.matrizDispersa.insertar(ID, IDVehiculo, bitacora);
+                    ListasGlobales.matrizDispersa.insertar(IDVehiculo, IDRepuesto, bitacora);
                     MessageDialog dialog = new MessageDialog(ventana, 
                         DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
                         "Servicio guardado con éxito.");

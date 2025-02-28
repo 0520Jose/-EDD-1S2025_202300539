@@ -2,20 +2,26 @@ digraph G {
 node [shape=rect];
 rankdir=LR;
 node1[label="ID: 1  
-ID Repuesto: 1  
-ID Vehiculo: 1  
-Detalles: 1  
-Costo: 1", shape=rect];
+ID Repuesto: 10  
+ID Vehiculo: 5  
+Detalles: Cambio de vateria  
+Costo: 550", shape=rect];
 node1 -> node2;
 node2[label="ID: 2  
 ID Repuesto: 2  
-ID Vehiculo: 2  
-Detalles: 2  
-Costo: 2", shape=rect];
+ID Vehiculo: 7  
+Detalles: Cambio bujias  
+Costo: 200", shape=rect];
 node2 -> node3;
 node3[label="ID: 3  
 ID Repuesto: 3  
-ID Vehiculo: 2  
-Detalles: 2  
-Costo: 2", shape=rect];
+ID Vehiculo: 9  
+Detalles: Cambio de freno delantero  
+Costo: 300", shape=rect];
+node3 -> node4;
+node4[label="ID: 4  
+ID Repuesto: 3  
+ID Vehiculo: 5  
+Detalles: Cambio freno delatero  
+Costo: 300", shape=rect];
 }

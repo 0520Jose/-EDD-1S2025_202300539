@@ -1,43 +1,92 @@
 digraph G {
 node [shape=rect];
 rankdir=LR;
-node1[label="ID: 1 
-Nombre y Apellido: Juan Pérez 
-Correo: juan.perez@mail.com", shape=rect, width=3];
-node1 -> node2;
-node2[label="ID: 2 
-Nombre y Apellido: María Gómez 
-Correo: maria.gomez@mail.com", shape=rect, width=3];
-node2 -> node3;
-node3[label="ID: 3 
-Nombre y Apellido: Carlos López 
-Correo: carlos.lopez@mail.com", shape=rect, width=3];
-node3 -> node4;
-node4[label="ID: 4 
-Nombre y Apellido: Ana Martínez 
-Correo: ana.martinez@mail.com", shape=rect, width=3];
-node4 -> node5;
-node5[label="ID: 5 
-Nombre y Apellido: Pedro Rodríguez 
-Correo: pedro.rodriguez@mail.com", shape=rect, width=3];
-node5 -> node6;
-node6[label="ID: 6 
-Nombre y Apellido: Lucía Fernández 
-Correo: lucia.fernandez@mail.com", shape=rect, width=3];
-node6 -> node7;
-node7[label="ID: 7 
-Nombre y Apellido: Miguel Sánchez 
-Correo: miguel.sanchez@mail.com", shape=rect, width=3];
-node7 -> node8;
-node8[label="ID: 8 
-Nombre y Apellido: Laura García 
-Correo: laura.garcia@mail.com", shape=rect, width=3];
-node8 -> node9;
-node9[label="ID: 9 
-Nombre y Apellido: Jorge Hernández 
-Correo: jorge.hernandez@mail.com", shape=rect, width=3];
+node15[label="ID: 15  
+Marca: Mazda CX-5  
+Modelo: 2017  
+Placa: VWL3P0D", shape=rect];
+node15 -> node14;
+node14 -> node15;
+node14[label="ID: 14  
+Marca: Chevrolet Spark  
+Modelo: 2011  
+Placa: XTR9E1Q", shape=rect];
+node14 -> node13;
+node13 -> node14;
+node13[label="ID: 13  
+Marca: Toyota Camry  
+Modelo: 2014  
+Placa: OIJ6R4F", shape=rect];
+node13 -> node12;
+node12 -> node13;
+node12[label="ID: 12  
+Marca: Volkswagen Jetta  
+Modelo: 2012  
+Placa: JXK3L9D", shape=rect];
+node12 -> node11;
+node11 -> node12;
+node11[label="ID: 11  
+Marca: BMW X3  
+Modelo: 2013  
+Placa: BNM8D7Q", shape=rect];
+node11 -> node10;
+node10 -> node11;
+node10[label="ID: 10  
+Marca: Subaru Impreza  
+Modelo: 2016  
+Placa: XZJ3M5P", shape=rect];
+node10 -> node9;
 node9 -> node10;
-node10[label="ID: 10 
-Nombre y Apellido: Elena Ruiz 
-Correo: elena.ruiz@mail.com", shape=rect, width=3];
+node9[label="ID: 9  
+Marca: Honda Accord  
+Modelo: 2009  
+Placa: VBR9P1S", shape=rect];
+node9 -> node8;
+node8 -> node9;
+node8[label="ID: 8  
+Marca: Kia Rio  
+Modelo: 2014  
+Placa: RT5Y4O2", shape=rect];
+node8 -> node7;
+node7 -> node8;
+node7[label="ID: 7  
+Marca: Mazda 3  
+Modelo: 2011  
+Placa: MSD9H8A", shape=rect];
+node7 -> node6;
+node6 -> node7;
+node6[label="ID: 6  
+Marca: Hyundai Elantra  
+Modelo: 2015  
+Placa: QWE3P0F", shape=rect];
+node6 -> node5;
+node5 -> node6;
+node5[label="ID: 5  
+Marca: Chevrolet Aveo  
+Modelo: 2007  
+Placa: BZX5D2L", shape=rect];
+node5 -> node4;
+node4 -> node5;
+node4[label="ID: 4  
+Marca: Nissan Altima  
+Modelo: 2012  
+Placa: FTE6V3R", shape=rect];
+node4 -> node3;
+node3 -> node4;
+node3[label="ID: 3  
+Marca: Ford Focus  
+Modelo: 2008  
+Placa: YT2XG9M", shape=rect];
+node3 -> node2;
+node2 -> node3;
+node2[label="ID: 2  
+Marca: Toyota Corolla  
+Modelo: 2010  
+Placa: JKS8T5A", shape=rect];
+node2 -> node1;
+node1 -> node2;
+node1[label="ID: 1  
+Marca: Honda Civic  
+Modelo: 2005  
+Placa: XZJ7H9K", shape=rect];
 }

@@ -1,15 +1,7 @@
 digraph G {
 node [shape=rect];
 rankdir=TB;
-node3[label="ID: 3  
-ID Orden: 2  
-Total: 12.25", shape=rect];
-node3 -> node2;
-node2[label="ID: 2  
-ID Orden: 2  
-Total: 32.5", shape=rect];
-node2 -> node1;
 node1[label="ID: 1  
-ID Orden: 1  
-Total: 16.75", shape=rect];
+ID Orden: 5  
+Total: 650.5", shape=rect];
 }

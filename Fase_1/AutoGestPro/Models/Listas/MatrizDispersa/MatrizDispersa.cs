@@ -127,128 +127,128 @@ namespace AutoGestPro.Models.Listas.MatrizDispersa
         {
             try
             {
-                string dotPath = "/usr/bin/dot";
-                string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/MatrizDispersa.png";
-                string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/MatrizDispersa.dot";
+            string dotPath = "/usr/bin/dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/MatrizDispersa.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/Reportes/MatrizDispersa.dot";
 
-                string dotContent = "digraph G {\n";
-                dotContent += "graph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"0.5\"]\n";
-                dotContent += "node [shape=box, height=0.8]\n";
+            string dotContent = "digraph G {\n";
+            dotContent += "graph [pad=\"0.5\", nodesep=\"0.5\", ranksep=\"0.5\"]\n";
+            dotContent += "node [shape=box, height=0.8]\n";
 
-                NodoCabecera* filaactual = filas.primero;
-                string idFila = "";
-                string conexionesFilas = "";
-                string nodosInteriores = "";
-                string direccionesInteriores = "";
-                while (filaactual != null)
+            NodoCabecera* filaactual = filas.primero;
+            string idFila = "";
+            string conexionesFilas = "";
+            string nodosInteriores = "";
+            string direccionesInteriores = "";
+            while (filaactual != null)
+            {
+                bool primero = true;
+                NodoCelda* actual = filaactual->acceso;
+                idFila += $"\tFila{actual->x}[style=\"filled\", fillcolor=\"white\", label=\"V {filaactual->id}\", group=0];\n";
+                if (filaactual->siguiente != null)
                 {
-                    bool primero = true;
-                    NodoCelda* actual = filaactual->acceso;
-                    idFila += $"\tFila{actual->x}[style=\"filled\", fillcolor=\"white\", label=\"{filaactual->id}\", group=0];\n";
-                    if (filaactual->siguiente != null)
-                    {
-                        conexionesFilas += $"\tFila{actual->x} -> Fila{filaactual->siguiente->acceso->x} [dir=\"both\"];\n";
-                    }
-                    string actual_x = actual->x.ToString();
-                    direccionesInteriores += "\t{rank = same; Fila" + actual_x + ";";
-                    while (actual != null)
-                    {
-                        nodosInteriores += $"\tNodo{actual->x}_{actual->y}[style=\"filled\", fillcolor=\"lightblue\", label=\"{actual->bitacora.Detalle}\", group =\"{actual->y}\"];\n";
-                        actual_x = actual->x.ToString();
-                        string actual_y = actual->y.ToString();
-                        direccionesInteriores += $"\tNodo" + actual_x + "_" + actual_y + ";";
-                        if (primero)
-                        {
-                            nodosInteriores += $"\tFila{actual->x} -> Nodo{actual->x}_{actual->y} [dir=\"both\"];\n";
-                            if (actual->derecha != null)
-                            {
-                                nodosInteriores += $"\tNodo{actual->x}_{actual->y} -> Nodo{actual->derecha->x}_{actual->derecha->y} [dir=\"both\"];\n";
-                            }
-                            primero = false;
-                        }
-                        else
-                        {
-                            if (actual->derecha != null)
-                            {
-                                nodosInteriores += $"\tNodo{actual->x}_{actual->y} -> Nodo{actual->derecha->x}_{actual->derecha->y} [dir=\"both\"];\n";
-                            }
-                        }
-                        actual = actual->derecha;
-                    }
-                    filaactual = filaactual->siguiente;
-                    direccionesInteriores += "}\n";
+                conexionesFilas += $"\tFila{actual->x} -> Fila{filaactual->siguiente->acceso->x} [dir=\"both\"];\n";
                 }
-                dotContent += idFila + conexionesFilas;
-
-                NodoCabecera* columnaactual = columnas.primero;
-                string idColumna = "";
-                string conexionesColumnas = "";
-                string direccionesInteriores2 = "\t{rank = same;";
-                while (columnaactual != null)
+                string actual_x = actual->x.ToString();
+                direccionesInteriores += "\t{rank = same; Fila" + actual_x + ";";
+                while (actual != null)
                 {
-                    bool primero = true;
-                    NodoCelda* actual = columnaactual->acceso;
-                    idColumna += $"\tColumna{actual->y}[style=\"filled\", fillcolor=\"lightblue\", label=\"{actual->y}\"];\n";
-                    string actual_y = actual->y.ToString();
-                    direccionesInteriores2 += "Columna" + actual_y + ";";
-                    if (columnaactual->siguiente != null)
+                nodosInteriores += $"\tNodo{actual->x}_{actual->y}[style=\"filled\", fillcolor=\"lightblue\", label=\"{actual->bitacora.Detalle}\", group =\"{actual->y}\"];\n";
+                actual_x = actual->x.ToString();
+                string actual_y = actual->y.ToString();
+                direccionesInteriores += $"\tNodo" + actual_x + "_" + actual_y + ";";
+                if (primero)
+                {
+                    nodosInteriores += $"\tFila{actual->x} -> Nodo{actual->x}_{actual->y} [dir=\"both\"];\n";
+                    if (actual->derecha != null)
                     {
-                        conexionesColumnas += $"\tColumna{actual->y} -> Columna{columnaactual->siguiente->acceso->y} [dir=\"both\"];\n";
+                    nodosInteriores += $"\tNodo{actual->x}_{actual->y} -> Nodo{actual->derecha->x}_{actual->derecha->y} [dir=\"both\"];\n";
                     }
-                    while (actual != null)
+                    primero = false;
+                }
+                else
+                {
+                    if (actual->derecha != null)
                     {
-                        if (primero)
-                        {
-                            dotContent += $"\tColumna{actual->y} -> Nodo{actual->x}_{actual->y} [dir=\"both\"];\n";
-                            if (actual->abajo != null)
-                            {
-                                dotContent += $"\tNodo{actual->x}_{actual->y} -> Nodo{actual->abajo->x}_{actual->abajo->y} [dir=\"both\"];\n";
-                            }
-                            primero = false;
-                        }
-                        else
-                        {
-                            if (actual->abajo != null)
-                            {
-                                dotContent += $"\tNodo{actual->x}_{actual->y} -> Nodo{actual->abajo->x}_{actual->abajo->y} [dir=\"both\"];\n";
-                            }
-                        }
-                        actual = actual->abajo;
+                    nodosInteriores += $"\tNodo{actual->x}_{actual->y} -> Nodo{actual->derecha->x}_{actual->derecha->y} [dir=\"both\"];\n";
                     }
-                    columnaactual = columnaactual->siguiente;
                 }
-                direccionesInteriores2 += "}\n";
-                dotContent += idColumna + conexionesColumnas + direccionesInteriores2 + nodosInteriores + direccionesInteriores;
-
-                dotContent += "}";
-
-                File.WriteAllText(dotFilePath, dotContent);
-
-                ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
-                {
-                    Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                };
-
-                using (Process process = Process.Start(startInfo))
-                {
-                    process.WaitForExit();
+                actual = actual->derecha;
                 }
+                filaactual = filaactual->siguiente;
+                direccionesInteriores += "}\n";
+            }
+            dotContent += idFila + conexionesFilas;
 
-                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte generado con éxito");
-                dialog.Run();
-                dialog.Destroy();
+            NodoCabecera* columnaactual = columnas.primero;
+            string idColumna = "";
+            string conexionesColumnas = "";
+            string direccionesInteriores2 = "\t{rank = same;";
+            while (columnaactual != null)
+            {
+                bool primero = true;
+                NodoCelda* actual = columnaactual->acceso;
+                idColumna += $"\tColumna{actual->y}[style=\"filled\", fillcolor=\"lightblue\", label=\"R {actual->y}\"];\n";
+                string actual_y = actual->y.ToString();
+                direccionesInteriores2 += "Columna" + actual_y + ";";
+                if (columnaactual->siguiente != null)
+                {
+                conexionesColumnas += $"\tColumna{actual->y} -> Columna{columnaactual->siguiente->acceso->y} [dir=\"both\"];\n";
+                }
+                while (actual != null)
+                {
+                if (primero)
+                {
+                    dotContent += $"\tColumna{actual->y} -> Nodo{actual->x}_{actual->y} [dir=\"both\"];\n";
+                    if (actual->abajo != null)
+                    {
+                    dotContent += $"\tNodo{actual->x}_{actual->y} -> Nodo{actual->abajo->x}_{actual->abajo->y} [dir=\"both\"];\n";
+                    }
+                    primero = false;
+                }
+                else
+                {
+                    if (actual->abajo != null)
+                    {
+                    dotContent += $"\tNodo{actual->x}_{actual->y} -> Nodo{actual->abajo->x}_{actual->abajo->y} [dir=\"both\"];\n";
+                    }
+                }
+                actual = actual->abajo;
+                }
+                columnaactual = columnaactual->siguiente;
+            }
+            direccionesInteriores2 += "}\n";
+            dotContent += idColumna + conexionesColumnas + direccionesInteriores2 + nodosInteriores + direccionesInteriores;
 
-                Process.Start("xdg-open", outputPath);
+            dotContent += "}";
+
+            File.WriteAllText(dotFilePath, dotContent);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(dotPath)
+            {
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+            };
+
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit();
+            }
+
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Reporte generado con éxito");
+            dialog.Run();
+            dialog.Destroy();
+
+            Process.Start("xdg-open", outputPath);
             }
             catch (Exception e)
             {
-                MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, e.Message);
-                dialog.Run();
-                dialog.Destroy();
+            MessageDialog dialog = new MessageDialog(null, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, e.Message);
+            dialog.Run();
+            dialog.Destroy();
             }
         }
 
