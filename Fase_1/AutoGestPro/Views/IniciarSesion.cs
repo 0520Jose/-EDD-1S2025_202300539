@@ -1,10 +1,12 @@
 using System;
 using Gtk;
 using AutoGestPro.Views;
+using AutoGestPro.Models.Listas;
+using AutoGestPro.Models;
 
 namespace AutoGestPro.Views
 {
-    class IniciarSesion
+    unsafe class IniciarSesion
     {
         public IniciarSesion()
         {
@@ -39,7 +41,29 @@ namespace AutoGestPro.Views
 
             Button iniciarSesion = new Button("Iniciar Sesión");
             iniciarSesion.Clicked += (sender, e) => {
-                if (txtUsuario.Text == "root@gmail.com" && txtContrasena.Text == "root123")
+                ListaSimple listaUsuarios = ListasGlobales.listaUsuarios;
+                bool usuarioEncontrado = false;
+                Usuario* usuario = listaUsuarios.inicio;
+                while (usuario != null)
+                {
+                    if (usuario->Correo == txtUsuario.Text && usuario->Contrasenia == txtContrasena.Text)
+                    {
+                        usuarioEncontrado = true;
+                        break;
+                    }
+                    usuario = usuario->siguiente;
+                }
+                if (usuarioEncontrado)
+                {
+                    txtUsuario.Text = "";
+                    txtContrasena.Text = "";
+                    MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Bienvenido");
+                    mensaje.Run();
+                    Menu menu = new Menu(ventana);
+                    ventana.Hide();
+                    mensaje.Destroy();
+                }
+                else if (txtUsuario.Text == "root@gmail.com" && txtContrasena.Text == "root123")
                 {
                     txtUsuario.Text = "";
                     txtContrasena.Text = "";
