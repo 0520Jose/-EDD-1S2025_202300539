@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj": {}
+    "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/AutoGestPro.csproj": {}
   },
   "projects": {
-    "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj": {
+    "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/AutoGestPro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj",
+        "projectUniqueName": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/AutoGestPro.csproj",
         "projectName": "AutoGestPro",
-        "projectPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj",
+        "projectPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/AutoGestPro.csproj",
         "packagesPath": "/home/emanuel/.nuget/packages/",
-        "outputPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/obj/",
+        "outputPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/emanuel/.nuget/NuGet/NuGet.Config"
@@ -37,16 +37,6 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "dependencies": {
-            "GtkSharp": {
-              "target": "Package",
-              "version": "[3.22.24, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.3, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
