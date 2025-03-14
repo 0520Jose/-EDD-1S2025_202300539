@@ -12,7 +12,7 @@ namespace AutoGestPro.Models
         public int Edad { get; set; }
         public string Contrasenia { get; set;}
         public Usuario* siguiente;
-        public Usuario(int id, string nombre, string apellido, string corre, int edad, string contrasenia)
+        public Usuario(int id, string nombre, string apellido, string correo, int edad, string contrasenia)
         {
             Id = id;
             Nombres = nombre;

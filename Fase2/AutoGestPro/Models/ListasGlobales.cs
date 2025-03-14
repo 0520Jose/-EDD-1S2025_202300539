@@ -1,5 +1,5 @@
 using System;
-using AutoGestPro.Models.Listas.MatrizDispersa;
+using AutoGestPro.Models.Listas;
 
 namespace AutoGestPro.Models.Listas
 {

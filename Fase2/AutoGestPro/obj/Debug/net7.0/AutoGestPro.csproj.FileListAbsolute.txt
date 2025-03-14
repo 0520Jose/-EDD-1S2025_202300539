@@ -1,0 +1,5 @@
+/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/obj/Debug/net7.0/AutoGestPro.GeneratedMSBuildEditorConfig.editorconfig
+/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/obj/Debug/net7.0/AutoGestPro.AssemblyInfoInputs.cache
+/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/obj/Debug/net7.0/AutoGestPro.AssemblyInfo.cs
+/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/obj/Debug/net7.0/AutoGestPro.csproj.CoreCompileInputs.cache
+/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/obj/Debug/net7.0/AutoGestPro.csproj.AssemblyReference.cache

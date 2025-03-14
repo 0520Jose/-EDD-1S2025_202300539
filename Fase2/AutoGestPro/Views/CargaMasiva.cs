@@ -79,6 +79,7 @@ namespace AutoGestPro.Views
                     {
                         string json = File.ReadAllText(filePath);
                         bool error = false;
+                        ListaSimple listarespaldo = ListasGlobales.listaUsuarios;
                         using (JsonDocument doc = JsonDocument.Parse(json))
                         {
                             JsonElement root = doc.RootElement;
@@ -90,19 +91,20 @@ namespace AutoGestPro.Views
                                     string nombre = element.GetProperty("Nombres").GetString();
                                     string apellido = element.GetProperty("Apellidos").GetString();
                                     string correo = element.GetProperty("Correo").GetString();
+                                    int edad = element.GetProperty("Edad").GetInt32();
                                     string contrasenia = element.GetProperty("Contrasenia").GetString();
-                                    ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, contrasenia);
+                                    ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, edad, contrasenia);
                                 }
                                 catch (Exception ex)
                                 {
-                                    ListaSimple lista = new ListaSimple();
-                                    ListasGlobales.listaUsuarios = lista;
+                                    ListasGlobales.listaUsuarios = listarespaldo;
                                     MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
                                     error = true;
                                     break;
                                 }
                             }
                         }
+                        listarespaldo = null;
                         if (!error)
                         {                            
                             MostrarMensaje(ventana, "Carga masiva exitosa");
@@ -112,6 +114,7 @@ namespace AutoGestPro.Views
                     {
                         string json = File.ReadAllText(filePath);
                         bool error = false;
+                        ListaDoble listarespaldo = ListasGlobales.listaVehiculos;
                         using (JsonDocument doc = JsonDocument.Parse(json))
                         {
                             JsonElement root = doc.RootElement;
@@ -134,14 +137,14 @@ namespace AutoGestPro.Views
                                 }
                                 catch (Exception ex)
                                 {
-                                    ListaDoble lista = new ListaDoble();
-                                    ListasGlobales.listaVehiculos = lista;
+                                    ListasGlobales.listaVehiculos = listarespaldo;
                                     MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
                                     error = true;
                                     break;
                                 }
                             }
                         }
+                        listarespaldo = null;
                         if (!error)
                         {
                             MostrarMensaje(ventana, "Carga masiva exitosa");
@@ -151,6 +154,7 @@ namespace AutoGestPro.Views
                     {
                         string json = File.ReadAllText(filePath);
                         bool error = false;
+                        ListaCircular listarespaldo = ListasGlobales.listaRepuestos;
                         using (JsonDocument doc = JsonDocument.Parse(json))
                         {
                             JsonElement root = doc.RootElement;
@@ -166,14 +170,14 @@ namespace AutoGestPro.Views
                                 }
                                 catch (Exception ex)
                                 {
-                                    ListaCircular lista = new ListaCircular(); 
-                                    ListasGlobales.listaRepuestos = lista;
+                                    ListasGlobales.listaRepuestos = listarespaldo;
                                     MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
                                     error = true;
                                     break;
                                 }
                             }
                         }
+                        listarespaldo = null;
                         if (!error)
                         {
                             MostrarMensaje(ventana, "Carga masiva exitosa");
