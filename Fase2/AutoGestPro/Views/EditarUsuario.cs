@@ -42,17 +42,11 @@ namespace AutoGestPro.Views
             Label nombreActual = new Label("Null");
             table.Attach(nombreActual, 1, 2, 1, 2);
 
-            Entry nombreEntry = new Entry();
-            table.Attach(nombreEntry, 2, 3, 1, 2);
-
             Label apellido = new Label("Apellidos:");
             table.Attach(apellido, 0, 1, 2, 3);
 
             Label apellidoActual = new Label("Null");
             table.Attach(apellidoActual, 1, 2, 2, 3);
-
-            Entry apellidoEntry = new Entry();
-            table.Attach(apellidoEntry, 2, 3, 2, 3);
 
             Label correo = new Label("Correo:");
             table.Attach(correo, 0, 1, 3, 4);
@@ -60,16 +54,13 @@ namespace AutoGestPro.Views
             Label correoActual = new Label("Null");
             table.Attach(correoActual, 1, 2, 3, 4);
 
-            Entry correoEntry = new Entry();
-            table.Attach(correoEntry, 2, 3, 3, 4);
-
             buscar.Clicked += (sender, e) => {
                 int id = int.Parse(idEntry.Text);
                 Usuario usuario = ListasGlobales.listaUsuarios.buscarUsuario(id);
-                if (usuario.Nombre != null)
+                if (usuario.Nombres != null)
                 {
-                    nombreActual.Text = usuario.Nombre;
-                    apellidoActual.Text = usuario.Apellido;
+                    nombreActual.Text = usuario.Nombres;
+                    apellidoActual.Text = usuario.Apellidos;
                     correoActual.Text = usuario.Correo;
                 }
                 else
@@ -94,7 +85,7 @@ namespace AutoGestPro.Views
                 }
                 else 
                 {
-                    if (ListasGlobales.listaUsuarios.buscarUsuario(int.Parse(idEntry.Text)).Nombre == null)
+                    if (ListasGlobales.listaUsuarios.buscarUsuario(int.Parse(idEntry.Text)).Nombres == null)
                     {
                         MessageDialog dialog = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "El usuario no existe");
                         dialog.Run();
@@ -111,16 +102,19 @@ namespace AutoGestPro.Views
 
                     }
                 }
+                nombreActual.Text = "Usuario no encontrado";
+                apellidoActual.Text = "Usuario no encontrado";
+                correoActual.Text = "Usuario no encontrado";
             };
             
-            botonesContenedor.PackStart(eliminar, true, true, 10);
+            buttonContainer.PackStart(eliminar, true, true, 0);
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
                 gestionUsuarios.Show();
                 ventana.Destroy();
             };
-            buttonContainer.PackStart(regresar, true, true, 0);
+            contenedor.PackStart(regresar, false, false, 10);
 
             ventana.ShowAll();
         }

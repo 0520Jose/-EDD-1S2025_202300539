@@ -150,11 +150,10 @@ namespace AutoGestPro.Views
                             MostrarMensaje(ventana, "Carga masiva exitosa");
                         }
                     }
-                    else if (opcionSeleccionada == "Repuestos")
+                    /*else if (opcionSeleccionada == "Repuestos")
                     {
                         string json = File.ReadAllText(filePath);
                         bool error = false;
-                        ListaCircular listarespaldo = ListasGlobales.listaRepuestos;
                         using (JsonDocument doc = JsonDocument.Parse(json))
                         {
                             JsonElement root = doc.RootElement;
@@ -182,7 +181,7 @@ namespace AutoGestPro.Views
                         {
                             MostrarMensaje(ventana, "Carga masiva exitosa");
                         }
-                    }
+                    }*/
                     else
                     {
                         MostrarMensaje(ventana, "Error archivo no válido");

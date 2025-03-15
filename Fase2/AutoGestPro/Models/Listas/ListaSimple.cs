@@ -5,14 +5,15 @@ unsafe class ListaSimple
 {
     public Usuario* inicio = null;
 
-    public void Insertar(int id, string nombre, string apellido, string correo, string contrasenia)
+    public void Insertar(int id, string nombre, string apellido, string correo, int edad, string contrasenia)
     {
         Usuario* nuevoUsuario = (Usuario*)NativeMemory.Alloc((nuint)sizeof(Usuario));
         nuevoUsuario->Id = id;
-        nuevoUsuario->Nombre = nombre;
-        nuevoUsuario->Apellido = apellido;
+        nuevoUsuario->Nombres = nombre;
+        nuevoUsuario->Apellidos = apellido;
         nuevoUsuario->Correo = correo;
         nuevoUsuario->Contrasenia = contrasenia;
+        nuevoUsuario->Edad = edad;
         nuevoUsuario->siguiente = null;
         if (inicio == null)
         {
@@ -52,11 +53,11 @@ unsafe class ListaSimple
             {
                 if (nombre != "") 
                 {
-                    usuarioActual->Nombre = nombre;
+                    usuarioActual->Nombres = nombre;
                 }
                 if (apellido != "") 
                 {
-                    usuarioActual->Apellido = apellido;
+                    usuarioActual->Apellidos = apellido;
                 }
                 if (correo != "") 
                 {

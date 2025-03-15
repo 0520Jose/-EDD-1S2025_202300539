@@ -31,17 +31,31 @@ namespace AutoGestPro.Views
 
             Button gestionDeUsuarios = new Button("Gestión de usuarios");
             gestionDeUsuarios.Clicked += (sender, e) => {
-                EditarUsuarios gestionDeUsuarios = new EditarUsuarios(ventana);
+                EditarUsuario gestionDeUsuarios = new EditarUsuario(ventana);
                 ventana.Hide();
             };
             table.Attach(gestionDeUsuarios, 1, 2, 0, 1);
 
-            Button CerrarSesion = new Button("Cerrar sesión");
-            CerrarSesion.Clicked += (sender, e) => {
+            Button gestionDeVehiculos = new Button("Gestión de vehículos");
+            gestionDeVehiculos.Clicked += (sender, e) => {
+                EditarVehiculo gestionDeVehiculos = new EditarVehiculo(ventana);
+                ventana.Hide();
+            };
+            table.Attach(gestionDeVehiculos, 0, 1, 1, 2);
+
+            Button gestionDeRepuestos = new Button("Gestión de repuestos");
+            gestionDeRepuestos.Clicked += (sender, e) => {
+                ActualizarRepuesto gestionDeRepuestos = new ActualizarRepuesto(ventana);
+                ventana.Hide();
+            };
+            table.Attach(gestionDeRepuestos, 1, 2, 1, 2);
+
+            Button cerrarSesionButton = new Button("Cerrar sesión");
+            cerrarSesionButton.Clicked += (sender, e) => {
                 cerrarSesion.Show();
                 ventana.Destroy();
             };
-            table.Attach(CerrarSesion, 0, 2, 1, 2);
+            table.Attach(cerrarSesionButton, 0, 2, 1, 2);
 
             ventana.ShowAll();
         }

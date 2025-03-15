@@ -63,7 +63,7 @@ namespace AutoGestPro.Views
                     ventana.Hide();
                     mensaje.Destroy();
                 }
-                else if (txtUsuario.Text == "admin@usac.com" && txtContrasena.Text == "admin123")
+                else if (txtUsuario.Text == "admin@usac.com" && txtContrasena.Text == "admint123")
                 {
                     txtUsuario.Text = "";
                     txtContrasena.Text = "";

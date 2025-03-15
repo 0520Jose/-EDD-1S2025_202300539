@@ -37,4 +37,26 @@ unsafe class ListaDoble
         }
         return new Vehiculo();
     }
+
+    public void eliminarVehiculo(int id)
+    {
+        Vehiculo* vehiculoActual = inicio;
+        while (vehiculoActual != null)
+        {
+            if (vehiculoActual->Id == id)
+            {
+                if (vehiculoActual->anterior != null)
+                {
+                    vehiculoActual->anterior->siguiente = vehiculoActual->siguiente;
+                }
+                if (vehiculoActual->siguiente != null)
+                {
+                    vehiculoActual->siguiente->anterior = vehiculoActual->anterior;
+                }
+                tamanio--;
+                break;
+            }
+            vehiculoActual = vehiculoActual->siguiente;
+        }
+    }
 }
