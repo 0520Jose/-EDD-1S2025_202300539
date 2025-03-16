@@ -389,19 +389,19 @@
     ]
   },
   "packageFolders": {
-    "/home/emanuel/.nuget/packages/": {}
+    "/home/codespace/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj",
+      "projectUniqueName": "/workspaces/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj",
       "projectName": "AutoGestPro",
-      "projectPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj",
-      "packagesPath": "/home/emanuel/.nuget/packages/",
-      "outputPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/obj/",
+      "projectPath": "/workspaces/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/AutoGestPro.csproj",
+      "packagesPath": "/home/codespace/.nuget/packages/",
+      "outputPath": "/workspaces/-EDD-Proyecto_202300539/Fase_1/AutoGestPro/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/emanuel/.nuget/NuGet/NuGet.Config"
+        "/home/codespace/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -419,6 +419,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -445,12 +450,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.linux-x64",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.410/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.404/RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -459,7 +478,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "AutoGestPro depende de GtkSharp (>= 3.22.24), pero no se encontró GtkSharp 3.22.24. Se resolvió una mejor coincidencia aproximada de GtkSharp 3.22.24.10.",
+      "message": "AutoGestPro depends on GtkSharp (>= 3.22.24) but GtkSharp 3.22.24 was not found. An approximate best match of GtkSharp 3.22.24.10 was resolved.",
       "libraryId": "GtkSharp",
       "targetGraphs": [
         "net7.0"
