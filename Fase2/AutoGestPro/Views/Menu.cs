@@ -50,6 +50,44 @@ namespace AutoGestPro.Views
             };
             table.Attach(gestionDeRepuestos, 1, 2, 1, 2);
 
+            Button actulizarRepuesto = new Button();
+            actulizarRepuesto.Label = "Actualizar repuesto";
+            actulizarRepuesto.Clicked += (sender, e) => {
+                ActualizarRepuesto actualizarRepuesto = new ActualizarRepuesto(ventana);
+                ventana.Hide();
+            };
+            table.Attach(actulizarRepuesto, 0, 1, 2, 3);
+
+            Button visualizarRepuesto = new Button();
+            visualizarRepuesto.Label = "Visualizar repuesto";
+            visualizarRepuesto.Clicked += (sender, e) => {
+                VisualizarRepuesto visualizarRepuesto = new VisualizarRepuesto(ventana);
+                ventana.Hide();
+            };
+            table.Attach(visualizarRepuesto, 1, 2, 2, 3);
+
+
+            Button generarServicios = new Button("Generar servicios");
+            generarServicios.Clicked += (sender, e) => {
+                GenerarServicios generarServicios = new GenerarServicios(ventana);
+                ventana.Hide();
+            };
+            table.Attach(generarServicios, 0, 1, 3, 4);
+
+            Button controlDeLogeo = new Button("Control de logeo");
+            controlDeLogeo.Clicked += (sender, e) => {
+                ControlDeLogeo controlDeLogeo = new ControlDeLogeo(ventana);
+                ventana.Hide();
+            };
+            table.Attach(controlDeLogeo, 1, 2, 3, 4);
+
+            Button generarReportes = new Button("Generar reportes");
+            generarReportes.Clicked += (sender, e) => {
+                GenerarReportes generarReportes = new GenerarReportes(ventana);
+                ventana.Hide();
+            };
+            table.Attach(generarReportes, 0, 1, 4, 5);
+
             Button cerrarSesionButton = new Button("Cerrar sesión");
             cerrarSesionButton.Clicked += (sender, e) => {
                 cerrarSesion.Show();

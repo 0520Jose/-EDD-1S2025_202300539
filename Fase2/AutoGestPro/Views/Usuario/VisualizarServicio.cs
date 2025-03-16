@@ -1,0 +1,77 @@
+using System;
+using Gtk;
+
+namespace AutoGestPro.Views
+{
+    class VisualizarServicio
+    {
+        public VisualizarServicio(Window cerrarSesion)
+        {
+            Window ventana = new Window("Visualizar Servicio");
+            ventana.SetDefaultSize(800, 600);
+            ventana.SetPosition(WindowPosition.Center);
+            ventana.DeleteEvent += delegate { Application.Quit(); };
+
+            VBox contenedor = new VBox(false, 5);
+            ventana.Add(contenedor);
+
+            Label titulo = new Label("<span size='xx-large'>Visualizar Servicio</span>");
+            titulo.UseMarkup = true;
+            contenedor.PackStart(titulo, false, false, 20);
+
+            HBox ordenContainer = new HBox(false, 5);
+            contenedor.PackStart(ordenContainer, false, false, 10);
+
+            RadioButton preOrden = new RadioButton("PRE-ORDEN");
+            RadioButton inOrden = new RadioButton(preOrden, "IN-ORDEN");
+            RadioButton postOrden = new RadioButton(preOrden, "POST-ORDEN");
+
+            ordenContainer.PackStart(preOrden, false, false, 5);
+            ordenContainer.PackStart(inOrden, false, false, 5);
+            ordenContainer.PackStart(postOrden, false, false, 5);
+
+            ScrolledWindow scrolledWindow = new ScrolledWindow();
+            contenedor.PackStart(scrolledWindow, true, true, 10);
+
+            TreeView treeView = new TreeView();
+            scrolledWindow.Add(treeView);
+
+            TreeViewColumn idColumn = new TreeViewColumn { Title = "Id" };
+            TreeViewColum repuesto = new TreeViewColumn { Title = "Repuesto" };
+            TreeViewColumn detallesColumn = new TreeViewColumn { Title = "Detalles" };
+            TreeViewColumn costoColumn = new TreeViewColumn { Title = "Costo" };
+
+            treeView.AppendColumn(idColumn);
+            treeView.AppendColumn(detallesColumn);
+            treeView.AppendColumn(repuesto);
+            treeView.AppendColumn(costoColumn);
+
+            CellRendererText idCell = new CellRendererText();
+            CellRendererText detallesCell = new CellRendererText();
+            CellRendererText costoCell = new CellRendererText();
+            CellRenderText repuestoCell = new CellRendererText();
+
+            idColumn.PackStart(idCell, true);
+            detallesColumn.PackStart(detallesCell, true);
+            costoColumn.PackStart(costoCell, true);
+            repuesto.PackStart(repuestoCell, true);
+
+            idColumn.AddAttribute(idCell, "text", 0);
+            respuestoColumn.AddAtribute(repuestoCell, "text", 1);
+            detallesColumn.AddAttribute(detallesCell, "text", 2);
+            costoColumn.AddAttribute(costoCell, "text", 3);
+
+            ListStore listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string));
+            treeView.Model = listStore;
+
+            Button regresar = new Button("Regresar");
+            regresar.Clicked += (sender, e) => {
+                cerrarSesion.Show();
+                ventana.Hide();
+            };
+            contenedor.PackStart(regresar, false, false, 10);
+
+            ventana.ShowAll();
+        }
+    }
+}
