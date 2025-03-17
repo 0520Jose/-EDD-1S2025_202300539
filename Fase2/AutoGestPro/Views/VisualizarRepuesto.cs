@@ -1,5 +1,8 @@
 using System;
 using Gtk;
+using AutoGestPro.Models.Listas.Arbol_AVL;
+using AutoGestPro.Models;
+using AutoGestPro.Models.Listas;
 
 namespace AutoGestPro.Views
 {
@@ -65,12 +68,62 @@ namespace AutoGestPro.Views
             costoColumn.AddAttribute(costoCell, "text", 3);
 
             ListStore listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string));
-            treeView.Model = listStore;
 
-            // Example data
-            // listStore.AppendValues("1", "Repuesto A", "$100");
-            // listStore.AppendValues("2", "Repuesto B", "$200");
-            // listStore.AppendValues("3", "Repuesto C", "$300");
+            preOrden.Toggled += (sender, e) => {
+                if (preOrden.Active)
+                {
+                    ArbolAVL arbol = ListasGlobales.arbolRepuestos;
+                    listStore.Clear();
+
+                    void llenarListaPreOrden(NodoAVL nodo)
+                    {
+                        if (nodo == null)
+                            return;
+                        listStore.AppendValues(nodo.Repuesto.Id.ToString(), nodo.Repuesto.REpuesto, nodo.Repuesto.Detalle, nodo.Repuesto.Costo.ToString());
+                        llenarListaPreOrden(nodo.Izquierdo);
+                        llenarListaPreOrden(nodo.Derecho);
+                    }
+                    llenarListaPreOrden(arbol.Raiz);
+                }
+            };
+
+            inOrden.Toggled += (sender, e) => {
+                if (inOrden.Active)
+                {
+                    ArbolAVL arbol = ListasGlobales.arbolRepuestos;
+                    listStore.Clear();
+
+                    void llenarListaInOrden(NodoAVL nodo)
+                    {
+                        if (nodo == null)
+                            return;
+                        llenarListaInOrden(nodo.Izquierdo);
+                        listStore.AppendValues(nodo.Repuesto.Id.ToString(), nodo.Repuesto.REpuesto, nodo.Repuesto.Detalle, nodo.Repuesto.Costo.ToString());
+                        llenarListaInOrden(nodo.Derecho);
+                    }
+                    llenarListaInOrden(arbol.Raiz);
+                }
+            };
+
+            postOrden.Toggled += (sender, e) => {
+                if (postOrden.Active)
+                {
+                    ArbolAVL arbol = ListasGlobales.arbolRepuestos;
+                    listStore.Clear();
+
+                    void llenarListaPostOrden(NodoAVL nodo)
+                    {
+                        if (nodo == null)
+                            return;
+                        llenarListaPostOrden(nodo.Izquierdo);
+                        llenarListaPostOrden(nodo.Derecho);
+                        listStore.AppendValues(nodo.Repuesto.Id.ToString(), nodo.Repuesto.REpuesto, nodo.Repuesto.Detalle, nodo.Repuesto.Costo.ToString());
+                    }
+                    llenarListaPostOrden(arbol.Raiz);
+                }
+            };
+
+            treeView.Model = listStore;
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {

@@ -1,4 +1,5 @@
 using System;
+using AutoGestPro.Views.Reportes_;
 using Gtk;
 
 namespace AutoGestPro.Views
@@ -10,7 +11,10 @@ namespace AutoGestPro.Views
             Window ventana = new Window("Menu - Root");
             ventana.SetDefaultSize(800, 600);
             ventana.SetPosition(WindowPosition.Center);
-            ventana.DeleteEvent += delegate { Application.Quit(); };
+            ventana.DeleteEvent += (o, args) => {
+                Application.Quit();
+                args.RetVal = true;
+            };
 
             VBox contenedor = new VBox(false, 5);
             ventana.Add(contenedor);
@@ -19,7 +23,7 @@ namespace AutoGestPro.Views
             titulo.UseMarkup = true;
             contenedor.PackStart(titulo, false, false, 20);
 
-            Table table = new Table(4, 2, true); // Ajusta el número de filas y columnas
+            Table table = new Table(5, 2, true);
             contenedor.PackStart(table, true, true, 10);
 
             Button cargaMasiva = new Button("Carga masiva");
@@ -71,12 +75,26 @@ namespace AutoGestPro.Views
             };
             table.Attach(generarServicios, 0, 1, 3, 4);
 
+            Button controlLogueo = new Button("Control de logueo");
+            controlLogueo.Clicked += (sender, e) => {
+                //ControlLogueo controlLogueo = new ControlLogueo(ventana);
+                //ventana.Hide();
+            };
+            table.Attach(controlLogueo, 1, 2, 3, 4);
+
+            Button generarReportes = new Button ("Generar reportes");
+            generarReportes.Clicked += (sender, e) => {
+                GenerarReportes reportes = new GenerarReportes(ventana);
+                ventana.Hide();
+            };
+            table.Attach(generarReportes, 0, 1, 4, 5);
+
             Button cerrarSesionButton = new Button("Cerrar sesión");
             cerrarSesionButton.Clicked += (sender, e) => {
                 cerrarSesion.Show();
                 ventana.Destroy();
             };
-            table.Attach(cerrarSesionButton, 1, 2, 3, 4);
+            table.Attach(cerrarSesionButton, 1, 2, 4, 5);
 
             ventana.ShowAll();
         }

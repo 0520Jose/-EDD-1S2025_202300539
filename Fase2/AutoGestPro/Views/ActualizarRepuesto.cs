@@ -1,5 +1,8 @@
 using System;
 using Gtk;
+using AutoGestPro.Models.Listas.Arbol_AVL;
+using AutoGestPro.Models;
+using AutoGestPro.Models.Listas;  
 
 namespace AutoGestPro.Views
 {
@@ -34,48 +37,48 @@ namespace AutoGestPro.Views
             Button buscar = new Button("Buscar");
             table.Attach(buscar, 2, 3, 0, 1);
 
-            Label nombre = new Label("Nombre:");
-            table.Attach(nombre, 0, 1, 1, 2);
+            Label repuesto_ = new Label("Repuesto:");
+            table.Attach(repuesto_, 0, 1, 1, 2);
 
-            Label nombreActual = new Label("Null");
-            table.Attach(nombreActual, 1, 2, 1, 2);
+            Label repuestoActual = new Label("Null");
+            table.Attach(repuestoActual, 1, 2, 1, 2);
 
-            Entry nombreEntry = new Entry();
-            table.Attach(nombreEntry, 2, 3, 1, 2);
+            Entry repuestoEntry = new Entry();
+            table.Attach(repuestoEntry, 2, 3, 1, 2);
 
-            Label descripcion = new Label("Descripción:");
-            table.Attach(descripcion, 0, 1, 2, 3);
+            Label detalles = new Label("Detalles:");
+            table.Attach(detalles, 0, 1, 2, 3);
 
-            Label descripcionActual = new Label("Null");
-            table.Attach(descripcionActual, 1, 2, 2, 3);
+            Label detallesActual = new Label("Null");
+            table.Attach(detallesActual, 1, 2, 2, 3);
 
-            Entry descripcionEntry = new Entry();
-            table.Attach(descripcionEntry, 2, 3, 2, 3);
+            Entry detallesEntry = new Entry();
+            table.Attach(detallesEntry, 2, 3, 2, 3);
 
-            Label precio = new Label("Precio:");
-            table.Attach(precio, 0, 1, 3, 4);
+            Label costo = new Label("Costo:");
+            table.Attach(costo, 0, 1, 3, 4);
 
-            Label precioActual = new Label("Null");
-            table.Attach(precioActual, 1, 2, 3, 4);
+            Label costoActual = new Label("Null");
+            table.Attach(costoActual, 1, 2, 3, 4);
 
-            Entry precioEntry = new Entry();
-            table.Attach(precioEntry, 2, 3, 3, 4);
-
+            Entry costoEntry = new Entry();
+            table.Attach(costoEntry, 2, 3, 3, 4);
+            
             buscar.Clicked += (sender, e) => {
-                //int id = int.Parse(idEntry.Text);
-                //Repuesto repuesto = ListasGlobales.listaRepuestos.buscarRepuesto(id);
-                //if (repuesto.Nombre != null)
-                //{
-                  //  nombreActual.Text = repuesto.Nombre;
-                  //  descripcionActual.Text = repuesto.Descripcion;
-                  //  precioActual.Text = repuesto.Precio.ToString();
-                //}
-                //else
-                //{
-                //    nombreActual.Text = "Repuesto no encontrado";
-                //    descripcionActual.Text = "Repuesto no encontrado";
-                //    precioActual.Text = "Repuesto no encontrado";
-                //}
+                int id = int.Parse(idEntry.Text);
+                Repuesto repuesto = ListasGlobales.arbolRepuestos.Buscar(ListasGlobales.arbolRepuestos.Raiz, id).Repuesto;
+                if (repuesto.Id != null)
+                {
+                    repuestoActual.Text = repuesto.REpuesto;
+                    detallesActual.Text = repuesto.Detalle;
+                    costoActual.Text = repuesto.Costo.ToString();
+                }
+                else
+                {
+                    repuestoActual.Text = "No encontrado";
+                    detallesActual.Text = "No encontrado";
+                    costoActual.Text = "No encontrado";
+                }
             };
 
             HBox buttonContainer = new HBox(true, 10);
@@ -83,26 +86,35 @@ namespace AutoGestPro.Views
 
             Button actualizar = new Button("Actualizar");
             actualizar.Clicked += (sender, e) => {
-                int id = int.Parse(idEntry.Text);
-                string nombre_ = nombreEntry.Text;
-                string descripcion_ = descripcionEntry.Text;
-                string precio_ = precioEntry.Text;
-                if (nombre_ != "")
+                int Id_ = int.Parse(idEntry.Text);
+                string Repuesto_ = repuestoEntry.Text;
+                string Detalles_ = detallesEntry.Text;
+                string Costo_ = costoEntry.Text;
+                float Costo__ = float.Parse(Costo_);
+                if (Repuesto_ != "")
                 {
-                    nombreActual.Text = nombre_;
+                    repuestoActual.Text = Repuesto_;
+                } else {
+                    Repuesto_ = repuestoActual.Text;
                 }
-                if (descripcion_ != "")
+                if (Detalles_ != "")
+                { 
+                    detallesActual.Text = Detalles_;
+                } else {
+                    Detalles_ = detallesActual.Text;
+                }
+                if (Costo_ != "")
                 {
-                    descripcionActual.Text = descripcion_;
+                    costoActual.Text = Costo_;
+                } else {
+                    Costo__ = float.Parse(costoActual.Text);
                 }
-                if (precio_ != "")
-                {
-                    precioActual.Text = precio_;
-                }
-                nombreEntry.Text = "";
-                descripcionEntry.Text = "";
-                precioEntry.Text = "";
-                //ListasGlobales.listaRepuestos.ActualizarRepuesto(id, nombre_, descripcion_, precio_);
+
+                idEntry.Text = "";
+                repuestoEntry.Text = "";
+                detallesEntry.Text = "";
+                costoEntry.Text = "";
+                ListasGlobales.arbolRepuestos.ActualizarRepuesto(Id_, Repuesto_, Detalles_, Costo__);
             };
             buttonContainer.PackStart(actualizar, true, true, 0);
 

@@ -60,8 +60,8 @@ namespace AutoGestPro.Views
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
-                ventanaServicio.Destroy();
                 ventana.Show();
+                ventanaServicio.Destroy();
             };
             contenedor.PackStart(regresar, false, false, 10);
             

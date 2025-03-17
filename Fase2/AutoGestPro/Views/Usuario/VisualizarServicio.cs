@@ -1,4 +1,6 @@
 using System;
+using AutoGestPro.Models.Listas;
+using AutoGestPro.Models.Listas.Arbol_AVL;
 using Gtk;
 
 namespace AutoGestPro.Views
@@ -21,14 +23,6 @@ namespace AutoGestPro.Views
 
             HBox ordenContainer = new HBox(false, 5);
             contenedor.PackStart(ordenContainer, false, false, 10);
-
-            RadioButton preOrden = new RadioButton("PRE-ORDEN");
-            RadioButton inOrden = new RadioButton(preOrden, "IN-ORDEN");
-            RadioButton postOrden = new RadioButton(preOrden, "POST-ORDEN");
-
-            ordenContainer.PackStart(preOrden, false, false, 5);
-            ordenContainer.PackStart(inOrden, false, false, 5);
-            ordenContainer.PackStart(postOrden, false, false, 5);
 
             ScrolledWindow scrolledWindow = new ScrolledWindow();
             contenedor.PackStart(scrolledWindow, true, true, 10);
@@ -62,6 +56,17 @@ namespace AutoGestPro.Views
             costoColumn.AddAttribute(costoCell, "text", 3);
 
             ListStore listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string));
+
+            RadioButton preOrden = new RadioButton("PRE-ORDEN");
+            RadioButton inOrden = new RadioButton(preOrden, "IN-ORDEN");
+            RadioButton postOrden = new RadioButton(preOrden, "POST-ORDEN");
+
+            
+
+            ordenContainer.PackStart(preOrden, false, false, 5);
+            ordenContainer.PackStart(inOrden, false, false, 5);
+            ordenContainer.PackStart(postOrden, false, false, 5);
+
             treeView.Model = listStore;
 
             Button regresar = new Button("Regresar");

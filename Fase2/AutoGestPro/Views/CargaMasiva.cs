@@ -4,7 +4,7 @@ using System.Text.Json;
 using Gtk;
 using AutoGestPro.Models;
 using AutoGestPro.Models.Listas;
-using System.ComponentModel;
+using AutoGestPro.Models.Listas.Arbol_AVL;
 
 namespace AutoGestPro.Views
 {
@@ -150,10 +150,12 @@ namespace AutoGestPro.Views
                             MostrarMensaje(ventana, "Carga masiva exitosa");
                         }
                     }
-                    /*else if (opcionSeleccionada == "Repuestos")
+                    else if (opcionSeleccionada == "Repuestos")
                     {
                         string json = File.ReadAllText(filePath);
                         bool error = false;
+                        ArbolAVL arbolRespaldo = ListasGlobales.arbolRepuestos;
+                        NodoAVL raiz = ListasGlobales.arbolRepuestos.Raiz;
                         using (JsonDocument doc = JsonDocument.Parse(json))
                         {
                             JsonElement root = doc.RootElement;
@@ -165,23 +167,26 @@ namespace AutoGestPro.Views
                                     string repuesto = element.GetProperty("Repuesto").GetString();
                                     string detalles = element.GetProperty("Detalles").GetString();
                                     float costo = element.GetProperty("Costo").GetSingle();
-                                    ListasGlobales.listaRepuestos.Insertar(id, repuesto, detalles, costo);
+                                    Repuesto Repuesto = new Repuesto(id, repuesto, detalles, costo);
+                                    raiz = ListasGlobales.arbolRepuestos.Insertar(raiz, Repuesto);
+
                                 }
                                 catch (Exception ex)
                                 {
-                                    ListasGlobales.listaRepuestos = listarespaldo;
+                                    ListasGlobales.arbolRepuestos = arbolRespaldo;
                                     MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
                                     error = true;
                                     break;
                                 }
                             }
+                            ListasGlobales.arbolRepuestos.Raiz = raiz;
                         }
-                        listarespaldo = null;
+                    arbolRespaldo = null;
                         if (!error)
                         {
                             MostrarMensaje(ventana, "Carga masiva exitosa");
                         }
-                    }*/
+                    }
                     else
                     {
                         MostrarMensaje(ventana, "Error archivo no válido");

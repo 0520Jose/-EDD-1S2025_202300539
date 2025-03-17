@@ -1,5 +1,5 @@
 using System;
-using AutoGestPro.Models.Listas;
+using AutoGestPro.Models.Listas.Arbol_AVL;
 
 namespace AutoGestPro.Models.Listas
 {
@@ -7,5 +7,6 @@ namespace AutoGestPro.Models.Listas
     {
         public static ListaSimple listaUsuarios = new ListaSimple();
         public static ListaDoble listaVehiculos = new ListaDoble();
+        public static ArbolAVL arbolRepuestos = new ArbolAVL();
     }
 }
