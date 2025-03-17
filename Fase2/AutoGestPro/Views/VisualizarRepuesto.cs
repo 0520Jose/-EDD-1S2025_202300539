@@ -1,11 +1,11 @@
-using System
+using System;
 using Gtk;
 
 namespace AutoGestPro.Views
 {
-    class VizualizarRepuesto
+    class VisualizarRepuesto
     {
-        public VizualizarRepuesto(Window ventana)
+        public VisualizarRepuesto(Window ventana)
         {
             Window ventanaRepuesto = new Window("Visualizar Repuesto");
             ventanaRepuesto.SetDefaultSize(800, 600);
@@ -33,11 +33,14 @@ namespace AutoGestPro.Views
             ScrolledWindow scrolledWindow = new ScrolledWindow();
             contenedor.PackStart(scrolledWindow, true, true, 10);
 
+            HBox buttonContainer = new HBox(false, 5);
+            contenedor.PackStart(buttonContainer, false, false, 10);
+
             TreeView treeView = new TreeView();
             scrolledWindow.Add(treeView);
 
             TreeViewColumn idColumn = new TreeViewColumn { Title = "Id" };
-            TreeViewColum repuesto = new TreeViewColumn { Title = "Repuesto" };
+            TreeViewColumn repuesto = new TreeViewColumn { Title = "Repuesto" };
             TreeViewColumn detallesColumn = new TreeViewColumn { Title = "Detalles" };
             TreeViewColumn costoColumn = new TreeViewColumn { Title = "Costo" };
 
@@ -49,7 +52,7 @@ namespace AutoGestPro.Views
             CellRendererText idCell = new CellRendererText();
             CellRendererText detallesCell = new CellRendererText();
             CellRendererText costoCell = new CellRendererText();
-            CellRenderText repuestoCell = new CellRendererText();
+            CellRendererText repuestoCell = new CellRendererText();
 
             idColumn.PackStart(idCell, true);
             detallesColumn.PackStart(detallesCell, true);
@@ -57,7 +60,7 @@ namespace AutoGestPro.Views
             repuesto.PackStart(repuestoCell, true);
 
             idColumn.AddAttribute(idCell, "text", 0);
-            respuestoColumn.AddAtribute(repuestoCell, "text", 1);
+            repuesto.AddAttribute(repuestoCell, "text", 1);
             detallesColumn.AddAttribute(detallesCell, "text", 2);
             costoColumn.AddAttribute(costoCell, "text", 3);
 
@@ -71,8 +74,8 @@ namespace AutoGestPro.Views
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
-                gestionRepuestos.Show();
-                ventana.Destroy();
+                ventana.Show();
+                ventanaRepuesto.Destroy();
             };
             buttonContainer.PackStart(regresar, true, true, 0);
 

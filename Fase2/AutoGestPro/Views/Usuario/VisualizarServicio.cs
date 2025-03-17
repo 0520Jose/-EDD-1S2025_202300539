@@ -37,7 +37,7 @@ namespace AutoGestPro.Views
             scrolledWindow.Add(treeView);
 
             TreeViewColumn idColumn = new TreeViewColumn { Title = "Id" };
-            TreeViewColum repuesto = new TreeViewColumn { Title = "Repuesto" };
+            TreeViewColumn repuesto = new TreeViewColumn { Title = "Repuesto" };
             TreeViewColumn detallesColumn = new TreeViewColumn { Title = "Detalles" };
             TreeViewColumn costoColumn = new TreeViewColumn { Title = "Costo" };
 
@@ -49,7 +49,7 @@ namespace AutoGestPro.Views
             CellRendererText idCell = new CellRendererText();
             CellRendererText detallesCell = new CellRendererText();
             CellRendererText costoCell = new CellRendererText();
-            CellRenderText repuestoCell = new CellRendererText();
+            CellRendererText repuestoCell = new CellRendererText();
 
             idColumn.PackStart(idCell, true);
             detallesColumn.PackStart(detallesCell, true);
@@ -57,7 +57,7 @@ namespace AutoGestPro.Views
             repuesto.PackStart(repuestoCell, true);
 
             idColumn.AddAttribute(idCell, "text", 0);
-            respuestoColumn.AddAtribute(repuestoCell, "text", 1);
+            repuesto.AddAttribute(repuestoCell, "text", 1);
             detallesColumn.AddAttribute(detallesCell, "text", 2);
             costoColumn.AddAttribute(costoCell, "text", 3);
 

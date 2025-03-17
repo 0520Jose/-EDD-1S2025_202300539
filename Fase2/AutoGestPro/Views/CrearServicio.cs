@@ -3,7 +3,7 @@ using Gtk;
 
 namespace AutoGestPro.Views
 {
-    unsafe class CrearServicio 
+    class CrearServicio 
     {
         public CrearServicio(Window ventana)
         {
@@ -31,12 +31,6 @@ namespace AutoGestPro.Views
             Label id_vehiculo = new Label("ID Vehículo:");
             table.Attach(id_vehiculo, 0, 1, 2, 3);
 
-            Label detalles = new Label("Detalles:");
-            table.Attach(detalles, 1, 2, 0, 1);
-
-            Label costo = new Label("Costo:");
-            table.Attach(costo, 1, 2, 1, 2);
-
             Entry idEntry = new Entry();
             table.Attach(idEntry, 1, 2, 0, 1);
 
@@ -46,11 +40,17 @@ namespace AutoGestPro.Views
             Entry idVehiculoEntry = new Entry();
             table.Attach(idVehiculoEntry, 1, 2, 2, 3);
 
+            Label detalles = new Label("Detalles:");
+            table.Attach(detalles, 0, 1, 3, 4);
+
             Entry detallesEntry = new Entry();
-            table.Attach(detallesEntry, 1, 2, 0, 1);
+            table.Attach(detallesEntry, 1, 2, 3, 4);
+
+            Label costo = new Label("Costo:");
+            table.Attach(costo, 0, 1, 4, 5);
 
             Entry costoEntry = new Entry();
-            table.Attach(costoEntry, 1, 2, 1, 2);
+            table.Attach(costoEntry, 1, 2, 4, 5);
 
             Button crearButton = new Button("Guardar");
             crearButton.Clicked += (sender, e) => {
@@ -60,10 +60,10 @@ namespace AutoGestPro.Views
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += (sender, e) => {
-                gestionRepuestos.Show();
-                ventana.Destroy();
+                ventanaServicio.Destroy();
+                ventana.Show();
             };
-            buttonContainer.PackStart(regresar, true, true, 0);
+            contenedor.PackStart(regresar, false, false, 10);
             
             ventanaServicio.ShowAll();
         }

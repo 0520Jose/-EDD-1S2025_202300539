@@ -44,8 +44,8 @@ namespace AutoGestPro.Views
 
             Button volver = new Button("Volver al menú");
             volver.Clicked += (sender, e) => {
-                Menu menu = new Menu(cerrarSesion);
-                ventana.Hide();
+                cerrarSesion.Show();
+                ventana.Destroy();
             };
             contenedor.PackStart(volver, false, false, 10);
 

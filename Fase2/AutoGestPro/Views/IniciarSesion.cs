@@ -59,7 +59,7 @@ namespace AutoGestPro.Views
                     txtContrasena.Text = "";
                     MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Bienvenido");
                     mensaje.Run();
-                    //Menu menu = new Menu(ventana);
+                    MenuUsuario menuUsuario = new MenuUsuario(ventana, usuario);
                     ventana.Hide();
                     mensaje.Destroy();
                 }

@@ -1,4 +1,4 @@
-ausing System;
+using System;
 using Gtk;
 
 namespace AutoGestPro.Views
