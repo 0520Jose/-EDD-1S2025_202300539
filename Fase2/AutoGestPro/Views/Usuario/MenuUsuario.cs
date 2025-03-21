@@ -44,7 +44,7 @@ namespace AutoGestPro.Views
 
             Button registrarVehiculos = new Button("Registrar Vehiculos");
             registrarVehiculos.Clicked += (sender, e) => {
-                RegistrarVehiculo visualizarVehiculo = new RegistrarVehiculo(ventanaMenu);
+                RegistrarVehiculo visualizarVehiculo = new RegistrarVehiculo(ventanaMenu, usuario_);
                 ventana.Hide();
             };
             contenedor.PackStart(registrarVehiculos, false, false, 10);

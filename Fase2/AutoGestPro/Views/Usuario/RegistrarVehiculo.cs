@@ -1,11 +1,13 @@
 using System;
 using Gtk;
+using AutoGestPro.Models;
+using AutoGestPro.Models.Listas;
 
 namespace AutoGestPro.Views
 {
-    class RegistrarVehiculo
+    unsafe class RegistrarVehiculo
     {
-        public RegistrarVehiculo(Window cerrarSesion)
+        public RegistrarVehiculo(Window cerrarSesion, Usuario* usuarioActual)
         {
             Window ventana = new Window("Registrar Vehículo");
             ventana.SetDefaultSize(800, 600);
@@ -38,7 +40,42 @@ namespace AutoGestPro.Views
 
             Button guardar = new Button("Guardar");
             guardar.Clicked += (sender, e) => {
-                Console.WriteLine($"Guardando vehículo: ID={idEntry.Text}, Marca={marcaEntry.Text}, Modelo={modeloEntry.Text}, Placa={placaEntry.Text}");
+                try 
+                {
+                    int id = int.Parse(idEntry.Text);
+                    int id_usuario = usuarioActual->Id;
+                    string marca = marcaEntry.Text;
+                    string modelo = modeloEntry.Text;
+                    string placa = placaEntry.Text;
+                    if (id == 0 || id_usuario == 0 || marca == "" || modelo == "" || placa == "")
+                    {
+                        MessageDialog error = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Debe llenar todos los campos");
+                        error.Run();
+                        error.Destroy();
+                        return;
+                    }
+                    if (id.ToString() == "" || id_usuario.ToString() == "" || marca == "" || modelo == "" || placa == "")
+                    {
+                        MessageDialog error = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Debe llenar todos los campos");
+                        error.Run();
+                        error.Destroy();
+                        return;
+                    }
+                    ListasGlobales.listaVehiculos.Insertar(id, id_usuario, marca, modelo, placa);
+                    MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Vehículo registrado con éxito");
+                    mensaje.Run();
+                    mensaje.Destroy();
+                    idEntry.Text = "";
+                    marcaEntry.Text = "";
+                    modeloEntry.Text = "";
+                    placaEntry.Text = "";
+                }
+                catch (Exception ex)
+                {
+                    MessageDialog error = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error: " + ex.Message);
+                    error.Run();
+                    error.Destroy();
+                }
             };
             contenedor.PackStart(guardar, false, false, 10);
 
