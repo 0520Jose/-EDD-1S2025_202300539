@@ -15,6 +15,9 @@ unsafe class ListaSimple
         nuevoUsuario->Contrasenia = contrasenia;
         nuevoUsuario->Edad = edad;
         nuevoUsuario->siguiente = null;
+
+        
+
         if (inicio == null)
         {
             inicio = nuevoUsuario;
@@ -94,4 +97,52 @@ unsafe class ListaSimple
         }
     }
 
+    public String GenerarDot()
+    {
+        String dot = "digraph G {\n";
+        dot += "node [shape=record];\n";
+        dot += "rankdir=LR;\n";
+        dot += "node [height=0.5];\n";
+        dot += "node [width=0.5];\n";
+        dot += "node [shape=record];\n";
+        dot += "node [style=filled];\n";
+        dot += "node [fillcolor=\"#EEEEEE\"];\n";
+        dot += "node [fontname=\"Arial\"];\n";
+        dot += "edge [fontname=\"Arial\"];\n";
+        dot += "edge [fontsize=8];\n";
+        dot += "edge [fontcolor=\"#333333\"];\n";
+        dot += "edge [labelfloat=false];\n";
+        dot += "edge [decorate=true];\n";
+        dot += "edge [style=\"solid\"];\n";
+        dot += "edge [color=\"#333333\"];\n";
+        dot += "edge [dir=\"forward\"];\n";
+        dot += "edge [arrowhead=\"normal\"];\n";
+        dot += "edge [arrowsize=\"0.5\"];\n";
+        dot += "edge [arrowtail=\"normal\"];\n";
+        dot += "edge [taillabel=\"\"];\n";
+        dot += "edge [headlabel=\"\"];\n";
+        dot += "edge [label=\"\"];\n";
+        dot += "edge [weight=\"1\"];\n";
+
+        Usuario* usuarioActual = inicio;
+        while (usuarioActual != null)
+        {
+            string id = usuarioActual->Id.ToString();
+            string nombres = usuarioActual->Nombres ?? "N/A";
+            string apellidos = usuarioActual->Apellidos ?? "N/A";
+            string correo = usuarioActual->Correo ?? "N/A";
+            string edad = usuarioActual->Edad.ToString();
+
+            dot += $"\"{id}\" [label=\"{{<f0> Id: {id} | <f1> Nombres: {nombres} | <f2> Apellidos: {apellidos} | <f3> Correo: {correo} | <f4> Edad: {edad} }}\"];\n";
+
+            if (usuarioActual->siguiente != null)
+            {
+                dot += $"\"{id}\" -> \"{usuarioActual->siguiente->Id}\";\n";
+            }
+
+            usuarioActual = usuarioActual->siguiente;
+        }
+        dot += "}";
+        return dot;
+    }
 }

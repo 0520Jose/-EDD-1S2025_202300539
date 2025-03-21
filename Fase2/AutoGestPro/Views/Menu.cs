@@ -77,8 +77,8 @@ namespace AutoGestPro.Views
 
             Button controlLogueo = new Button("Control de logueo");
             controlLogueo.Clicked += (sender, e) => {
-                //ControlLogueo controlLogueo = new ControlLogueo(ventana);
-                //ventana.Hide();
+                ControlLogueo controlLogueo = new ControlLogueo(ventana);
+                ventana.Hide();
             };
             table.Attach(controlLogueo, 1, 2, 3, 4);
 

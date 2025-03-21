@@ -30,6 +30,27 @@ namespace AutoGestPro.Views.Reportes_
             };
             contenedor.PackStart(reportes, false, false, 10);
 
+            Button reportes2 = new Button("Reporte de servicios");
+            reportes2.Clicked += delegate
+            {
+                new ReporteServicios().Generar();
+            };
+            contenedor.PackStart(reportes2, false, false, 10);
+
+            Button reportes3 = new Button("Reporte de vehículos");
+            reportes3.Clicked += delegate
+            {
+                new ReporteVehiculos().Generar();
+            };
+            contenedor.PackStart(reportes3, false, false, 10);
+
+            Button reportes4 = new Button("Reporte de usuarios");
+            reportes4.Clicked += delegate
+            {
+                new ReporteUsuarios().Generar();
+            };
+            contenedor.PackStart(reportes4, false, false, 10);
+
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += delegate

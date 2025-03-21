@@ -1,0 +1,33 @@
+digraph G {
+node [shape=record];
+rankdir=TB;
+node [height=0.5];
+node [width=0.5];
+node [style=filled];
+node [fillcolor="#EEEEEE"];
+node [fontname="Arial"];
+edge [fontname="Arial"];
+edge [fontsize=8];
+edge [fontcolor="#333333"];
+edge [labelfloat=false];
+edge [decorate=true];
+edge [style="solid"];
+edge [color="#333333"];
+edge [dir="forward"];
+edge [arrowhead="normal"];
+edge [arrowsize="0.5"];
+edge [arrowtail="normal"];
+edge [taillabel=""];
+edge [headlabel=""];
+edge [label=""];
+edge [weight="1"];
+n1 [label="<f0> |<f1> ID: 1\nId repuesto: 1\nId vehiculo: 1\nDetalles: 1\nCosto : 1|<f2>"];
+n1:D -> n2;
+n2 [label="<f0> |<f1> ID: 2\nId repuesto: 2\nId vehiculo: 2\nDetalles: 2\nCosto : 2|<f2>"];
+n2:D -> n3;
+n3 [label="<f0> |<f1> ID: 3\nId repuesto: 1\nId vehiculo: 1\nDetalles: 1\nCosto : 1|<f2>"];
+n3:D -> n8;
+n8 [label="<f0> |<f1> ID: 8\nId repuesto: 1\nId vehiculo: 1\nDetalles: 1\nCosto : 1|<f2>"];
+n8:I -> n5;
+n5 [label="<f0> |<f1> ID: 5\nId repuesto: 4\nId vehiculo: 4\nDetalles: 4\nCosto : 4|<f2>"];
+}

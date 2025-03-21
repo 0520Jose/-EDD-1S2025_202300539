@@ -1,21 +1,21 @@
 using System;
-using AutoGestPro.Models.Listas.Arbol_AVL;
-using AutoGestPro.Models.Listas;
 using System.Diagnostics;
+using AutoGestPro.Models.Entidades;
+using AutoGestPro.Models.Listas;
 
 namespace AutoGestPro.Views.Reportes_
 {
-    class ReporteRepuestos
+    class ReporteVehiculos
     {
         public void Generar()
         {
-            ArbolAVL arbol = ListasGlobales.arbolRepuestos;
+            ListaDoble lista = ListasGlobales.listaVehiculos;
 
             string dotPath = "/usr/bin/dot";
-            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteRepuestos.png";
-            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteRepuestos.dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteVehiculos.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteVehiculos.dot";
 
-            string dotContent = arbol.GenerarDot();
+            string dotContent = lista.GenerarDot();
 
             File.WriteAllText(dotFilePath, dotContent);
 

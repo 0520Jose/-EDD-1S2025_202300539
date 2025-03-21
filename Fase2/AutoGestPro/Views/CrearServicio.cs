@@ -1,4 +1,6 @@
 using System;
+using AutoGestPro.Models.Entidades;
+using AutoGestPro.Models.Listas;
 using Gtk;
 
 namespace AutoGestPro.Views
@@ -54,7 +56,44 @@ namespace AutoGestPro.Views
 
             Button crearButton = new Button("Guardar");
             crearButton.Clicked += (sender, e) => {
-                ventanaServicio.Destroy();
+                try 
+                {
+                    string id = idEntry.Text;
+                    string idRepuesto = idRepuestoEntry.Text;
+                    string idVehiculo = idVehiculoEntry.Text;
+                    string detalles = detallesEntry.Text;
+                    string costo = costoEntry.Text;
+
+                    if (id == "" || idRepuesto == "" || idVehiculo == "" || detalles == "" || costo == "")
+                    {
+                        MessageDialog dialog = new MessageDialog(ventanaServicio, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Todos los campos son requeridos");
+                        dialog.Run();
+                        dialog.Destroy();
+                    }
+                    else
+                    {
+                        int id_ = int.Parse(id);
+                        int idRepuesto_ = int.Parse(idRepuesto);
+                        int idVehiculo_ = int.Parse(idVehiculo);
+                        double costo_ = double.Parse(costo);
+                        Servicio Servicio = new Servicio(id_, idRepuesto_, idVehiculo_, detalles, costo_);
+                        ListasGlobales.arbolServicios.Insertar(Servicio);
+                        idEntry.Text = "";
+                        idRepuestoEntry.Text = "";
+                        idVehiculoEntry.Text = "";
+                        detallesEntry.Text = "";
+                        costoEntry.Text = "";
+                        MessageDialog dialog = new MessageDialog(ventanaServicio, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Servicio creado");
+                        dialog.Run();
+                        dialog.Destroy();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageDialog dialog = new MessageDialog(ventanaServicio, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, ex.Message);
+                    dialog.Run();
+                    dialog.Destroy();
+                }
             };
             contenedor.PackStart(crearButton, false, false, 10);
 

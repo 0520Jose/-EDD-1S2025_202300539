@@ -8,6 +8,10 @@ namespace AutoGestPro.Views
 {
     unsafe class IniciarSesion
     {
+        ListaSimple listaUsuarios;
+        bool usuario_Encontrado;
+        Usuario* usuario_;
+
         public IniciarSesion()
         {
             Application.Init();
@@ -24,12 +28,12 @@ namespace AutoGestPro.Views
             titulo.UseMarkup = true;
             contenedor.PackStart(titulo, false, false, 10);
 
-            HBox usuarioBox = new HBox(false, 5);
-            Label tituloUsuario = new Label("Usuario:");
-            Entry txtUsuario = new Entry();
-            usuarioBox.PackStart(tituloUsuario, false, false, 5);
-            usuarioBox.PackStart(txtUsuario, true, true, 5);
-            contenedor.PackStart(usuarioBox, false, false, 5);
+            HBox usuario_Box = new HBox(false, 5);
+            Label titulousuario_ = new Label("usuario_:");
+            Entry txtusuario_ = new Entry();
+            usuario_Box.PackStart(titulousuario_, false, false, 5);
+            usuario_Box.PackStart(txtusuario_, true, true, 5);
+            contenedor.PackStart(usuario_Box, false, false, 5);
 
             HBox contrasenaBox = new HBox(false, 5);
             Label tituloContrasena = new Label("Contraseña:");
@@ -41,31 +45,56 @@ namespace AutoGestPro.Views
 
             Button iniciarSesion = new Button("Iniciar Sesión");
             iniciarSesion.Clicked += (sender, e) => {
-                ListaSimple listaUsuarios = ListasGlobales.listaUsuarios;
-                bool usuarioEncontrado = false;
-                Usuario* usuario = listaUsuarios.inicio;
-                while (usuario != null)
+                listaUsuarios = ListasGlobales.listaUsuarios;
+                usuario_Encontrado = false;
+                usuario_ = listaUsuarios.inicio;
+                while (usuario_ != null)
                 {
-                    if (usuario->Correo == txtUsuario.Text && usuario->Contrasenia == txtContrasena.Text)
+                    if (usuario_->Correo == txtusuario_.Text && usuario_->Contrasenia == txtContrasena.Text)
                     {
-                        usuarioEncontrado = true;
+                        usuario_Encontrado = true;
                         break;
                     }
-                    usuario = usuario->siguiente;
+                    usuario_ = usuario_->siguiente;
                 }
-                if (usuarioEncontrado)
+                if (usuario_Encontrado)
                 {
-                    txtUsuario.Text = "";
+                    txtusuario_.Text = "";
                     txtContrasena.Text = "";
                     MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Bienvenido");
                     mensaje.Run();
-                    MenuUsuario menuUsuario = new MenuUsuario(ventana, usuario);
+                    string filePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Logueos.json";
+                    string userData;
+
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        string existingData = System.IO.File.ReadAllText(filePath);
+                        var existingUsers = System.Text.Json.JsonSerializer.Deserialize<List<dynamic>>(existingData) ?? new List<dynamic>();
+                        existingUsers.Add(new 
+                        { 
+                            usuario = usuario_->Correo,
+                            entrada = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                        });
+                        userData = System.Text.Json.JsonSerializer.Serialize(existingUsers);
+                    }
+                    else
+                    {
+                        var newUserList = new List<dynamic> { new 
+                        { 
+                            usuario = usuario_->Correo,
+                            entrada = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                        } };
+                        userData = System.Text.Json.JsonSerializer.Serialize(newUserList);
+                    }
+
+                    System.IO.File.WriteAllText(filePath, userData);
+                    MenuUsuario menuUsuario= new MenuUsuario(ventana, usuario_);
                     ventana.Hide();
                     mensaje.Destroy();
                 }
-                else if (txtUsuario.Text == "admin@usac.com" && txtContrasena.Text == "admint123")
+                else if (txtusuario_.Text == "admin@usac.com" && txtContrasena.Text == "admint123")
                 {
-                    txtUsuario.Text = "";
+                    txtusuario_.Text = "";
                     txtContrasena.Text = "";
                     MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Bienvenido");
                     mensaje.Run();
@@ -75,10 +104,10 @@ namespace AutoGestPro.Views
                 }
                 else
                 {
-                    MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Usuario o contraseña incorrectos");
+                    MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "usuario_ o contraseña incorrectos");
                     mensaje.Run();
                     mensaje.Destroy();
-                    txtUsuario.Text = "";
+                    txtusuario_.Text = "";
                     txtContrasena.Text = "";
                 }
             };

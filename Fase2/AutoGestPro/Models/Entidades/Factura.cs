@@ -2,7 +2,7 @@ using System;
 
 namespace AutoGestPro.Models.Entidades
 {
-    unsafe struct Factura
+    class Factura
     {
         public int Id { get; set; }
         public int Id_Orden { get; set; }
