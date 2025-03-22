@@ -30,10 +30,158 @@ namespace AutoGestPro.Views
             TreeView treeView = new TreeView();
             scrolledWindow.Add(treeView);
 
-            TreeViewColumn idColumn = new TreeViewColumn { Title = "Id" };
-            TreeViewColumn repuesto = new TreeViewColumn { Title = "Repuesto" };
-            TreeViewColumn detallesColumn = new TreeViewColumn { Title = "Detalles" };
-            TreeViewColumn costoColumn = new TreeViewColumn { Title = "Costo" };
+            TreeViewColumn idColumn = new TreeViewColumn { Title = "Id"};
+            TreeViewColumn idRepuesto = new TreeViewColumn { Title = "Id Repuesto"};
+            TreeViewColumn idVehiculo = new TreeViewColumn { Title = "Id Vehiculo"}; 
+            TreeaviewColumn detallescolumn = new TreeaviewColumn { Title = "Detalles"};
+            TreeViewColumn costoColumn = new TreeViewColumn { Title = "Costo"};
+
+            treeView.AppendColumn(idColumn);
+            treeView.AppendColumn(idRepuesto);
+            treeView.AppendColumn(idVehiculo);
+            treeView.AppendColumn(detallescolumn);
+            treeView.AppendColumn(costoColumn);
+
+            CellRendererText idCell = new CellRendererText();
+            CellRendererText idRepuestoCell = new CellRendererText();
+            CellRendererText idVehiculoCell = new CellRendererText();
+            CellRendererText detallesCell = new CellRendererText();
+            CellRendererText costoCell = new CellRendererText(); 
+
+            idColumn.PackStart(idCell, true);
+            idRepuesto.PackStart(idRepuestoCell, true);
+            idVehiculo.PackStart(idVehiculoCell, true);
+            detallescolumn.PackStart(detallesCell, true);
+            costoColumn.PackStart(costoCell, true);
+
+            idColumn.AddAttribute(idCell, "text", 0);
+            idRepuesto.AddAttribute(idRepuestoCell, "text", 1);
+            idVehiculo.AddAttribute(idVehiculoCell, "text", 2);
+            detallescolumn.AddAttribute(detallesCell, "text", 3);
+            costoColumn.AddAttribute(costoCell, "text", 4);
+
+            ListStore listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string), typeof(string));
+            
+                
+         
+            
+            
+                
+                
+            
+                        
+                          
+                                      
+                                       
+                                                   
+
+                                                               
+                                                                           
+                                                                                     
+            
+                
+            
+
+            
+ 
+
+
+
+  
+
+
+                     
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+o
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ o
 
             treeView.AppendColumn(idColumn);
             treeView.AppendColumn(detallesColumn);
