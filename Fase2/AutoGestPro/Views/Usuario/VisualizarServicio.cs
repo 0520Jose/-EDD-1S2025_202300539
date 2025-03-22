@@ -24,6 +24,14 @@ namespace AutoGestPro.Views
             HBox ordenContainer = new HBox(false, 5);
             contenedor.PackStart(ordenContainer, false, false, 10);
 
+            RadioButton preOrden = new RadioButton("PRE-ORDEN");
+            RadioButton inOrden = new RadioButton(preOrden, "IN-ORDEN");
+            RadioButton postOrden = new RadioButton(preOrden, "POST-ORDEN");
+
+            ordenContainer.PackStart(preOrden, false, false, 5);
+            ordenContainer.PackStart(inOrden, false, false, 5);
+            ordenContainer.PackStart(postOrden, false, false, 5);
+
             ScrolledWindow scrolledWindow = new ScrolledWindow();
             contenedor.PackStart(scrolledWindow, true, true, 10);
 
@@ -61,159 +69,60 @@ namespace AutoGestPro.Views
             costoColumn.AddAttribute(costoCell, "text", 4);
 
             ListStore listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string), typeof(string));
-            
-                
-         
-            
-            
-                
-                
-            
-                        
-                          
-                                      
-                                       
-                                                   
 
-                                                               
-                                                                           
-                                                                                     
-            
-                
-            
-
-            
- 
-
-
-
-  
-
-
-                     
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-o
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- o
-
-            treeView.AppendColumn(idColumn);
-            treeView.AppendColumn(detallesColumn);
-            treeView.AppendColumn(repuesto);
-            treeView.AppendColumn(costoColumn);
-
-            CellRendererText idCell = new CellRendererText();
-            CellRendererText detallesCell = new CellRendererText();
-            CellRendererText costoCell = new CellRendererText();
-            CellRendererText repuestoCell = new CellRendererText();
-
-            idColumn.PackStart(idCell, true);
-            detallesColumn.PackStart(detallesCell, true);
-            costoColumn.PackStart(costoCell, true);
-            repuesto.PackStart(repuestoCell, true);
-
-            idColumn.AddAttribute(idCell, "text", 0);
-            repuesto.AddAttribute(repuestoCell, "text", 1);
-            detallesColumn.AddAttribute(detallesCell, "text", 2);
-            costoColumn.AddAttribute(costoCell, "text", 3);
-
-            ListStore listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string));
-
-            RadioButton preOrden = new RadioButton("PRE-ORDEN");
-            RadioButton inOrden = new RadioButton(preOrden, "IN-ORDEN");
-            RadioButton postOrden = new RadioButton(preOrden, "POST-ORDEN");
-
-            
-
-            ordenContainer.PackStart(preOrden, false, false, 5);
-            ordenContainer.PackStart(inOrden, false, false, 5);
-            ordenContainer.PackStart(postOrden, false, false, 5);
+            preOrden.Toggled += (sender, e) => {
+                if (preOrden.Active)
+                {
+                    ArbolBinario arbol = ListasGlobales.arbolServicios;
+                    listStore.Clear();
+                    void llenarListaPreOrden(NodoBinario nodo)
+                    {
+                        if (nodo != null)
+                        {
+                            listStore.AppendValues(nodo.Id.ToString(), nodo.IdRepuesto.ToString(), nodo.IdVehiculo.ToString(), nodo.Detalles, nodo.Costo.ToString());
+                            llenarListaPreOrden(nodo.Izquierdo);
+                            llenarListaPreOrden(nodo.Derecho);
+                        }
+                    }
+                    llenarListaPreOrden(arbol.Raiz);
+                }
+            };
+
+            inOrden.Toggled += (sender, e) => {
+                if (inOrden.Active)
+                {
+                    ArbolBinario arbol = ListasGlobales.arbolServicios;
+                    listStore.Clear();
+                    void llenarListaInOrden(NodoBinario nodo)
+                    {
+                        if (nodo != null)
+                        {
+                            llenarListaInOrden(nodo.Izquierdo);
+                            listStore.AppendValues(nodo.Id.ToString(), nodo.IdRepuesto.ToString(), nodo.IdVehiculo.ToString(), nodo.Detalles, nodo.Costo.ToString());
+                            llenarListaInOrden(nodo.Derecho);
+                        }
+                    }
+                    llenarListaInOrden(arbol.Raiz);
+                }
+            };
+
+            postOrden.Toggled += (sender, e) => {
+                if (postOrden.Active)
+                {
+                    ArbolBinario arbol = ListasGlobales.arbolServicios;
+                    listStore.Clear();
+                    void llenarListaPostOrden(NodoBinario nodo)
+                    {
+                        if (nodo != null)
+                        {
+                            llenarListaPostOrden(nodo.Izquierdo);
+                            llenarListaPostOrden(nodo.Derecho);
+                            listStore.AppendValues(nodo.Id.ToString(), nodo.IdRepuesto.ToString(), nodo.IdVehiculo.ToString(), nodo.Detalles, nodo.Costo.ToString());
+                        }
+                    }
+                    llenarListaPostOrden(arbol.Raiz);
+                }
+            };
 
             treeView.Model = listStore;
 
