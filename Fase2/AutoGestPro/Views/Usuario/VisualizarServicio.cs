@@ -1,6 +1,6 @@
 using System;
 using AutoGestPro.Models.Listas;
-using AutoGestPro.Models.Listas.Arbol_AVL;
+using AutoGestPro.Models.Listas.Arbol_Binario;
 using Gtk;
 
 namespace AutoGestPro.Views
@@ -41,7 +41,7 @@ namespace AutoGestPro.Views
             TreeViewColumn idColumn = new TreeViewColumn { Title = "Id"};
             TreeViewColumn idRepuesto = new TreeViewColumn { Title = "Id Repuesto"};
             TreeViewColumn idVehiculo = new TreeViewColumn { Title = "Id Vehiculo"}; 
-            TreeaviewColumn detallescolumn = new TreeaviewColumn { Title = "Detalles"};
+            TreeViewColumn detallescolumn = new TreeViewColumn { Title = "Detalles"};
             TreeViewColumn costoColumn = new TreeViewColumn { Title = "Costo"};
 
             treeView.AppendColumn(idColumn);
@@ -79,7 +79,7 @@ namespace AutoGestPro.Views
                     {
                         if (nodo != null)
                         {
-                            listStore.AppendValues(nodo.Id.ToString(), nodo.IdRepuesto.ToString(), nodo.IdVehiculo.ToString(), nodo.Detalles, nodo.Costo.ToString());
+                            listStore.AppendValues(nodo.Servicio.Id.ToString(), nodo.Servicio.Id_Repuesto.ToString(), nodo.Servicio.Id_Vehiculo.ToString(), nodo.Servicio.Detalles.ToString(), nodo.Servicio.Costo.ToString());
                             llenarListaPreOrden(nodo.Izquierdo);
                             llenarListaPreOrden(nodo.Derecho);
                         }
@@ -98,7 +98,7 @@ namespace AutoGestPro.Views
                         if (nodo != null)
                         {
                             llenarListaInOrden(nodo.Izquierdo);
-                            listStore.AppendValues(nodo.Id.ToString(), nodo.IdRepuesto.ToString(), nodo.IdVehiculo.ToString(), nodo.Detalles, nodo.Costo.ToString());
+                            listStore.AppendValues(nodo.Servicio.Id.ToString(), nodo.Servicio.Id_Repuesto.ToString(), nodo.Servicio.Id_Vehiculo.ToString(), nodo.Servicio.Detalles.ToString(), nodo.Servicio.Costo.ToString());
                             llenarListaInOrden(nodo.Derecho);
                         }
                     }
@@ -117,7 +117,7 @@ namespace AutoGestPro.Views
                         {
                             llenarListaPostOrden(nodo.Izquierdo);
                             llenarListaPostOrden(nodo.Derecho);
-                            listStore.AppendValues(nodo.Id.ToString(), nodo.IdRepuesto.ToString(), nodo.IdVehiculo.ToString(), nodo.Detalles, nodo.Costo.ToString());
+                            listStore.AppendValues(nodo.Servicio.Id.ToString(), nodo.Servicio.Id_Repuesto.ToString(), nodo.Servicio.Id_Vehiculo.ToString(), nodo.Servicio.Detalles.ToString(), nodo.Servicio.Costo.ToString());
                         }
                     }
                     llenarListaPostOrden(arbol.Raiz);

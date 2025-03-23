@@ -61,6 +61,22 @@ namespace AutoGestPro.Views
                         error.Destroy();
                         return;
                     }
+                    Vehiculo vehiculoComprobacion = ListasGlobales.listaVehiculos.buscarVehiculo(id);
+                    Usuario usuarioComprobacion = ListasGlobales.listaUsuarios.buscarUsuario(id_usuario);
+                    if (usuarioComprobacion.Id == null)
+                    {
+                        MessageDialog error = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "El usuario no existe");
+                        error.Run();
+                        error.Destroy();
+                        return;
+                    }
+                    if (vehiculoComprobacion.Id != null)
+                    {
+                        MessageDialog error = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Ya existe un vehículo con ese ID");
+                        error.Run();
+                        error.Destroy();
+                        return;
+                    }
                     ListasGlobales.listaVehiculos.Insertar(id, id_usuario, marca, modelo, placa);
                     MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Vehículo registrado con éxito");
                     mensaje.Run();

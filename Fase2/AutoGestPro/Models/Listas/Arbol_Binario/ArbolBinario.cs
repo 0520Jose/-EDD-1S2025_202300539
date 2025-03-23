@@ -6,7 +6,7 @@ namespace AutoGestPro.Models.Listas.Arbol_Binario
 {
     class ArbolBinario
     {
-        public NodoBinario? Raiz;
+        public NodoBinario? Raiz { get; set; }
 
         public ArbolBinario()
         {
@@ -22,18 +22,15 @@ namespace AutoGestPro.Models.Listas.Arbol_Binario
         {
             if (nodo == null)
             {
-                Console.WriteLine($"Insertando nodo con ID: {servicio.Id}"); // Depuración
                 return new NodoBinario(servicio);
             }
 
             if (servicio.Id < nodo.Servicio.Id)
             {
-                Console.WriteLine($"Nodo con ID: {servicio.Id} va a la izquierda de {nodo.Servicio.Id}"); // Depuración
                 nodo.Izquierdo = InsertarRecursivo(nodo.Izquierdo, servicio);
             }
             else if (servicio.Id > nodo.Servicio.Id)
             {
-                Console.WriteLine($"Nodo con ID: {servicio.Id} va a la derecha de {nodo.Servicio.Id}"); // Depuración
                 nodo.Derecho = InsertarRecursivo(nodo.Derecho, servicio);
             }
 

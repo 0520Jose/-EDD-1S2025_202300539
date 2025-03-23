@@ -1,7 +1,10 @@
 using System;
 using AutoGestPro.Models.Entidades;
 using AutoGestPro.Models.Listas;
+using AutoGestPro.Models;
 using Gtk;
+using AutoGestPro.Models.Listas.Arbol_AVL;
+using AutoGestPro.Models.Listas.Arbol_Binario;
 
 namespace AutoGestPro.Views
 {
@@ -76,7 +79,36 @@ namespace AutoGestPro.Views
                         int idRepuesto_ = int.Parse(idRepuesto);
                         int idVehiculo_ = int.Parse(idVehiculo);
                         double costo_ = double.Parse(costo);
+                        Vehiculo vehiculoComprobacion = ListasGlobales.listaVehiculos.buscarVehiculo(idVehiculo_);
+                        NodoAVL repuestoComprobacion = ListasGlobales.arbolRepuestos.Buscar(ListasGlobales.arbolRepuestos.Raiz, idRepuesto_);
+                        if (vehiculoComprobacion.Id == null)
+                        {
+                            MessageDialog vehiculoDialog = new MessageDialog(ventanaServicio, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Vehículo no encontrado");
+                            vehiculoDialog.Run();
+                            vehiculoDialog.Destroy();
+                            return;
+                        }
+                        if (repuestoComprobacion == null)
+                        {
+                            MessageDialog repuestoDialog = new MessageDialog(ventanaServicio, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Repuesto no encontrado");
+                            repuestoDialog.Run();
+                            repuestoDialog.Destroy();
+                            return;
+                        }
+                        NodoBinario nodoBinario = ListasGlobales.arbolServicios.Buscar(id_);
+                        if (nodoBinario != null)
+                        {
+                            MessageDialog servicioDialog = new MessageDialog(ventanaServicio, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Servicio ya existe");
+                            servicioDialog.Run();
+                            servicioDialog.Destroy();
+                            return;
+                        }
+
                         Servicio Servicio = new Servicio(id_, idRepuesto_, idVehiculo_, detalles, costo_);
+                        Repuesto repustoCosto = ListasGlobales.arbolRepuestos.Buscar(ListasGlobales.arbolRepuestos.Raiz, idRepuesto_).Repuesto;
+                        double Total = costo_ + repustoCosto.Costo;
+                        Factura Factura = new Factura(id_, id_, Total);
+                        ListasGlobales.arbolFacturas.Insertar(id_, Factura);
                         ListasGlobales.arbolServicios.Insertar(Servicio);
                         idEntry.Text = "";
                         idRepuestoEntry.Text = "";

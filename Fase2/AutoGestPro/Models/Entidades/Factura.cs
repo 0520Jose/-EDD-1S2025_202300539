@@ -6,9 +6,9 @@ namespace AutoGestPro.Models.Entidades
     {
         public int Id { get; set; }
         public int Id_Orden { get; set; }
-        public float Total { get; set; }
+        public double Total { get; set; }
 
-        public Factura(int id, int idOrden, float total)
+        public Factura(int id, int idOrden, double total)
         {
             Id = id;
             Id_Orden = idOrden;

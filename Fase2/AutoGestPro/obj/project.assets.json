@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net7.0": {
       "AtkSharp/3.22.24.10": {
         "type": "package",
         "dependencies": {
@@ -383,35 +383,35 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
+    "net7.0": [
       "GtkSharp >= 3.22.24",
       "Newtonsoft.Json >= 13.0.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\emanu\\.nuget\\packages\\": {}
+    "/home/emanuel/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\emanu\\OneDrive\\Documentos\\GitHub\\-EDD-Proyecto_202300539\\Fase2\\AutoGestPro\\AutoGestPro.csproj",
+      "projectUniqueName": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/AutoGestPro.csproj",
       "projectName": "AutoGestPro",
-      "projectPath": "C:\\Users\\emanu\\OneDrive\\Documentos\\GitHub\\-EDD-Proyecto_202300539\\Fase2\\AutoGestPro\\AutoGestPro.csproj",
-      "packagesPath": "C:\\Users\\emanu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\emanu\\OneDrive\\Documentos\\GitHub\\-EDD-Proyecto_202300539\\Fase2\\AutoGestPro\\obj\\",
+      "projectPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/AutoGestPro.csproj",
+      "packagesPath": "/home/emanuel/.nuget/packages/",
+      "outputPath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\emanu\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/emanuel/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net7.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {}
         }
       },
@@ -422,8 +422,8 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "dependencies": {
           "GtkSharp": {
             "target": "Package",
@@ -450,7 +450,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.410/RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -459,10 +459,10 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "AutoGestPro depends on GtkSharp (>= 3.22.24) but GtkSharp 3.22.24 was not found. An approximate best match of GtkSharp 3.22.24.10 was resolved.",
+      "message": "AutoGestPro depende de GtkSharp (>= 3.22.24), pero no se encontró GtkSharp 3.22.24. Se resolvió una mejor coincidencia aproximada de GtkSharp 3.22.24.10.",
       "libraryId": "GtkSharp",
       "targetGraphs": [
-        "net6.0"
+        "net7.0"
       ]
     }
   ]

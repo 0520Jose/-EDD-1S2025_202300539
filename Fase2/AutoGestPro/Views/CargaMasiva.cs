@@ -93,6 +93,12 @@ namespace AutoGestPro.Views
                                     string correo = element.GetProperty("Correo").GetString();
                                     int edad = element.GetProperty("Edad").GetInt32();
                                     string contrasenia = element.GetProperty("Contrasenia").GetString();
+                                    Usuario usuarioComprobacion = ListasGlobales.listaUsuarios.buscarUsuario(id);
+                                    if (usuarioComprobacion.Id != 0)                                    
+                                    {
+                                        MostrarMensaje(ventana, $"Usuario con ID {usuarioComprobacion.Id} ya existe. Se omitirá este registro.");
+                                        continue;
+                                    }
                                     ListasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, edad, contrasenia);
                                 }
                                 catch (Exception ex)
@@ -127,11 +133,17 @@ namespace AutoGestPro.Views
                                     string marca = element.GetProperty("Marca").GetString();
                                     string modelo = element.GetProperty("Modelo").GetInt32().ToString();
                                     string placa = element.GetProperty("Placa").GetString();
-                                    if (ListasGlobales.listaUsuarios.buscarUsuario(idUsuario).Id == null)
+                                    if (ListasGlobales.listaUsuarios.buscarUsuario(idUsuario).Id == 0)
                                     {
                                         MostrarMensaje(ventana, $"Error al procesar el archivo: Usuario con ID {idUsuario} no existe");
                                         error = true;
-                                        break;
+                                        continue;
+                                    }
+                                    Vehiculo vehiculoComprobacion = ListasGlobales.listaVehiculos.buscarVehiculo(id);
+                                    if (vehiculoComprobacion.Id != 0)
+                                    {
+                                        MostrarMensaje(ventana, $"Vehículo con ID {id} ya existe. Se omitirá este registro.");
+                                        continue;
                                     }
                                     ListasGlobales.listaVehiculos.Insertar(id, idUsuario, marca, modelo, placa);
                                 }
@@ -167,6 +179,12 @@ namespace AutoGestPro.Views
                                     string repuesto = element.GetProperty("Repuesto").GetString();
                                     string detalles = element.GetProperty("Detalles").GetString();
                                     float costo = element.GetProperty("Costo").GetSingle();
+                                    NodoAVL repuestoComprobacion = ListasGlobales.arbolRepuestos.Buscar(raiz, id);
+                                    //if (repuestoComprobacion.Repuesto.Id != 0)
+                                    //{
+                                    //    MostrarMensaje(ventana, $"Repuesto con ID {id} ya existe. Se omitirá este registro.");
+                                    //    continue;
+                                    //}
                                     Repuesto Repuesto = new Repuesto(id, repuesto, detalles, costo);
                                     raiz = ListasGlobales.arbolRepuestos.Insertar(raiz, Repuesto);
 

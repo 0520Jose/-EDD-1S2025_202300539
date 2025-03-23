@@ -105,6 +105,10 @@ namespace AutoGestPro.Views
                         MessageDialog dialog = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "El vehículo no existe");
                         dialog.Run();
                         dialog.Destroy();
+                        marcaActual.Text = "Vehículo no encontrado";
+                        modeloActual.Text = "Vehículo no encontrado";
+                        placaActual.Text = "Vehículo no encontrado";
+                        id_UsuarioActual.Text = "Vehículo no encontrado";
                         return;
                     }
                     else
@@ -116,11 +120,12 @@ namespace AutoGestPro.Views
                         idEntry.Text = "";
 
                     }
+                    marcaActual.Text = "Null";
+                    modeloActual.Text = "Null";
+                    placaActual.Text = "Null";
+                    id_UsuarioActual.Text = "Null";
                 }
-                marcaActual.Text = "Vehículo no encontrado";
-                modeloActual.Text = "Vehículo no encontrado";
-                placaActual.Text = "Vehículo no encontrado";
-                id_UsuarioActual.Text = "Vehículo no encontrado";
+                
             };
             
             buttonContainer.PackStart(eliminar, true, true, 0);

@@ -90,6 +90,9 @@ namespace AutoGestPro.Views
                         MessageDialog dialog = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "El usuario no existe");
                         dialog.Run();
                         dialog.Destroy();
+                        nombreActual.Text = "Usuario no encontrado";
+                        apellidoActual.Text = "Usuario no encontrado";
+                        correoActual.Text = "Usuario no encontrado";
                         return;
                     }
                     else
@@ -101,10 +104,11 @@ namespace AutoGestPro.Views
                         idEntry.Text = "";
 
                     }
+                    nombreActual.Text = "Null";
+                    apellidoActual.Text = "Null";
+                    correoActual.Text = "Null";
                 }
-                nombreActual.Text = "Usuario no encontrado";
-                apellidoActual.Text = "Usuario no encontrado";
-                correoActual.Text = "Usuario no encontrado";
+                
             };
             
             buttonContainer.PackStart(eliminar, true, true, 0);

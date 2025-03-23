@@ -110,6 +110,15 @@ namespace AutoGestPro.Views
                     Costo__ = float.Parse(costoActual.Text);
                 }
 
+                Repuesto repuesto = ListasGlobales.arbolRepuestos.Buscar(ListasGlobales.arbolRepuestos.Raiz, Id_).Repuesto;
+                if (repuesto.Id == null)
+                {
+                    repuestoActual.Text = "No encontrado";
+                    detallesActual.Text = "No encontrado";
+                    costoActual.Text = "No encontrado";
+                    return;
+                }
+
                 idEntry.Text = "";
                 repuestoEntry.Text = "";
                 detallesEntry.Text = "";

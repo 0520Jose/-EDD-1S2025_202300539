@@ -5,9 +5,9 @@ namespace AutoGestPro.Models.Listas.Arbol_Binario
 {
     class NodoBinario 
     {
-        public NodoBinario? Izquierdo;
-        public NodoBinario? Derecho;
-        public Servicio Servicio;
+        public NodoBinario? Izquierdo { get; set; }
+        public NodoBinario? Derecho { get; set; }
+        public Servicio Servicio { get; set; }
 
         public NodoBinario(Servicio servicio)
         {

@@ -51,6 +51,13 @@ namespace AutoGestPro.Views.Reportes_
             };
             contenedor.PackStart(reportes4, false, false, 10);
 
+            Button reportes5 = new Button("Reporte de facturas");
+            reportes5.Clicked += delegate
+            {
+                new ReporteFacturas().Generar();
+            };
+            contenedor.PackStart(reportes5, false, false, 10);
+
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += delegate
