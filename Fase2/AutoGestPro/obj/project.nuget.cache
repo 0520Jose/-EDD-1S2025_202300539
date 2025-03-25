@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "dgSpecHash": "52h9u2q6ybhTDF62jjVc354/t8RQD79tm4s/UMueo59j0/zfpaud0vL8kAs+lom0USmX3vFgsqtBQ91E/hqkaQ==",
+  "success": true,
+  "projectFilePath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/AutoGestPro.csproj",
+  "expectedPackageFiles": [
+    "/home/emanuel/.nuget/packages/atksharp/3.22.24.10/atksharp.3.22.24.10.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/cairosharp/3.22.24.10/cairosharp.3.22.24.10.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/gdksharp/3.22.24.10/gdksharp.3.22.24.10.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/giosharp/3.22.24.10/giosharp.3.22.24.10.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/glibsharp/3.22.24.10/glibsharp.3.22.24.10.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/gtksharp/3.22.24.10/gtksharp.3.22.24.10.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/pangosharp/3.22.24.10/pangosharp.3.22.24.10.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "AutoGestPro depende de GtkSharp (>= 3.22.24), pero no se encontró GtkSharp 3.22.24. Se resolvió una mejor coincidencia aproximada de GtkSharp 3.22.24.10.",
+      "libraryId": "GtkSharp",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
+}
