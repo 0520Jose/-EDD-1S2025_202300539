@@ -12,8 +12,8 @@ namespace AutoGestPro.Views.Reportes_
             ListaDoble lista = ListasGlobales.listaVehiculos;
 
             string dotPath = "/usr/bin/dot";
-            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteVehiculos.png";
-            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteVehiculos.dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteVehiculos.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteVehiculos.dot";
 
             string dotContent = lista.GenerarDot();
 

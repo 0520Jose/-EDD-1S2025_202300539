@@ -1,73 +1,51 @@
 using System;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using AutoGestPro.Models.Entidades;
 
 namespace AutoGestPro.Models.Listas.Arbol_B5
 {
-    unsafe class ListaHijos
+    class ListaHijos
     {
-        public NodoB* Inicio;
-        public int Tamaño;
-        int TamañoMaximo;
+        public List<NodoB> Hijos { get; private set; }
+        public int Tamaño => Hijos.Count;
+        private int TamañoMaximo;
 
         public ListaHijos(int tamañoMaximo)
         {
-            Inicio = null;
-            Tamaño = 0;
+            Hijos = new List<NodoB>(tamañoMaximo);
             TamañoMaximo = tamañoMaximo;
         }
 
-        public void Insertar(int clave)
+        public void Insertar(NodoB nodo)
         {
-            NodoB* nuevoNodo = (NodoB*)NativeMemory.Alloc((nuint)sizeof(NodoB));
-
-            if (TamañoMaximo == Tamaño)
+            if (Tamaño >= TamañoMaximo)
             {
-                NativeMemory.Free(nuevoNodo);
-                return;
+                throw new InvalidOperationException("ListaHijos ha alcanzado su tamaño máximo");
             }
-
-            if (Inicio == null)
-            {
-                Inicio = nuevoNodo;
-            }
-            else 
-            {
-                NodoB* nodoActual = Inicio;
-                while (nodoActual->Siguiente != null)
-                {
-                    nodoActual = nodoActual->Siguiente;
-                }
-                nodoActual->Siguiente = nuevoNodo;
-            }
-            Tamaño++;
+            Hijos.Add(nodo);
         }
 
-        public NodoB Buscar(int clave)
+        public NodoB Buscar(int indice)
         {
-            NodoB* nodoActual = Inicio;
-            while (nodoActual != null)
+            if (indice < 0 || indice >= Tamaño)
             {
-                if (nodoActual->Claves.Buscar(clave).Clave == clave)
-                {
-                    return *nodoActual;
-                }
-                nodoActual = nodoActual->Siguiente;
+                return new NodoB();
             }
-            return null;
+            return Hijos[indice];
         }
 
-        public void EstablecerHijo(int clave, NodoB* Nodo)
+        public void EstablecerHijo(int indice, NodoB nodo)
         {
-            NodoB* nodoActual = Inicio;
-            while (nodoActual != null)
+            if (indice < 0 || indice >= Tamaño)
             {
-                if (nodoActual->Claves.Buscar(clave).Clave == clave)
-                {
-                    nodoActual = Nodo;
-                    return;
-                }
-                nodoActual = nodoActual->Siguiente;
+                throw new IndexOutOfRangeException("Índice fuera de rango");
             }
+            Hijos[indice] = nodo;
+        }
+
+        public void LiberarMemoria()
+        {
+            Hijos.Clear();
         }
     }
 }

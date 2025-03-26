@@ -12,8 +12,8 @@ namespace AutoGestPro.Views.Reportes
             ArbolBinario arbol = ListasGlobales.arbolServicios;
 
             string dotPath = "/usr/bin/dot";
-            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteServicios.png";
-            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteServicios.dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteServicios.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Reportes/ReporteServicios.dot";
 
             string dotContent = arbol.GenerarDot();
 

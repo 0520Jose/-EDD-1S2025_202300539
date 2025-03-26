@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "52h9u2q6ybhTDF62jjVc354/t8RQD79tm4s/UMueo59j0/zfpaud0vL8kAs+lom0USmX3vFgsqtBQ91E/hqkaQ==",
+  "dgSpecHash": "SbqAxL1729utI/PK6NVFqbULpJhsH2VnL27Tnl9nuv3Zmv07TlUswud4VzeAjkxSiiTjKaePu/UKEi/zGJhPMQ==",
   "success": true,
-  "projectFilePath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/AutoGestPro.csproj",
+  "projectFilePath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase2/AutoGestPro/AutoGestPro.csproj",
   "expectedPackageFiles": [
     "/home/emanuel/.nuget/packages/atksharp/3.22.24.10/atksharp.3.22.24.10.nupkg.sha512",
     "/home/emanuel/.nuget/packages/cairosharp/3.22.24.10/cairosharp.3.22.24.10.nupkg.sha512",

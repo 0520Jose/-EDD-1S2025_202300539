@@ -1,13 +1,13 @@
 using System;
+using System.Text;
 using AutoGestPro.Models.Entidades;
-using System.Runtime.InteropServices;
 
 namespace AutoGestPro.Models.Listas.Arbol_B5
 {
-    unsafe class ArbolB5
+    class ArbolB5
     {
         private int Grado;
-        private NodoB Raiz;    
+        private NodoB Raiz;
 
         public ArbolB5(int grado)
         {
@@ -17,23 +17,17 @@ namespace AutoGestPro.Models.Listas.Arbol_B5
 
         public void Insertar(int clave, Factura factura)
         {
-            NodoB raiz = Raiz;
-            NodoB* raizPtr = &raiz;
-
-            if (raiz.Claves.Tamaño == Grado - 1)
+            if (Raiz.Claves.Count == Grado - 1)
             {
                 NodoB nuevaRaiz = new NodoB();
                 nuevaRaiz.EsHoja = false;
-                nuevaRaiz.Hijos.Insertar(0);
-                nuevaRaiz.Hijos.EstablecerHijo(0, raizPtr);
-
+                
+                nuevaRaiz.Hijos.Add(Raiz);
+                nuevaRaiz.SepararHijo(0, Raiz);
                 Raiz = nuevaRaiz;
-                Raiz.InsertarEnNodo(clave, factura);
             }
-            else 
-            {
-                raiz.InsertarEnNodo(clave, factura);
-            }
+
+            Raiz.InsertarEnNodo(clave, factura);
         }
 
         public void Mostrar()
@@ -43,78 +37,80 @@ namespace AutoGestPro.Models.Listas.Arbol_B5
 
         public void MostrarNodo(NodoB nodo, int nivel)
         {
-            Console.Write("Nivel " + nivel + ": ");
-            for (int i = 0; i < nodo.Claves.Tamaño; i++)
+            Console.Write($"Nivel {nivel}: ");
+            foreach (var clave in nodo.Claves)
             {
-                Console.Write(nodo.Claves.Buscar(i).Clave + " ");
+                Console.Write($"{clave} ");
             }
             Console.WriteLine();
 
             if (!nodo.EsHoja)
             {
-                for (int i = 0; i < nodo.Hijos.Tamaño; i++)
+                foreach (var hijo in nodo.Hijos)
                 {
-                    MostrarNodo(nodo.Hijos.Buscar(i), nivel + 1);
+                    MostrarNodo(hijo, nivel + 1);
                 }
             }
         }
 
-        public String GenerarDot()
+        public string GenerarDot()
         {
-            String dot = "digraph G {\n";
-            dot += "node [shape=record];\n";
-            dot += "rankdir=TB;\n";
-            dot += "node [height=0.5];\n";
-            dot += "node [width=0.5];\n";
-            dot += "node [shape=record];\n";
-            dot += "node [style=filled];\n";
-            dot += "node [fillcolor=\"#EEEEEE\"];\n";
-            dot += "node [fontname=\"Arial\"];\n";
-            dot += "edge [fontname=\"Arial\"];\n";
-            dot += "edge [fontsize=8];\n";
-            dot += "edge [fontcolor=\"#333333\"];\n";
-            dot += "edge [labelfloat=false];\n";
-            dot += "edge [decorate=true];\n";
-            dot += "edge [style=\"solid\"];\n";
-            dot += "edge [color=\"#333333\"];\n";
-            dot += "edge [dir=\"forward\"];\n";
-            dot += "edge [arrowhead=\"normal\"];\n";
-            dot += "edge [arrowsize=\"0.5\"];\n";
-            dot += "edge [arrowtail=\"normal\"];\n";
-            dot += "edge [taillabel=\"\"];\n";
-            dot += "edge [headlabel=\"\"];\n";
-            dot += "edge [label=\"\"];\n";
-            dot += "edge [weight=\"1\"];\n";
+            StringBuilder dot = new StringBuilder();
+            dot.AppendLine("digraph G {");
+            dot.AppendLine("node [shape=record];");
+            dot.AppendLine("rankdir=TB;");
+            dot.AppendLine("node [height=0.5];");
+            dot.AppendLine("node [width=0.5];");
+            dot.AppendLine("node [shape=record];");
+            dot.AppendLine("node [style=filled];");
+            dot.AppendLine("node [fillcolor=\"#EEEEEE\"];");
+            dot.AppendLine("node [fontname=\"Arial\"];");
+            dot.AppendLine("edge [fontname=\"Arial\"];");
+            dot.AppendLine("edge [fontsize=8];");
+            dot.AppendLine("edge [fontcolor=\"#333333\"];");
+            dot.AppendLine("edge [labelfloat=false];");
+            dot.AppendLine("edge [decorate=true];");
+            dot.AppendLine("edge [style=\"solid\"];");
+            dot.AppendLine("edge [color=\"#333333\"];");
+            dot.AppendLine("edge [dir=\"forward\"];");
+            dot.AppendLine("edge [arrowhead=\"normal\"];");
+            dot.AppendLine("edge [arrowsize=\"0.5\"];");
+            dot.AppendLine("edge [arrowtail=\"normal\"];");
+            dot.AppendLine("edge [taillabel=\"\"];");
+            dot.AppendLine("edge [headlabel=\"\"];");
+            dot.AppendLine("edge [label=\"\"];");
+            dot.AppendLine("edge [weight=\"1\"];");
 
-            void GenerarDotNodo(NodoB nodo, ref String dot)
+            GenerarDotNodo(Raiz, dot);
+
+            dot.AppendLine("}");
+            return dot.ToString();
+        }
+
+        private void GenerarDotNodo(NodoB nodo, StringBuilder dot)
+        {
+            string nodoId = $"node_{nodo.GetHashCode()}";
+
+            string label = $"\"{{";
+            for (int i = 0; i < nodo.Claves.Count; i++)
             {
-                if (nodo == null) return;
-
-                dot += $"\"{nodo.GetHashCode()}\" [label=\"<P0>";
-                for (int i = 0; i < nodo.Claves.Tamaño; i++)
-                {
-                    dot += $"|{nodo.Claves.Buscar(i).Clave}|<P{i + 1}>";
-                }
-                dot += "\"];\n";
-
-                if (!nodo.EsHoja)
-                {
-                    for (int i = 0; i <= nodo.Claves.Tamaño; i++)
-                    {
-                        NodoB hijo = nodo.Hijos.Buscar(i);
-                        if (hijo != null)
-                        {
-                            dot += $"\"{nodo.GetHashCode()}\":P{i} -> \"{hijo.GetHashCode()}\";\n";
-                            GenerarDotNodo(hijo, ref dot);
-                        }
-                    }
-                }
+            label += $"{nodo.Claves[i]}\\nFactura: {nodo.Facturas[i].Id}, Orden: {nodo.Facturas[i].Id_Orden}, Total: {nodo.Facturas[i].Total}";
+            if (i < nodo.Claves.Count - 1)
+                label += "|";
             }
+            label += "}\"";
 
-            GenerarDotNodo(Raiz, ref dot);
+            dot.AppendLine($"{nodoId} [label={label}];");
 
-            dot += "}";
-            return dot;
+            if (!nodo.EsHoja)
+            {
+            for (int i = 0; i < nodo.Hijos.Count; i++)
+            {
+                string hijoId = $"node_{nodo.Hijos[i].GetHashCode()}";
+                dot.AppendLine($"{nodoId} -> {hijoId};");
+                GenerarDotNodo(nodo.Hijos[i], dot);
+            }
+            }
         }
     }
 }

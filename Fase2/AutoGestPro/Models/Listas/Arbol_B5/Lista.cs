@@ -19,21 +19,21 @@ namespace AutoGestPro.Models.Listas.Arbol_B5
 
         public void Insertar(int clave, Factura factura)
         {
+            if (Tamaño >= TamañoMaximo) 
+            {
+                throw new InvalidOperationException("Lista ha alcanzado su tamaño máximo");
+            }
+
             Nodo* nuevoNodo = (Nodo*)NativeMemory.Alloc((nuint)sizeof(Nodo));
             nuevoNodo->Clave = clave;
             nuevoNodo->Factura = factura;
-
-            if (TamañoMaximo == Tamaño)
-            {
-                NativeMemory.Free(nuevoNodo);
-                return;
-            }
+            nuevoNodo->Siguiente = null;
 
             if (Inicio == null)
             {
                 Inicio = nuevoNodo;
             }
-            else 
+            else
             {
                 Nodo* nodoActual = Inicio;
                 while (nodoActual->Siguiente != null)
@@ -45,7 +45,24 @@ namespace AutoGestPro.Models.Listas.Arbol_B5
             Tamaño++;
         }
 
-        public Nodo Buscar(int clave)
+        public Nodo Buscar(int indice)
+        {
+            if (indice < 0 || indice >= Tamaño)
+            {
+                return new Nodo(); // Devuelve un nodo inválido
+            }
+
+            Nodo* nodoActual = Inicio;
+            for (int i = 0; i < indice; i++)
+            {
+                if (nodoActual == null) break;
+                nodoActual = nodoActual->Siguiente;
+            }
+
+            return nodoActual != null ? *nodoActual : new Nodo();
+        }
+
+        public Nodo BuscarPorClave(int clave)
         {
             Nodo* nodoActual = Inicio;
             while (nodoActual != null)
@@ -59,14 +76,15 @@ namespace AutoGestPro.Models.Listas.Arbol_B5
             return new Nodo();
         }
 
-        public void EstablecerNodo(int clave, Nodo* Nodo)
+        public void EstablecerNodo(int clave, Nodo* nuevoNodo)
         {
             Nodo* nodoActual = Inicio;
             while (nodoActual != null)
             {
                 if (nodoActual->Clave == clave)
                 {
-                    nodoActual = Nodo;
+                    *nodoActual = *nuevoNodo;
+                    return;
                 }
                 nodoActual = nodoActual->Siguiente;
             }
@@ -80,12 +98,13 @@ namespace AutoGestPro.Models.Listas.Arbol_B5
                 if (nodoActual->Clave == clave)
                 {
                     nodoActual->Clave = nuevaClave;
+                    return;
                 }
                 nodoActual = nodoActual->Siguiente;
             }
         }
 
-        public void EstablecerFactura (int clave, Factura factura)
+        public void EstablecerFactura(int clave, Factura factura)
         {
             Nodo* nodoActual = Inicio;
             while (nodoActual != null)
@@ -93,9 +112,23 @@ namespace AutoGestPro.Models.Listas.Arbol_B5
                 if (nodoActual->Clave == clave)
                 {
                     nodoActual->Factura = factura;
+                    return;
                 }
                 nodoActual = nodoActual->Siguiente;
             }
+        }
+
+        public void LiberarMemoria()
+        {
+            Nodo* nodoActual = Inicio;
+            while (nodoActual != null)
+            {
+                Nodo* siguienteNodo = nodoActual->Siguiente;
+                NativeMemory.Free(nodoActual);
+                nodoActual = siguienteNodo;
+            }
+            Inicio = null;
+            Tamaño = 0;
         }
     }
 }

@@ -1,110 +1,109 @@
 using System;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using AutoGestPro.Models.Entidades;
 
 namespace AutoGestPro.Models.Listas.Arbol_B5
 {
-    unsafe class NodoB {
+    class NodoB 
+    {
         private const int Grado = 5;
-        public Lista Claves;
-        public ListaHijos Hijos { get; set; }
+        public List<int> Claves { get; private set; }
+        public List<Factura> Facturas { get; private set; }
+        public List<NodoB> Hijos { get; private set; }
         public bool EsHoja { get; set; }
-        public NodoB* Siguiente;
 
-        
         public NodoB()
         {
-            Claves = new Lista(Grado - 1);
-            Hijos = new ListaHijos(Grado);
+            Claves = new List<int>(Grado - 1);
+            Facturas = new List<Factura>(Grado - 1);
+            Hijos = new List<NodoB>(Grado);
             EsHoja = true;
         }
 
         public void InsertarEnNodo(int clave, Factura factura)
         {
-            int i = Claves.Tamaño - 1;
+            if (Claves.Count >= Grado - 1)
+            {
+                throw new InvalidOperationException("Nodo está lleno");
+            }
 
+            int i = Claves.Count - 1;
+            
             if (EsHoja)
             {
-            Claves.Insertar(0, null);
-            while (i >= 0 && Claves.Buscar(i).Clave > clave)
-            {
-                Claves.EstablecerFactura(i+1, factura);
-                Claves.EstablecerClave(i + 1, Claves.Buscar(i).Clave);
-                i--;
-            }
-            Claves.EstablecerFactura(i + 1, factura);
-            Claves.EstablecerClave(i + 1, clave);
+                while (i >= 0 && Claves[i] > clave)
+                {
+                    i--;
+                }
+
+                if (i == Claves.Count - 1)
+                {
+                    Claves.Add(clave);
+                    Facturas.Add(factura);
+                }
+                else
+                {
+                    Claves.Insert(i + 1, clave);
+                    Facturas.Insert(i + 1, factura);
+                }
             }
             else
             {
-            while (i >= 0 && Claves.Buscar(i).Clave > clave)
-            {
-                i--;
-            }
-            i++;
-
-            if (Hijos.Buscar(i).Claves.Tamaño == Grado - 1)
-            {
-                SepararHijo(i, Hijos.Buscar(i));
-                if (Claves.Buscar(i).Clave < clave)
+                while (i >= 0 && Claves[i] > clave)
                 {
-                i++;
+                    i--;
                 }
-            }
-            Hijos.Buscar(i).InsertarEnNodo(clave, factura);
+                i++;
+
+                if (Hijos[i].Claves.Count == Grado - 1)
+                {
+                    SepararHijo(i, Hijos[i]);
+                    
+                    if (Claves[i] < clave)
+                    {
+                        i++;
+                    }
+                }
+                
+                Hijos[i].InsertarEnNodo(clave, factura);
             }
         }
 
-        public void SepararHijo(int i, NodoB hijo)
+        public void SepararHijo(int indice, NodoB hijo)
         {
-            NodoB* nuevoNodo = (NodoB*)NativeMemory.Alloc((nuint)sizeof(NodoB));
-            nuevoNodo->EsHoja = hijo.EsHoja;
-            nuevoNodo->Claves = new Lista(Grado - 1);
-
-            for (int j = 0; j < Grado - 1; j++)
+            NodoB nuevoNodo = new NodoB
             {
-            nuevoNodo->Claves.Insertar(0, null);
+                EsHoja = hijo.EsHoja
+            };
+
+            int puntoMedio = (Grado - 1) / 2;
+
+            for (int j = puntoMedio + 1; j < hijo.Claves.Count; j++)
+            {
+                nuevoNodo.Claves.Add(hijo.Claves[j]);
+                nuevoNodo.Facturas.Add(hijo.Facturas[j]);
             }
 
-            for (int j = 0; j < Grado - 1; j++)
-            {
-            nuevoNodo->Claves.EstablecerFactura(j, hijo.Claves.Buscar(j + Grado).Factura);
-            nuevoNodo->Claves.EstablecerClave(j, hijo.Claves.Buscar(j + Grado).Clave);
-            }
+            hijo.Claves.RemoveRange(puntoMedio + 1, hijo.Claves.Count - (puntoMedio + 1));
+            hijo.Facturas.RemoveRange(puntoMedio + 1, hijo.Facturas.Count - (puntoMedio + 1));
 
             if (!hijo.EsHoja)
             {
-            nuevoNodo->Hijos = new ListaHijos(Grado);
-            for (int j = 0; j < Grado; j++)
-            {
-                nuevoNodo->Hijos.Insertar(0);
+                for (int j = puntoMedio + 1; j < hijo.Hijos.Count; j++)
+                {
+                    nuevoNodo.Hijos.Add(hijo.Hijos[j]);
+                }
+                
+                hijo.Hijos.RemoveRange(puntoMedio + 1, hijo.Hijos.Count - (puntoMedio + 1));
             }
 
-            for (int j = 0; j < Grado; j++)
-            {   
-                NodoB nodo = hijo.Hijos.Buscar(j + Grado);
-                NodoB* Nodo = &nodo;
-                nuevoNodo->Hijos.EstablecerHijo(j, Nodo);
-            }
-            }
+            Claves.Insert(indice, hijo.Claves[puntoMedio]);
+            Facturas.Insert(indice, hijo.Facturas[puntoMedio]);
 
-            for (int j = Claves.Tamaño; j > i; j--)
-            {
-                NodoB nodo = Hijos.Buscar(j);
-                NodoB* Nodo = &nodo;
-            Hijos.EstablecerHijo(j + 1, Nodo);
-            }
+            hijo.Claves.RemoveAt(puntoMedio);
+            hijo.Facturas.RemoveAt(puntoMedio);
 
-            Hijos.EstablecerHijo(i + 1, nuevoNodo);
-
-            for (int j = Claves.Tamaño - 1; j >= i; j--)
-            {
-            Claves.EstablecerFactura(j + 1, Claves.Buscar(j).Factura);
-            Claves.EstablecerClave(j + 1, Claves.Buscar(j).Clave);
-            }
-            Claves.EstablecerFactura(i, hijo.Claves.Buscar(Grado - 1).Factura);
-            Claves.EstablecerClave(i, hijo.Claves.Buscar(Grado - 1).Clave);
-            Claves.Tamaño++;
+            Hijos.Insert(indice + 1, nuevoNodo);
         }
     }
 }
