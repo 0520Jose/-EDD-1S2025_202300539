@@ -1,4 +1,6 @@
 using System;
+using AutoGestPro.Models.Entidades;
+using AutoGestPro.Models.Listas;
 using Gtk;
 
 namespace AutoGestPro.Views
@@ -29,9 +31,7 @@ namespace AutoGestPro.Views
             table.Attach(idEntry, 1, 2, 0, 1);
 
             Button buscar = new Button("Buscar");
-            buscar.Clicked += (sender, e) => {
-                Console.WriteLine($"Buscando factura: ID={idEntry.Text}");
-            };
+        
             table.Attach(buscar, 2, 3, 0, 1);
 
             Label Orden = new Label("Orden:");
@@ -46,8 +46,46 @@ namespace AutoGestPro.Views
             Label TotalDato = new Label();
             table.Attach(TotalDato, 1, 2, 4, 5);
 
+            buscar.Clicked += (sender, e) => {
+                Factura factura_ = ListasGlobales.arbolFacturas.Buscar(int.Parse(idEntry.Text));
+                if (factura_ != null)
+                {
+                    OrdenDato.Text = factura_.Id_Orden.ToString();
+                    TotalDato.Text = factura_.Total.ToString();
+                    MessageDialog mensaje = new MessageDialog(ventanaFactura, 
+                        DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                        "Factura encontrada con éxito.");
+                    mensaje.Run();
+                    mensaje.Destroy();
+                    return;
+                }
+                OrdenDato.Text = "";
+                TotalDato.Text = "";
+                MessageDialog mensajeError = new MessageDialog(ventanaFactura, 
+                    DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                    "Factura no encontrada.");
+                mensajeError.Run();
+                mensajeError.Destroy();
+            };
+
             Button pagarButton = new Button("Pagar");
             pagarButton.Clicked += (sender, e) => {
+                if (ListasGlobales.arbolFacturas.PagarFactura(int.Parse(idEntry.Text)))
+                {
+                    OrdenDato.Text = "";
+                    TotalDato.Text = "";
+                    MessageDialog mensaje = new MessageDialog(ventanaFactura, 
+                        DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, 
+                        "Factura pagada con éxito.");
+                    mensaje.Run();
+                    mensaje.Destroy();
+                    return;
+                }
+                MessageDialog mensajeError = new MessageDialog(ventanaFactura, 
+                    DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, 
+                    "Factura no pagada.");
+                mensajeError.Run();
+                mensajeError.Destroy();
                 ventanaFactura.Destroy();
             };
             contenedor.PackStart(pagarButton, false, false,

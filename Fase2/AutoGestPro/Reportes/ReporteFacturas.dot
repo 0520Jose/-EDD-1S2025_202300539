@@ -1,30 +1,22 @@
 digraph G {
-node [shape=record];
+node [shape=box];
 rankdir=TB;
 node [height=0.5];
 node [width=0.5];
-node [shape=record];
 node [style=filled];
 node [fillcolor="#EEEEEE"];
 node [fontname="Arial"];
 edge [fontname="Arial"];
 edge [fontsize=8];
 edge [fontcolor="#333333"];
-edge [labelfloat=false];
-edge [decorate=true];
 edge [style="solid"];
 edge [color="#333333"];
 edge [dir="forward"];
 edge [arrowhead="normal"];
 edge [arrowsize="0.5"];
-edge [arrowtail="normal"];
-edge [taillabel=""];
-edge [headlabel=""];
-edge [label=""];
-edge [weight="1"];
-node_19575591 [label="{3\nFactura: 3, Orden: 3, Total: 26.5}"];
-node_19575591 -> node_42119052;
-node_42119052 [label="{1\nFactura: 1, Orden: 1, Total: 26.5|2\nFactura: 2, Orden: 2, Total: 17.75}"];
-node_19575591 -> node_43527150;
-node_43527150 [label="{4\nFactura: 4, Orden: 4, Total: 17.75|5\nFactura: 5, Orden: 5, Total: 26.5|6\nFactura: 6, Orden: 6, Total: 19.75|7\nFactura: 7, Orden: 7, Total: 26.5}"];
+node3841804 [label="<f0>| Id: 2\nId Orden: 1001\nTotal: 26.5 | <f1>", shape=record];
+node3841804:f0 -> node34576242;
+node34576242 [label="<f0>| Id: 1\nId Orden: 1000\nTotal: 26.5 | <f1>", shape=record];
+node3841804:f1 -> node42750725;
+node42750725 [label="<f0>| Id: 4\nId Orden: 1003\nTotal: 17.75 | <f1>| Id: 5\nId Orden: 1004\nTotal: 26.5 | <f2>| Id: 6\nId Orden: 1005\nTotal: 26.5 | <f3>", shape=record];
 }

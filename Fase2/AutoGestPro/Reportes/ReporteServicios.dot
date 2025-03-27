@@ -24,6 +24,4 @@ edge [weight="1"];
 n1 [label="<f0> |<f1> ID: 1\nId repuesto: 1\nId vehiculo: 1\nDetalles: 1\nCosto : 1|<f2>"];
 n1:D -> n2;
 n2 [label="<f0> |<f1> ID: 2\nId repuesto: 2\nId vehiculo: 2\nDetalles: 2\nCosto : 2|<f2>"];
-n2:D -> n3;
-n3 [label="<f0> |<f1> ID: 3\nId repuesto: 1\nId vehiculo: 2\nDetalles: 2\nCosto : 1|<f2>"];
 }

@@ -2,7 +2,7 @@ using System;
 
 namespace AutoGestPro.Models.Entidades
 {
-    class Factura
+    public class Factura
     {
         public int Id { get; set; }
         public int Id_Orden { get; set; }

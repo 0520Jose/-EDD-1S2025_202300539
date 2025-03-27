@@ -63,7 +63,7 @@ namespace AutoGestPro.Views
                     txtContrasena.Text = "";
                     MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Bienvenido");
                     mensaje.Run();
-                    string filePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Logueos.json";
+                    string filePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Logueos.json";
                     string userData;
 
                     if (System.IO.File.Exists(filePath))
