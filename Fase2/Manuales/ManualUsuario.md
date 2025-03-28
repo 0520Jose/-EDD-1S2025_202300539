@@ -7,103 +7,83 @@
 
 ## Introducción
 
-El presente manual fue creado con la función de mostrar el funcionamiento y uso correcto del proyecto AutoGestPro desarrollado para el curso de Estructuras de Datos, en el presente se muestran todas las funcionalidades a las cuales podra acceder el usuario, el presente programa cuenta con la función de administrar los registros de un taller mecanica, siendo esta la primer fase del proyecto.
+El presente manual fue creado con la función de mostrar el funcionamiento y uso correcto del proyecto AutoGestPro desarrollado para el curso de Estructuras de Datos. En el presente se muestran todas las funcionalidades a las cuales podrá acceder el usuario. Este programa cuenta con la función de administrar los registros de un taller mecánico.
 
 ## Objetivos
 ### General
 + Presentar y explicar de manera detallada el funcionamiento y funcionalidades con la que cuenta el proyecto AutoGestPro.
-### Espesificos
+
+### Específicos
 + Mostrar el correcto funcionamiento de AutoGestPro.
 + Mostrar las funcionalidades y los resultados que serán obtenidos según sean los archivos o textos de entrada.
 
 ## Funcionalidades
 
-### Ventana Inicio de Sesión
+### Es una ventana generada Inicio de Sesión
+En esta Es una ventana generada el usuario podrá iniciar sesión si ha ingresado credenciales válidas y existentes.
+![alt text](image.png)
 
-En esta ventana el usuario podrá iniciar sesión si ha ingresado credenciales validas he existentes.
-
-![Iniciar Sesion](Imagenes/Captura%20de%20pantalla_2025-02-26_10-16-29.png)
+---
 
 ### Menú Principal
+En esta Es una ventana generada se encuentran todas las opciones de las acciones que puede realizar el usuario.
 
-En esta ventana se encuentran todas las opciones de las acciones que puede realizar el usuario, como lo son:
+![alt text](image-1.png)
 
-+ Carga masiva: Ventana para cargar archivos al programa.
+---
 
-+ Ingreso individual: Ventana donde se podran ingresar datos de manera manual.
+### Carga Masiva
+Es una ventana generada para cargar archivos al programa, donde se puede seleccionar el tipo de archivo a cargar.
 
-+ Gestión de usuarios: Ventana mostran distintas opciones para la modificar los registro de los usuarios.
+![alt text](image-2.png)
 
-+ Generar servicio: Ventana para la creación de servicios.
+---
 
-+ Cancelar factura: Ventana será pagada la factura y ya no estara pendiente.
+### Crear Servicio
+Es una ventana generada para la creación de servicios de manera manual.
 
-+ Reportes: Ventana las distintas opciones disponibles para crear reportes.
+![alt text](image-3.png)
 
-+ Tops: Ventana los top 5 vehiculos con mas servicios y los 5 vehiculos mas antiguos.
+---
 
-![Menu](Imagenes/Captura%20de%20pantalla_2025-02-26_10-18-35.png)
+### Editar Usuario
+Es una ventana generada para modificar los datos de un usuario existente.
 
-### Carga masiva
-Ventana para cargar archivos al programa, donde se puede seleccionar cual tipo de archivo cargar.
+![alt text](image-4.png)
 
-![Carga masiva](Imagenes/cargamasiva.png)
+---
 
-### Ingreso individual
-Ventana donde se podran ingresar datos de manera manual para usuarios, repuestos o vehiculos.
+### Editar Vehículo
+Es una ventana generada para modificar los datos de un vehículo existente.
 
-![Ingreso individual](Imagenes/ingresoindividual.png)
+![alt text](image-5.png)
 
-#### Ingreso usuarios
+---
 
-![Usuario](Imagenes/usuario.png)
+### Generar Reportes
+Es una ventana generada para generar reportes de usuarios, repuestos, vehículos, servicios, facturas y bitácoras.
 
-#### Ingreso vehiculos
+![alt text](image-10.png)
 
-![Vehiculo](Imagenes/vehiculo.png)
+---
 
-#### Ingreso repuestos
+### Visualizar Repuesto
+Es una ventana generada para visualizar los detalles de un repuesto registrado.
 
-![Repuesto](Imagenes/repuesto.png)
+![alt text](image-7.png)
 
-### Gestión de usuarios
-Ventana mostran distintas opciones para la modificar los registro de los usuarios, como ver el usuario, editar el usuario y eliminar usuario.
+---
 
-![Gestion de usuarios](Imagenes/gestiondeusuarios.png)
+### Actualizar Repuesto
+Es una ventana generada para actualizar la información de un repuesto existente.
 
-#### Ver usuarios
+![alt text](image-8.png)
 
-![Ver usuarios](Imagenes/verusuario.png)
+---
 
-#### Editar usuarios
+### Control de Logueo
+Es una ventana generada para gestionar el control de inicio y cierre de sesión de los usuarios.
 
-![Editar usuarios](Imagenes/editarusuario.png)
+![alt text](image-9.png)
 
-### Eliminar usuarios
-
-![Eliminar usuarios](Imagenes/eliminarusuario.png)
-
-### Generar servicio
-Ventana para la creación de servicios de manera manual.
-
-![Generar servicio](Imagenes/generarservicios.png)
-
-### Cancelar factura
-Ventana será pagada la factura y ya no estara pendiente.
-
-![Cancelar factura](Imagenes/cancelarfactura.png)
-
-### Reportes
-Ventana las distintas opciones disponibles para crear reportes para usuarios, repuesto, vehiculos, servicios, facturas y vitacora.
-
-![Reportes](Imagenes/generarreporte.png)
-
-Los reportes se abriran directamente en la galeria del sistema.
-
-Un ejemplo de reportes es:
-![Reporte](../AutoGestPro/Reportes/reporte_usuarios.png)
-
-### Tops
-Ventana los top 5 vehiculos con mas servicios y los 5 vehiculos mas antiguos.
-
-![Tops](Imagenes/tops.png)
+---
