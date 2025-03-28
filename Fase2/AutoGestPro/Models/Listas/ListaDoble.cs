@@ -76,13 +76,22 @@ unsafe class ListaDoble
                 if (vehiculoActual->anterior != null)
                 {
                     vehiculoActual->anterior->siguiente = vehiculoActual->siguiente;
+
+
+                }
+                else
+                {
+                    inicio = vehiculoActual->siguiente;
                 }
                 if (vehiculoActual->siguiente != null)
                 {
                     vehiculoActual->siguiente->anterior = vehiculoActual->anterior;
                 }
+
+                NativeMemory.Free(vehiculoActual);
+                
                 tamanio--;
-                break;
+                return;
             }
             vehiculoActual = vehiculoActual->siguiente;
         }

@@ -15,26 +15,36 @@ namespace AutoGestPro.Models.Listas.Arbol_Binario
 
         public void Insertar(Servicio servicio)
         {
-            Raiz = InsertarRecursivo(Raiz, servicio);
-        }
-
-        private NodoBinario InsertarRecursivo(NodoBinario? nodo, Servicio servicio)
-        {
-            if (nodo == null)
+            NodoBinario nuevoNodo = new NodoBinario(servicio);
+            if (Raiz == null)
             {
-                return new NodoBinario(servicio);
+                Raiz = nuevoNodo;
             }
-
-            if (servicio.Id < nodo.Servicio.Id)
+            else
             {
-                nodo.Izquierdo = InsertarRecursivo(nodo.Izquierdo, servicio);
+                NodoBinario anterior = null, reco;
+                reco = Raiz;
+                while (reco != null)
+                {
+                    anterior = reco;
+                    if (servicio.Id < reco.Servicio.Id)
+                    {
+                        reco = reco.Izquierdo;
+                    }
+                    else
+                    {
+                        reco = reco.Derecho;
+                    }
+                }
+                if (servicio.Id < anterior.Servicio.Id)
+                {
+                    anterior.Izquierdo = nuevoNodo;
+                }
+                else
+                {
+                    anterior.Derecho = nuevoNodo;
+                }
             }
-            else if (servicio.Id > nodo.Servicio.Id)
-            {
-                nodo.Derecho = InsertarRecursivo(nodo.Derecho, servicio);
-            }
-
-            return nodo;
         }
 
 
@@ -117,16 +127,16 @@ namespace AutoGestPro.Models.Listas.Arbol_Binario
         {
             if (nodo == null) return;
 
-            dot.AppendLine($"n{nodo.Servicio.Id} [label=\"<f0> |<f1> ID: {nodo.Servicio.Id}\\nId repuesto: {nodo.Servicio.Id_Repuesto}\\nId vehiculo: {nodo.Servicio.Id_Vehiculo}\\nDetalles: {nodo.Servicio.Detalles}\\nCosto : {nodo.Servicio.Costo}|<f2>\"];");
+            dot.AppendLine($"n{nodo.Servicio.Id} [label=\"<f0> |<f1> ID: {nodo.Servicio.Id}\\nId repuesto: {nodo.Servicio.Id_Repuesto}\\nId vehiculo: {nodo.Servicio.Id_Vehiculo}\\nDetalles: {nodo.Servicio.Detalles}\\nCosto: {nodo.Servicio.Costo}|<f2>\"];");
 
             if (nodo.Izquierdo != null)
             {
-                dot.AppendLine($"n{nodo.Servicio.Id}:I -> n{nodo.Izquierdo.Servicio.Id};");
+            dot.AppendLine($"n{nodo.Servicio.Id} -> n{nodo.Izquierdo.Servicio.Id};");
             }
 
             if (nodo.Derecho != null)
             {
-                dot.AppendLine($"n{nodo.Servicio.Id}:D -> n{nodo.Derecho.Servicio.Id};");
+            dot.AppendLine($"n{nodo.Servicio.Id} -> n{nodo.Derecho.Servicio.Id};");
             }
 
             GenerarDotRecursivo(nodo.Izquierdo, dot);

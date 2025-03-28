@@ -29,7 +29,7 @@ namespace AutoGestPro.Views
             contenedor.PackStart(titulo, false, false, 10);
 
             HBox usuario_Box = new HBox(false, 5);
-            Label titulousuario_ = new Label("usuario_:");
+            Label titulousuario_ = new Label("Usuario:");
             Entry txtusuario_ = new Entry();
             usuario_Box.PackStart(titulousuario_, false, false, 5);
             usuario_Box.PackStart(txtusuario_, true, true, 5);
