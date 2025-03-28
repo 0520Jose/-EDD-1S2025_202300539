@@ -64,71 +64,88 @@ namespace AutoGestPro.Views
             ListStore listStore = new ListStore(typeof(string), typeof(string), typeof(string));
             
             inOrden.Toggled += (sender, e) => {
-                if (inOrden.Active)
+            if (inOrden.Active)
+            {
+                ArbolB5 arbol = ListasGlobales.arbolFacturas;
+                listStore.Clear();
+                void llenarListaInOrden(NodoB nodo)
                 {
-                    ArbolB5 arbol = ListasGlobales.arbolFacturas;
-                    listStore.Clear();
-                    void llenarListaInOrden(NodoB nodo)
+                    if (nodo == null)
                     {
-                        if (nodo == null)
-                        {
-                            return;
-                        }
+                        return;
+                    }
+                    if (nodo.hijos != null && nodo.hijos.Length > 0)
+                    {
                         llenarListaInOrden(nodo.hijos[0]);
-                        foreach (var factura in nodo.Facturas)
-                        {
-                            listStore.AppendValues(factura.Id.ToString(), factura.Id_Orden.ToString(), factura.Total.ToString());
-                        }
+                    }
+                    foreach (var factura in nodo.Facturas)
+                    {
+                        listStore.AppendValues(factura.Id.ToString(), factura.Id_Orden.ToString(), factura.Total.ToString());
+                    }
+                    if (nodo.hijos != null && nodo.hijos.Length > 1)
+                    {
                         llenarListaInOrden(nodo.hijos[1]);
                     }
-                    llenarListaInOrden(arbol.Raiz);
-                    
                 }
-            };
+                llenarListaInOrden(arbol.Raiz);
+            }
+        };
 
-            preOrden.Toggled += (sender, e) => {
-                if (preOrden.Active)
+        preOrden.Toggled += (sender, e) => {
+            if (preOrden.Active)
+            {
+                ArbolB5 arbol = ListasGlobales.arbolFacturas;
+                listStore.Clear();
+                void llenarListaPreOrden(NodoB nodo)
                 {
-                    ArbolB5 arbol = ListasGlobales.arbolFacturas;
-                    listStore.Clear();
-                    void llenarListaPreOrden(NodoB nodo)
+                    if (nodo == null)
                     {
-                        if (nodo == null)
-                        {
-                            return;
-                        }
-                        foreach (var factura in nodo.Facturas)
-                        {
-                            listStore.AppendValues(factura.Id.ToString(), factura.Id_Orden.ToString(), factura.Total.ToString());
-                        }
+                        return;
+                    }
+                    foreach (var factura in nodo.Facturas)
+                    {
+                        listStore.AppendValues(factura.Id.ToString(), factura.Id_Orden.ToString(), factura.Total.ToString());
+                    }
+                    if (nodo.hijos != null && nodo.hijos.Length > 0)
+                    {
                         llenarListaPreOrden(nodo.hijos[0]);
+                    }
+                    if (nodo.hijos != null && nodo.hijos.Length > 1)
+                    {
                         llenarListaPreOrden(nodo.hijos[1]);
                     }
-                    llenarListaPreOrden(arbol.Raiz);
                 }
-            };
+                llenarListaPreOrden(arbol.Raiz);
+            }
+        };
 
-            postOrden.Toggled += (sender, e) => {
-                if (postOrden.Active)
+        postOrden.Toggled += (sender, e) => {
+            if (postOrden.Active)
+            {
+                ArbolB5 arbol = ListasGlobales.arbolFacturas;
+                listStore.Clear();
+                void llenarListaPostOrden(NodoB nodo)
                 {
-                    ArbolB5 arbol = ListasGlobales.arbolFacturas;
-                    listStore.Clear();
-                    void llenarListaPostOrden(NodoB nodo)
+                    if (nodo == null)
                     {
-                        if (nodo == null)
-                        {
-                            return;
-                        }
-                        llenarListaPostOrden(nodo.hijos[0]);
-                        llenarListaPostOrden(nodo.hijos[1]);
-                        foreach (var factura in nodo.Facturas)
-                        {
-                            listStore.AppendValues(factura.Id.ToString(), factura.Id_Orden.ToString(), factura.Total.ToString());
-                        }
+                        return;
                     }
-                    llenarListaPostOrden(arbol.Raiz);
+                    if (nodo.hijos != null && nodo.hijos.Length > 0)
+                    {
+                        llenarListaPostOrden(nodo.hijos[0]);
+                    }
+                    if (nodo.hijos != null && nodo.hijos.Length > 1)
+                    {
+                        llenarListaPostOrden(nodo.hijos[1]);
+                    }
+                    foreach (var factura in nodo.Facturas)
+                    {
+                        listStore.AppendValues(factura.Id.ToString(), factura.Id_Orden.ToString(), factura.Total.ToString());
+                    }
                 }
-            };
+                llenarListaPostOrden(arbol.Raiz);
+            }
+        };
 
             treeView.Model = listStore;
 

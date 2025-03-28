@@ -70,7 +70,7 @@ namespace AutoGestPro.Views
                         error.Destroy();
                         return;
                     }
-                    if (vehiculoComprobacion.Id != null)
+                    if (vehiculoComprobacion.Id > 0)
                     {
                         MessageDialog error = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Ya existe un vehículo con ese ID");
                         error.Run();
