@@ -1,0 +1,10 @@
+[ 
+  { 
+    "ID": 1, 
+    "Nombres": "Carlos Alberto", 
+    "Apellidos": "Gomez Martinez", 
+    "Correo": "carlos.alberto@usac.com", 
+    "Edad": 20, 
+    "Contrasenia": "CarlosMartinez" 
+  } 
+] 

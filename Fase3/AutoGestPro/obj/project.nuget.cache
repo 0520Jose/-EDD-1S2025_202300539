@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "FRTUI/GaFEcdXP48Ysv03jHB/s76HP5LYc1lQs0ZY9h9femV4t72AaTsAHyvICsSg4IDEjyjLJypWsw/HXmdkQ==",
+  "dgSpecHash": "yTDiGpDeOaP4PYwZZCRSPiOyv2I1gxgmtVYVSzBRzoa6riNShTqeJ5ZD3RSueQlG6D2kI/WjNPj2I5IIwY7Jnw==",
   "success": true,
   "projectFilePath": "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/AutoGestPro.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/emanuel/.nuget/packages/atksharp/3.24.24.95/atksharp.3.24.24.95.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/cairosharp/3.24.24.95/cairosharp.3.24.24.95.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/gdksharp/3.24.24.95/gdksharp.3.24.24.95.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/giosharp/3.24.24.95/giosharp.3.24.24.95.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/glibsharp/3.24.24.95/glibsharp.3.24.24.95.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/gtksharp/3.24.24.95/gtksharp.3.24.24.95.nupkg.sha512",
+    "/home/emanuel/.nuget/packages/pangosharp/3.24.24.95/pangosharp.3.24.24.95.nupkg.sha512"
+  ],
   "logs": []
 }
