@@ -97,9 +97,9 @@ unsafe class ListaDoble
         }
     }
 
-    public String GenerarDot()
+    public string GenerarDot()
     {
-        String dot = "digraph G {\n";
+        string dot = "digraph G {\n";
         dot += "node [shape=record];\n";
         dot += "rankdir=LR;\n";
         dot += "node [height=0.5];\n";

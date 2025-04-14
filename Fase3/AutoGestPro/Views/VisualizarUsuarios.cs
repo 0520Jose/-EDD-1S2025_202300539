@@ -28,8 +28,8 @@ namespace AutoGestPro.Views
             table.RowSpacing = 10;
             contenedor.PackStart(table, true, true, 10);
 
-            Label id = new Label("ID:");
-            table.Attach(id, 0, 1, 0, 1);
+            Label idLabel = new Label("ID:");
+            table.Attach(idLabel, 0, 1, 0, 1);
 
             Entry idEntry = new Entry();
             table.Attach(idEntry, 1, 2, 0, 1);
@@ -55,21 +55,79 @@ namespace AutoGestPro.Views
             Label correoActual = new Label("Null");
             table.Attach(correoActual, 1, 2, 3, 4);
 
+            Label edad = new Label("Edad:");
+            table.Attach(edad, 0, 1, 4, 5);
+
+            Label edadActual = new Label("Null");
+            table.Attach(edadActual, 1, 2, 4, 5);
+
+            Label contrasenia = new Label("Contraseña:");
+            table.Attach(contrasenia, 0, 1, 5, 6);
+
+            Label contraseniaActual = new Label("Null");
+            table.Attach(contraseniaActual, 1, 2, 5, 6);
+
+            Label hash = new Label("Hash:");
+            table.Attach(hash, 0, 1, 6, 7);
+
+            Label hashActual = new Label("Null");
+            table.Attach(hashActual, 1, 2, 6, 7);
+
+            Label hashAnterior = new Label("Hash Anterior:");
+            table.Attach(hashAnterior, 0, 1, 7, 8);
+
+            Label hashAnteriorActual = new Label("Null");
+            table.Attach(hashAnteriorActual, 1, 2, 7, 8);
+
+            Label nonce = new Label("Nonce:");
+            table.Attach(nonce, 0, 1, 8, 9);
+
+            Label nonceActual = new Label("Null");
+            table.Attach(nonceActual, 1, 2, 8, 9);
+
+            Label index = new Label("Index:");
+            table.Attach(index, 0, 1, 9, 10);
+
+            Label indexActual = new Label("Null");
+            table.Attach(indexActual, 1, 2, 9, 10);
+
+            Label fecha = new Label("Fecha:");
+            table.Attach(fecha, 0, 1, 10, 11);
+
+            Label fechaActual = new Label("Null");
+            table.Attach(fechaActual, 1, 2, 10, 11);
+
             buscar.Clicked += (sender, e) => {
                 int id = int.Parse(idEntry.Text);
-                /*Usuario usuario = EstructurasGlobales.Usuarios.buscarUsuario(id);
-                if (usuario.Nombres != null)
+                UsuarioNodo usuario = EstructurasGlobales.blockChain.BuscarPorId(id);
+                if (usuario != null)
                 {
                     nombreActual.Text = usuario.Nombres;
                     apellidoActual.Text = usuario.Apellidos;
                     correoActual.Text = usuario.Correo;
+                    edadActual.Text = usuario.Edad.ToString();
+                    contraseniaActual.Text = usuario.Contrasenia;
+                    hashActual.Text = usuario.Hash;
+                    hashAnteriorActual.Text = usuario.HashAnterior;
+                    nonceActual.Text = usuario.Nonce.ToString();
+                    indexActual.Text = usuario.Index.ToString();
+                    fechaActual.Text = usuario.Fecha;
+                    idEntry.Text = usuario.Id.ToString();
                 }
                 else
                 {
                     nombreActual.Text = "Usuario no encontrado";
                     apellidoActual.Text = "Usuario no encontrado";
                     correoActual.Text = "Usuario no encontrado";
-                }*/
+                    edadActual.Text = "Usuario no encontrado";
+                    contraseniaActual.Text = "Usuario no encontrado";
+                    hashActual.Text = "Usuario no encontrado";
+                    hashAnteriorActual.Text = "Usuario no encontrado";
+                    nonceActual.Text = "Usuario no encontrado";
+                    indexActual.Text = "Usuario no encontrado";
+                    fechaActual.Text = "Usuario no encontrado";
+                    idEntry.Text = "";
+                }
             };
 
             HBox buttonContainer = new HBox(true, 10);

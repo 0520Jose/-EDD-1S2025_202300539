@@ -52,6 +52,20 @@ namespace AutoGestPro.Views
                 ventana.Hide();
             };
             table.Attach(verRepuestos, 0, 1, 1, 2);
+
+            Button crearServicio = new Button("Crear servicio");
+            crearServicio.Clicked += (sender, e) => {
+                CrearServicio crearServicio = new CrearServicio(ventana);
+                ventana.Hide();
+            };
+            table.Attach(crearServicio, 1, 2, 1, 2);
+
+            Button reportes = new Button("Generar reportes");
+            reportes.Clicked += (sender, e) => {
+                GenerarReportes generarReportes = new GenerarReportes(ventana);
+                ventana.Hide();
+            };
+            table.Attach(reportes, 2, 3, 1, 2);
             
 
             Button cerrarSesionButton = new Button("Cerrar sesión");

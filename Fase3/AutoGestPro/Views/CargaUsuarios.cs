@@ -1,4 +1,5 @@
 using System;
+using AutoGestPro.Models.Estructuras;
 using Gtk;
 
 namespace AutoGestPro.Views
@@ -78,7 +79,35 @@ namespace AutoGestPro.Views
             Button cargarUsuariosButton = new Button("Insertar usuario");
             cargarUsuariosButton.WidthRequest = 150;
             cargarUsuariosButton.Clicked += (sender, e) => {
-                Console.WriteLine("Cargando usuarios...");
+                try {
+                    int id = int.Parse(txtId.Text);
+                    string nombres = txtNombre.Text;
+                    string apellidos = txtApellido.Text;
+                    string correo = txtCorreo.Text;
+                    int edad = int.Parse(txtEdad.Text);
+                    string contrasenia = txtContrasenia.Text;
+                    if (id < 0 && edad < 0 && string.IsNullOrEmpty(nombres) == false && string.IsNullOrEmpty(apellidos) == false && string.IsNullOrEmpty(correo) == false && string.IsNullOrEmpty(contrasenia) == false) {
+                        throw new Exception("Los campos no pueden estar vacíos");
+                    }
+                    if (EstructurasGlobales.blockChain.BuscarPorId(id) != null) {
+                        throw new Exception("El ID ya existe");
+                    }
+                    EstructurasGlobales.blockChain.Insertar(id, nombres, apellidos, correo, edad, contrasenia);
+                    EstructurasGlobales.blockChain.Minar(id);
+                    txtId.Text = "";
+                    txtNombre.Text = "";
+                    txtApellido.Text = "";
+                    txtCorreo.Text = "";
+                    txtEdad.Text = "";
+                    txtContrasenia.Text = "";
+                    MessageDialog dialog = new MessageDialog(ventanaCarga, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Usuario insertado correctamente");
+                    dialog.Run();
+                    dialog.Destroy();
+                } catch (Exception ex) {
+                    MessageDialog dialog = new MessageDialog(ventanaCarga, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Error: " + ex.Message);
+                    dialog.Run();
+                    dialog.Destroy();
+                }
             };
             botones.PackStart(cargarUsuariosButton, true, true, 0);
 

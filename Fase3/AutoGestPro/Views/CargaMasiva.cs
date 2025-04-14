@@ -80,8 +80,7 @@ namespace AutoGestPro.Views
                     {
                         string json = File.ReadAllText(filePath);
                         bool error = false;
-                        /*
-                        ListaSimple listarespaldo = EstructurasGlobales.listaUsuarios;
+                        BlockChain listarespaldo = EstructurasGlobales.blockChain;
                         using (JsonDocument doc = JsonDocument.Parse(json))
                         {
                             JsonElement root = doc.RootElement;
@@ -95,26 +94,26 @@ namespace AutoGestPro.Views
                                     string correo = element.GetProperty("Correo").GetString();
                                     int edad = element.GetProperty("Edad").GetInt32();
                                     string contrasenia = element.GetProperty("Contrasenia").GetString();
-                                    Usuario usuarioComprobacion = EstructurasGlobales.listaUsuarios.buscarUsuario(id);
-                                    if (usuarioComprobacion.Id != 0)                                    
+                                    UsuarioNodo usuarioComprobacion = EstructurasGlobales.blockChain.BuscarPorId(id);
+                                    if (usuarioComprobacion != null)                                    
                                     {
                                         MostrarMensaje(ventana, $"Usuario con ID {usuarioComprobacion.Id} ya existe. Se omitirá este registro.");
                                         continue;
                                     }
-                                    EstructurasGlobales.listaUsuarios.Insertar(id, nombre, apellido, correo, edad, contrasenia);
+                                    EstructurasGlobales.blockChain.Insertar(id, nombre, apellido, correo, edad, contrasenia);
+
                                 }
                                 catch (Exception ex)
                                 {
-                                    EstructurasGlobales.listaUsuarios = listarespaldo;
+                                    EstructurasGlobales.blockChain= listarespaldo;
                                     MostrarMensaje(ventana, $"Error al procesar el archivo: {ex.Message}");
                                     error = true;
                                     break;
                                 }
                             }
                         }
-                        
+                        EstructurasGlobales.blockChain.MinarTodo();
                         listarespaldo = null;
-                        */
                         if (!error)
                         {                            
                             MostrarMensaje(ventana, "Carga masiva exitosa");
@@ -137,12 +136,12 @@ namespace AutoGestPro.Views
                                     string marca = element.GetProperty("Marca").GetString();
                                     string modelo = element.GetProperty("Modelo").GetInt32().ToString();
                                     string placa = element.GetProperty("Placa").GetString();
-                                    /*if (EstructurasGlobales.listaUsuarios.buscarUsuario(idUsuario).Id == 0)
+                                    if (EstructurasGlobales.blockChain.BuscarPorId(idUsuario) == null)
                                     {
                                         MostrarMensaje(ventana, $"Error al procesar el archivo: Usuario con ID {idUsuario} no existe");
                                         error = true;
                                         continue;
-                                    }*/
+                                    }
                                     Vehiculo vehiculoComprobacion = EstructurasGlobales.listaVehiculos.buscarVehiculo(id);
                                     if (vehiculoComprobacion.Id != 0)
                                     {

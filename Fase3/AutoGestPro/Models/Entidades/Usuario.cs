@@ -1,38 +1,42 @@
 using System;
-
+using System.Text;
+using System.Security.Cryptography;
 
 namespace AutoGestPro.Models.Entidades
 {
-    unsafe struct Usuario
+    public class UsuarioNodo
     {
-        public int Index { get; set; }
-        public string Fecha { get; set; }
-        public int Id { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public string Correo { get; set; }
-        public int Edad { get; set; }
-        public string Contrasenia { get; set;}
-        public string HashAnterior { get; set; }
-        public string Hash { get; set; } 
+        public int Index;
+        public string Fecha;
+        public int Id;
+        public string Nombres;
+        public string Apellidos;
+        public string Correo;
+        public int Edad;
+        public string Contrasenia;
+        public string HashAnterior;
+        public string Hash;
+        public int Nonce;
+        public UsuarioNodo Siguiente;
+        public UsuarioNodo Anterior;
 
-        public Usuario* Siguiente { get; set; }
-        public Usuario* Anterior { get; set; }
-
-        public Usuario (int index, int id, string nombres, string apellidos, string correo, int edad, string contrasenia)
+        public string GenerateHash()
         {
-            Index = index;
-            Fecha = DateTime.Now.ToString("yyyy-MM-dd");
-            Id = id;
-            Nombres = nombres;
-            Apellidos = apellidos;
-            Correo = correo;
-            Edad = edad;
-            Contrasenia = contrasenia;
-            HashAnterior = null;
-            Hash = null;
-            Siguiente = null;
-            Anterior = null;
+            string data = $"{Index}{Fecha}{Id}{Nombres}{Apellidos}{Correo}{Edad}{Contrasenia}{Nonce}{HashAnterior}";
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            byte[] hashBytes = SHA256.HashData(bytes);
+            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+        }
+
+        public void MineBlock()
+        {
+            int dificultad = 3;
+            string target = new string('0', dificultad);
+            while (!Hash.StartsWith(target))
+            {
+                Nonce++;
+                Hash = GenerateHash();
+            }
         }
     }
 }

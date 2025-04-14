@@ -21,12 +21,7 @@ edge [taillabel=""];
 edge [headlabel=""];
 edge [label=""];
 edge [weight="1"];
-"1" [label="{
-INDEX: 1\l
-TIMESTAMP: 14-04-25::10:54:46\l
-DATA: \{NOMBRE: Ana Lucia, APELLIDO: Martinez Lopez, CORREO: ana.lucia@usac.com, EDAD: 20, CONTRASEÑA: uvWeIMOnvU6SiG3q4AKTwOHzqLhPqiEfehAiQACTFOk=\}\l
-NONCE: 3095\l
-PREVIOUS HASH: 0000d59186bb850dddf898aaafb8cfddd3972486902e8f89bd6f387d93bbd026\l
-HASH: 000f4f9f4db20db579722a3ec4980c202db0d3d11f4c787cce27237a49dd03d4\l
-}"]
+n1 [label="<f0> |<f1> ID: 1\nId repuesto: 1\nId vehiculo: 1\nDetalles: 1\nCosto: 1|<f2>"];
+n1 -> n2;
+n2 [label="<f0> |<f1> ID: 2\nId repuesto: 2\nId vehiculo: 2\nDetalles: 2\nCosto: 2|<f2>"];
 }

@@ -21,12 +21,12 @@ edge [taillabel=""];
 edge [headlabel=""];
 edge [label=""];
 edge [weight="1"];
-"1" [label="{
-INDEX: 1\l
-TIMESTAMP: 14-04-25::10:54:46\l
-DATA: \{NOMBRE: Ana Lucia, APELLIDO: Martinez Lopez, CORREO: ana.lucia@usac.com, EDAD: 20, CONTRASEÑA: uvWeIMOnvU6SiG3q4AKTwOHzqLhPqiEfehAiQACTFOk=\}\l
-NONCE: 3095\l
-PREVIOUS HASH: 0000d59186bb850dddf898aaafb8cfddd3972486902e8f89bd6f387d93bbd026\l
-HASH: 000f4f9f4db20db579722a3ec4980c202db0d3d11f4c787cce27237a49dd03d4\l
+"0" [label="{
+INDEX: 0\l
+TIMESTAMP: 14-04-25::11:54:36\l
+DATA: \{ID: 1, NOMBRE: Carlos Alberto, APELLIDO: Gomez Martinez, CORREO: carlos.alberto@usac.com, EDAD: 20, CONTRASEÑA: 79ad278b6b8c506bc2f5a5bc4848e0e3eaceaa6ed7a92fa5d4d945ba6bc6365a\}\l
+NONCE: 526\l
+PREVIOUS HASH: 00000\l
+HASH: 0001bf36f63a846aa45ba5bac5da9d0e6a7acbd0aadd1b33d10fe2847aa6ec76\l
 }"]
 }

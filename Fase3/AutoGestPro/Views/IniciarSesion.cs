@@ -1,14 +1,17 @@
 using System;
 using Gtk;
+using System.Security.Cryptography;
+using System.Text;
 
 using AutoGestPro.Models.Entidades;
+using AutoGestPro.Models.Estructuras;
 
 namespace AutoGestPro.Views
 {
     public class IniciarSesion
     {
         bool usuario_Encontrado;
-        Usuario usuario;
+        UsuarioNodo usuario_;
 
         public IniciarSesion()
         {
@@ -16,7 +19,10 @@ namespace AutoGestPro.Views
             Window ventana = new Window("AutoGestPro");
             ventana.Opacity = 0.75;
             ventana.SetDefaultSize(400, 300);
-            ventana.DeleteEvent += delegate { Application.Quit(); };
+            ventana.DeleteEvent += (o, args) => {
+                Application.Quit();
+                args.RetVal = true;
+            };
 
             VBox contenedor = new VBox(false, 10);
             contenedor.BorderWidth = 20;
@@ -46,18 +52,18 @@ namespace AutoGestPro.Views
 
             Button iniciarSesion = new Button("Iniciar Sesión");
             iniciarSesion.Clicked += (sender, e) => {
-                /*
-                listaUsuarios = ListasGlobales.listaUsuarios;
+                BlockChain listaUsuarios = EstructurasGlobales.blockChain;
                 usuario_Encontrado = false;
-                usuario_ = listaUsuarios.inicio;
+                usuario_ = listaUsuarios.Inicio;
+                string contraseniaEncriptada = GetSHA256(txtContrasena.Text);
                 while (usuario_ != null)
                 {
-                    if (usuario_->Correo == txtusuario_.Text && usuario_->Contrasenia == txtContrasena.Text)
+                    if (usuario_.Correo == txtusuario_.Text && usuario_.Contrasenia == contraseniaEncriptada)
                     {
                         usuario_Encontrado = true;
                         break;
                     }
-                    usuario_ = usuario_->siguiente;
+                    usuario_ = usuario_.Siguiente;
                 }
                 if (usuario_Encontrado)
                 {
@@ -65,7 +71,7 @@ namespace AutoGestPro.Views
                     txtContrasena.Text = "";
                     MessageDialog mensaje = new MessageDialog(ventana, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Bienvenido");
                     mensaje.Run();
-                    string filePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase2/AutoGestPro/Logueos.json";
+                    string filePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/Logueos.json";
                     string userData;
 
                     if (System.IO.File.Exists(filePath))
@@ -74,7 +80,7 @@ namespace AutoGestPro.Views
                         var existingUsers = System.Text.Json.JsonSerializer.Deserialize<List<dynamic>>(existingData) ?? new List<dynamic>();
                         existingUsers.Add(new 
                         { 
-                            usuario = usuario_->Correo,
+                            usuario = usuario_.Correo,
                             entrada = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                         });
                         userData = System.Text.Json.JsonSerializer.Serialize(existingUsers);
@@ -83,19 +89,18 @@ namespace AutoGestPro.Views
                     {
                         var newUserList = new List<dynamic> { new 
                         { 
-                            usuario = usuario_->Correo,
+                            usuario = usuario_.Correo,
                             entrada = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                         } };
                         userData = System.Text.Json.JsonSerializer.Serialize(newUserList);
                     }
 
                     System.IO.File.WriteAllText(filePath, userData);
-                    MenuUsuario menuUsuario= new MenuUsuario(ventana, usuario_);
+                    //MenuUsuario menuUsuario= new MenuUsuario(ventana, usuario_);
                     ventana.Hide();
                     mensaje.Destroy();
                 }
-                */
-                if (txtusuario_.Text == "admin@usac.com" && txtContrasena.Text == "admint123")
+                else if (txtusuario_.Text == "admin@usac.com" && txtContrasena.Text == "admint123")
                 {
                     txtusuario_.Text = "";
                     txtContrasena.Text = "";
@@ -118,6 +123,17 @@ namespace AutoGestPro.Views
 
             ventana.ShowAll();
             Application.Run();
+        }
+
+        public static string GetSHA256(string str)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = sha256.ComputeHash(encoding.GetBytes(str));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            return sb.ToString();
         }
     }
 }

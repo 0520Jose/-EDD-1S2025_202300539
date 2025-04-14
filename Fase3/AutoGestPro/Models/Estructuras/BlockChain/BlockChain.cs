@@ -1,19 +1,15 @@
 using System;
-using AutoGestPro.Models.Entidades;
-using System.Runtime.InteropServices;
-using System.Text.Json;
 using System.Text;
+using AutoGestPro.Models.Entidades;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 
-namespace AutoGestPro.Models.Estructuras.BlockChain
+namespace AutoGestPro.Models.Estructuras
 {
-    unsafe class BlockChain
+    public class BlockChain
     {
-        public Usuario* Inicio { get; set; }
-        public Usuario* Fin { get; set; }
+        public UsuarioNodo Inicio { get; set; }
+        public UsuarioNodo Fin { get; set; }
         public int Tamanio { get; set; }
-
 
         public BlockChain()
         {
@@ -24,25 +20,30 @@ namespace AutoGestPro.Models.Estructuras.BlockChain
 
         public void Insertar(int id, string nombres, string apellidos, string correo, int edad, string contrasenia)
         {
-            Usuario* nuevoUsuario = (Usuario*)Marshal.AllocHGlobal(sizeof(Usuario));
-            nuevoUsuario->Index = Tamanio;
-            nuevoUsuario->Id = id;
-            nuevoUsuario->Nombres = nombres;
-            nuevoUsuario->Apellidos = apellidos;
-            nuevoUsuario->Correo = correo;
-            nuevoUsuario->Edad = edad;
-            nuevoUsuario->Contrasenia = contrasenia;
+            string contraseniaEncriptada = GetSHA256(contrasenia);
+            var nuevoUsuario = new UsuarioNodo
+            {
+                Index = Tamanio,
+                Id = id,
+                Nombres = nombres,
+                Apellidos = apellidos,
+                Correo = correo,
+                Edad = edad,
+                Contrasenia = contraseniaEncriptada,
+                Fecha = DateTime.Now.ToString("dd-MM-yy::HH:mm:ss"),
+                Nonce = 0
+            };
 
             if (Inicio == null)
             {
-                nuevoUsuario->HashAnterior = "00000";
+                nuevoUsuario.HashAnterior = "00000";
             }
             else
             {
-                nuevoUsuario->HashAnterior = Fin->Hash;
+                nuevoUsuario.HashAnterior = Fin.Hash;
             }
 
-            nuevoUsuario->Hash = calcularHash(nuevoUsuario);
+            nuevoUsuario.Hash = nuevoUsuario.GenerateHash();
 
             if (Inicio == null)
             {
@@ -51,231 +52,201 @@ namespace AutoGestPro.Models.Estructuras.BlockChain
             }
             else
             {
-                Fin->Siguiente = nuevoUsuario;
-                nuevoUsuario->Anterior = Fin;
+                Fin.Siguiente = nuevoUsuario;
+                nuevoUsuario.Anterior = Fin;
                 Fin = nuevoUsuario;
             }
             Tamanio++;
         }
 
-        public static string calcularHash(Usuario* usuario)
+        public void Minar(int id)
         {
-            var hashData = new
-            {
-                index = usuario->Index,
-                fecha = usuario->Fecha,
-                id = usuario->Id,
-                nombres = usuario->Nombres,
-                apellidos = usuario->Apellidos,
-                correo = usuario->Correo,
-                edad = usuario->Edad,
-                contrasenia = usuario->Contrasenia,
-                hashAnterior = usuario->HashAnterior
-            };
-
-            string json = JsonSerializer.Serialize(hashData);
-            byte[] dataBytes = Encoding.UTF8.GetBytes(json);
-
-            byte[] hashBytes = SHA256.HashData(dataBytes);
-            var hashString = new StringBuilder();
-            foreach (byte b in hashBytes)
-            {
-                hashString.Append(b.ToString("x2"));
-            }
-            return hashString.ToString();
-        }
-
-        public Boolean ChainValido()
-        {
-            if (Inicio == null)
-            {
-                return true;
-            }
-
-            Usuario* usuarioActual = Inicio;
-            string hashAnterior = "00000";
-
+            var usuarioActual = Inicio;
             while (usuarioActual != null)
             {
-                if (usuarioActual->HashAnterior != hashAnterior)
+                if (usuarioActual.Id == id)
                 {
-                    return false;
+                    usuarioActual.MineBlock();
+                    break;
                 }
-
-                string hashActual = calcularHash(usuarioActual);
-                if (usuarioActual->Hash != hashActual)
-                {
-                    return false;
-                }
-
-                if (usuarioActual->Siguiente != null && usuarioActual->Siguiente->Anterior != usuarioActual)
-                {
-                    return false;
-                }   
-                hashAnterior = usuarioActual->Hash;
-                usuarioActual = usuarioActual->Siguiente;
+                usuarioActual = usuarioActual.Siguiente;
             }
-            return true;
         }
 
-        public Usuario BuscarPorId(int id)
+        public void MinarTodo()
         {
-            Usuario* usuarioActual = Inicio;
-            while (usuarioActual != null)
+            if (Inicio == null) return;
+
+            try
             {
-                if (usuarioActual->Id == id)
+                UsuarioNodo actual = Inicio;
+                actual.HashAnterior = "00000";
+                actual.Nonce = 0;
+                actual.MineBlock();
+
+                UsuarioNodo anterior = actual;
+                actual = actual.Siguiente;
+
+                while (actual != null)
                 {
-                    return *usuarioActual;
+                    actual.HashAnterior = anterior.Hash;
+                    actual.Nonce = 0;
+                    actual.MineBlock();
+
+                    anterior = actual;
+                    actual = actual.Siguiente;
                 }
-                usuarioActual = usuarioActual->Siguiente;
             }
-            return new Usuario();
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al minar la cadena de bloques: " + ex.Message);
+            }
         }
 
-        public Boolean EliminarBloque(int index)
+
+
+
+        public UsuarioNodo BuscarPorId(int id)
         {
-            if (index == 0) {
-                return false;
-            }
-
-            Usuario* usuarioActual = Inicio;
-
+            var usuarioActual = Inicio;
             while (usuarioActual != null)
             {
-                if (usuarioActual->Index == index)
+                if (usuarioActual.Id == id)
                 {
-                    if (usuarioActual->Anterior != null)
-                    {
-                        usuarioActual->Anterior->Siguiente = usuarioActual->Siguiente;
-                    }
+                    return usuarioActual;
+                }
+                usuarioActual = usuarioActual.Siguiente;
+            }
+            return null;
+        }
 
-                    if (usuarioActual->Siguiente != null)
-                    {
-                        usuarioActual->Siguiente->Anterior = usuarioActual->Anterior;
-                    }
+        public bool EliminarBloque(int index)
+        {
+            if (index == 0) return false;
 
+            var usuarioActual = Inicio;
+            while (usuarioActual != null)
+            {
+                if (usuarioActual.Index == index)
+                {
+                    if (usuarioActual.Anterior != null)
+                        usuarioActual.Anterior.Siguiente = usuarioActual.Siguiente;
+                    if (usuarioActual.Siguiente != null)
+                        usuarioActual.Siguiente.Anterior = usuarioActual.Anterior;
                     if (usuarioActual == Fin)
-                    {
-                        Fin = usuarioActual->Anterior;
-                    }
+                        Fin = usuarioActual.Anterior;
 
-                    recalcularChain(usuarioActual->Anterior, Fin);
-
-                    Marshal.FreeHGlobal((IntPtr)usuarioActual);
+                    recalcularChain(usuarioActual.Anterior, Fin);
                     Tamanio--;
                     return true;
                 }
-                usuarioActual = usuarioActual->Siguiente;
+                usuarioActual = usuarioActual.Siguiente;
             }
             return false;
         }
 
-        public void recalcularChain(Usuario* usuario, Usuario* fin)
+        public void recalcularChain(UsuarioNodo usuario, UsuarioNodo fin)
         {
-            Usuario* usuarioActual = usuario != null ? usuario->Siguiente : fin;
-            Usuario* anterior = usuario;
-            int index = usuario != null ? usuario->Index + 1 : 0;
+            var usuarioActual = usuario != null ? usuario.Siguiente : fin;
+            var anterior = usuario;
+            int index = usuario != null ? usuario.Index + 1 : 0;
 
             while (usuarioActual != null)
             {
-                usuarioActual->Index = index;
-                usuarioActual->HashAnterior = anterior != null ? anterior->Hash : "00000";
-                usuarioActual->Hash = calcularHash(usuarioActual);
+                usuarioActual.Index = index;
+                usuarioActual.HashAnterior = anterior != null ? anterior.Hash : "00000";
+                usuarioActual.Hash = usuarioActual.GenerateHash();
                 anterior = usuarioActual;
-                usuarioActual = usuarioActual->Siguiente;
+                usuarioActual = usuarioActual.Siguiente;
                 index++;
             }
-
         }
 
-        public string Graficar()
-        {   
-            StringBuilder dotCode = new StringBuilder();
-            dotCode.AppendLine("digraph Blockchain {");
-            dotCode.AppendLine("    label=\"Blockchain - Cadena de Suministro (Lista Doblemente Enlazada)\";");
-            dotCode.AppendLine("    labelloc=t;");
-            dotCode.AppendLine("    fontsize=20;");
-            dotCode.AppendLine("    rankdir=LR;");
-            dotCode.AppendLine("    bgcolor=\"#f8f9fa\";");
-            dotCode.AppendLine();
-            dotCode.AppendLine("    node [");
-            dotCode.AppendLine("        shape=box3d,");
-            dotCode.AppendLine("        style=\"filled,rounded\",");
-            dotCode.AppendLine("        fillcolor=\"#e3f2fd\",");
-            dotCode.AppendLine("        color=\"#1565c0\",");
-            dotCode.AppendLine("        fontname=\"Arial\",");
-            dotCode.AppendLine("        fontsize=12,");
-            dotCode.AppendLine("        width=2.5,");
-            dotCode.AppendLine("        height=1.2,");
-            dotCode.AppendLine("        margin=0.3");
-            dotCode.AppendLine("    ];");
-            dotCode.AppendLine();
-            dotCode.AppendLine("    edge [");
-            dotCode.AppendLine("        color=\"#7e57c2\",");
-            dotCode.AppendLine("        arrowhead=normal,");
-            dotCode.AppendLine("        arrowtail=dot,");
-            dotCode.AppendLine("        penwidth=2");
-            dotCode.AppendLine("    ];");
-            dotCode.AppendLine();
-
-            string[] colors = new string[]
+        public void imprimir()
+        {
+            try
             {
-            "#e3f2fd", "#bbdefb", "#90caf9", "#64b5f6",
-            "#42a5f5", "#2196f3", "#1e88e5", "#1976d2"
-            };
+                var usuarioActual = Inicio;
+                while (usuarioActual != null)
+                {
+                    Console.WriteLine($"ID: {usuarioActual.Id}, Nombre: {usuarioActual.Nombres} {usuarioActual.Apellidos}, Correo: {usuarioActual.Correo}, Edad: {usuarioActual.Edad}, Hash: {usuarioActual.Hash}");
+                    usuarioActual = usuarioActual.Siguiente;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error al imprimir la cadena de bloques: " + e.Message);
+            }
+        }
 
-            StringBuilder nodes = new StringBuilder();
-            StringBuilder connections = new StringBuilder();
+        public static string GetSHA256(string str)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = sha256.ComputeHash(encoding.GetBytes(str));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            return sb.ToString();
+        }
 
-            Usuario* usuarioActual = Inicio;
+        public string GenerarDot(int id)
+        {
+            var dot = new StringBuilder();
+            dot.AppendLine("digraph G {");
+            dot.AppendLine("node [shape=record];");
+            dot.AppendLine("rankdir=TB;");
+            dot.AppendLine("node [height=0.5];");
+            dot.AppendLine("node [width=0.5];");
+            dot.AppendLine("node [style=filled];");
+            dot.AppendLine("node [fillcolor=\"#EEEEEE\"];");
+            dot.AppendLine("node [fontname=\"Arial\"];");
+            dot.AppendLine("edge [fontname=\"Arial\"];");
+            dot.AppendLine("edge [fontsize=8];");
+            dot.AppendLine("edge [fontcolor=\"#333333\"];");
+            dot.AppendLine("edge [labelfloat=false];");
+            dot.AppendLine("edge [decorate=true];");
+            dot.AppendLine("edge [style=\"solid\"];");
+            dot.AppendLine("edge [color=\"#333333\"];");
+            dot.AppendLine("edge [dir=\"forward\"];");
+            dot.AppendLine("edge [arrowhead=\"normal\"];");
+            dot.AppendLine("edge [arrowsize=\"0.5\"];");
+            dot.AppendLine("edge [arrowtail=\"normal\"];");
+            dot.AppendLine("edge [taillabel=\"\"];");
+            dot.AppendLine("edge [headlabel=\"\"];");
+            dot.AppendLine("edge [label=\"\"];");
+            dot.AppendLine("edge [weight=\"1\"];");
+
+            var usuarioActual = Inicio;
             while (usuarioActual != null)
             {
-            int colorIndex = usuarioActual->Index % colors.Length;
+                if (usuarioActual.Id == id)
+                {   
+                    string Id = id.ToString();
+                    string id_ = Id.Replace("{", "\\{").Replace("}", "\\}").Replace("\"", "\\\"");
+                    string nombres = usuarioActual.Nombres.Replace("{", "\\{").Replace("}", "\\}").Replace("\"", "\\\"");
+                    string apellidos = usuarioActual.Apellidos.Replace("{", "\\{").Replace("}", "\\}").Replace("\"", "\\\"");
+                    string correo = usuarioActual.Correo.Replace("{", "\\{").Replace("}", "\\}").Replace("\"", "\\\"");
+                    string contrasenia = usuarioActual.Contrasenia.Replace("{", "\\{").Replace("}", "\\}").Replace("\"", "\\\"");
+                    string hashAnterior = usuarioActual.HashAnterior.Replace("{", "\\{").Replace("}", "\\}").Replace("\"", "\\\"");
+                    string hash = usuarioActual.Hash.Replace("{", "\\{").Replace("}", "\\}").Replace("\"", "\\\"");
 
-            nodes.AppendLine($"    block{usuarioActual->Index} [");
-            nodes.AppendLine("        label=<");
-            nodes.AppendLine("            <table border=\"0\" cellborder=\"0\" cellspacing=\"5\">");
-            nodes.AppendLine($"                <tr><td colspan=\"2\" bgcolor=\"#1565c0\" align=\"center\"><font color=\"white\">Bloque #{usuarioActual->Index}</font></td></tr>");
-            nodes.AppendLine($"                <tr><td align=\"left\"><b>ID:</b></td><td align=\"left\">{usuarioActual->Id}</td></tr>");
-            nodes.AppendLine($"                <tr><td align=\"left\"><b>Nombre:</b></td><td align=\"left\">{usuarioActual->Nombres} {usuarioActual->Apellidos}</td></tr>");
-            nodes.AppendLine($"                <tr><td align=\"left\"><b>Correo:</b></td><td align=\"left\">{usuarioActual->Correo}</td></tr>");
-            nodes.AppendLine($"                <tr><td align=\"left\"><b>Edad:</b></td><td align=\"left\">{usuarioActual->Edad}</td></tr>");
-            nodes.AppendLine($"                <tr><td align=\"left\"><b>Hash:</b></td><td align=\"left\">{usuarioActual->Hash.Substring(0, Math.Min(12, usuarioActual->Hash.Length))}...</td></tr>");
-            nodes.AppendLine($"                <tr><td align=\"left\"><b>PrevHash:</b></td><td align=\"left\">{usuarioActual->HashAnterior.Substring(0, Math.Min(12, usuarioActual->HashAnterior.Length))}...</td></tr>");
-            nodes.AppendLine("            </table>");
-            nodes.AppendLine("        >,");
-            nodes.AppendLine($"        fillcolor=\"{colors[colorIndex]}\",");
-            nodes.AppendLine("        gradientangle=\"90\"");
-            nodes.AppendLine("    ];");
-            nodes.AppendLine();
-
-            if (usuarioActual->Anterior != null)
-            {
-                connections.AppendLine($"    block{usuarioActual->Anterior->Index} -> block{usuarioActual->Index} [");
-                connections.AppendLine("        tailport=e,");
-                connections.AppendLine("        headport=w,");
-                connections.AppendLine("        color=\"#5e35b1\"");
-                connections.AppendLine("    ];");
-                connections.AppendLine();
-                connections.AppendLine($"    block{usuarioActual->Index} -> block{usuarioActual->Anterior->Index} [");
-                connections.AppendLine("        tailport=w,");
-                connections.AppendLine("        headport=e,");
-                connections.AppendLine("        color=\"#7e57c2\",");
-                connections.AppendLine("        style=dashed");
-                connections.AppendLine("    ];");
-                connections.AppendLine();
+                    dot.AppendLine($"\"{usuarioActual.Index}\" [label=\"{{");
+                    dot.AppendLine($"INDEX: {usuarioActual.Index}\\l");
+                    dot.AppendLine($"TIMESTAMP: {usuarioActual.Fecha}\\l");
+                    dot.AppendLine($"DATA: \\{{ID: {id_}, NOMBRE: {nombres}, APELLIDO: {apellidos}, CORREO: {correo}, EDAD: {usuarioActual.Edad}, CONTRASEÑA: {contrasenia}\\}}\\l");
+                    dot.AppendLine($"NONCE: {usuarioActual.Nonce}\\l");
+                    dot.AppendLine($"PREVIOUS HASH: {hashAnterior}\\l");
+                    dot.AppendLine($"HASH: {hash}\\l");
+                    dot.AppendLine("}\"]");
+                    break;
+                }
+                usuarioActual = usuarioActual.Siguiente;
             }
 
-            usuarioActual = usuarioActual->Siguiente;
-            }
-
-            dotCode.Append(nodes.ToString());
-            dotCode.AppendLine();
-            dotCode.Append(connections.ToString());
-            dotCode.AppendLine("}");
-
-            return dotCode.ToString();
+            dot.AppendLine("}");
+            return dot.ToString();
         }
+
     }
-    
-}   
+}
