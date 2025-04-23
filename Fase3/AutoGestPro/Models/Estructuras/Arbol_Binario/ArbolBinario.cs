@@ -48,21 +48,59 @@ namespace AutoGestPro.Models
         }
 
 
-        public NodoBinario? Buscar(int id)
+        public bool Buscar(int id)
         {
             return BuscarRecursivo(Raiz, id);
         }
 
-        private NodoBinario? BuscarRecursivo(NodoBinario? nodo, int id)
+        private bool BuscarRecursivo(NodoBinario? nodo, int id)
         {
-            if (nodo == null || nodo.Servicio.Id == id)
+            if (nodo == null)
+            {
+            return false;
+            }
+
+            if (nodo.Servicio.Id == id)
+            {
+            return true;
+            }
+
+            if (id < nodo.Servicio.Id)
+            {
+            return BuscarRecursivo(nodo.Izquierdo, id);
+            }
+            else
+            {
+            return BuscarRecursivo(nodo.Derecho, id);
+            }
+        }
+
+        public NodoBinario? BuscarNodo(int id)
+        {
+            return BuscarNodoRecursivo(Raiz, id);
+        }
+
+
+        public NodoBinario? BuscarNodoRecursivo(NodoBinario? nodo, int id)
+        {
+            if (nodo == null)
+            {
+                return null;
+            }
+
+            if (nodo.Servicio.Id == id)
             {
                 return nodo;
             }
 
-            return id < nodo.Servicio.Id
-                ? BuscarRecursivo(nodo.Izquierdo, id)
-                : BuscarRecursivo(nodo.Derecho, id);
+            if (id < nodo.Servicio.Id)
+            {
+                return BuscarNodoRecursivo(nodo.Izquierdo, id);
+            }
+            else
+            {
+                return BuscarNodoRecursivo(nodo.Derecho, id);
+            }
         }
 
         public void ActualizarServicio(Servicio servicio)

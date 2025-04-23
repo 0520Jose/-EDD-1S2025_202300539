@@ -9,14 +9,10 @@ namespace AutoGestPro.Models.Entidades
         public int Id { get; set; }
         public int Id_Servicio { get; set; }
         public double Total { get; set; }
-
         public string Fecha { get; set; }
-
         public string MetodoDePago { get; set; }
-
-        public Factura? Izquierdo { get; set; }
-        public Factura? Derecho { get; set; }
-
+        public Factura? siguiente { get; set; }
+        public Factura? anterior { get; set; }
         public string Hash { get; set; }
 
         public Factura(int id, int idServicio, double total, string metodoDePago)
@@ -29,23 +25,14 @@ namespace AutoGestPro.Models.Entidades
             Hash = CalcularHash();
         }
 
-        public Factura(Factura izquierdo, Factura derecho)
+        public string CalcularHash()
         {
-            Izquierdo = izquierdo;
-            Derecho = derecho;
-            Hash = CalcularHash(Izquierdo.Hash + Derecho.Hash);
+            string data = $"{Id}{Id_Servicio}{Total}{Fecha}{MetodoDePago}";
+            byte[] bytes = Encoding.UTF8.GetBytes(data);
+            byte[] hashBytes = SHA256.HashData(bytes);
+            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
         }
 
-        public string CalcularHash(string? data = null)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                if (data == null)
-                    data = $"{Id}-{Id_Servicio}-{Total}-{Fecha}-{MetodoDePago}";
-
-                var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(data));
-                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
-            }
-        }
+        
     }
 }

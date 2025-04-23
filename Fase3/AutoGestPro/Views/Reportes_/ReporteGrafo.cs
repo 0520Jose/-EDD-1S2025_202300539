@@ -1,29 +1,29 @@
 using System;
-using System.IO;
 using AutoGestPro.Models;
 using AutoGestPro.Models.Estructuras;
+using AutoGestPro.Models.Estructuras.Grafos;
 using System.Diagnostics;
 
 namespace AutoGestPro.Views.Reportes_
 {
-    class ReporteFacturas
+    class ReporteGrafo
     {
         public void Generar()
         {
-            ArbolMerkle arbol = EstructurasGlobales.arbolFacturas;
+            Grafo arbol = EstructurasGlobales.grafoVehiculos_Repuestos;
 
             string dotPath = "/usr/bin/dot";
-            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/Reportes/ReporteFacturas.png";
-            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/Reportes/ReporteFacturas.dot";
+            string outputPath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/Reportes/ReporteGrafo.png";
+            string dotFilePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/Reportes/ReporteGrafo.dot";
 
-            string dotContent = arbol.GenerarDot();
+            string dotContent = arbol.Graficar();
 
             File.WriteAllText(dotFilePath, dotContent);
 
             ProcessStartInfo processInfo = new ProcessStartInfo
             {
                 FileName = dotPath,
-                Arguments = $"-Tpng \"{dotFilePath}\" -o \"{outputPath}\"",
+                Arguments = $"-Tpng {dotFilePath} -o {outputPath}",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,

@@ -5,6 +5,7 @@ using System.Text;
 
 using AutoGestPro.Models.Entidades;
 using AutoGestPro.Models.Estructuras;
+using AutoGestPro.Views.Usuario;
 
 namespace AutoGestPro.Views
 {
@@ -96,7 +97,7 @@ namespace AutoGestPro.Views
                     }
 
                     System.IO.File.WriteAllText(filePath, userData);
-                    //MenuUsuario menuUsuario= new MenuUsuario(ventana, usuario_);
+                    MenuUsuario menuUsuario= new MenuUsuario(ventana, usuario_);
                     ventana.Hide();
                     mensaje.Destroy();
                 }

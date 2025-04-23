@@ -1,4 +1,6 @@
 using System;
+using AutoGestPro.Models.Entidades;
+using AutoGestPro.Models.Estructuras;
 using Gtk;
 
 namespace AutoGestPro.Views
@@ -66,6 +68,20 @@ namespace AutoGestPro.Views
                 ventana.Hide();
             };
             table.Attach(reportes, 2, 3, 1, 2);
+
+            Button backup = new Button("Backup");
+            backup.Clicked += (sender, e) => {
+                //Backup backup = new Backup(ventana);
+                ventana.Hide();
+            };
+            table.Attach(backup, 0, 1, 2, 3);
+
+            Button cargarBackup = new Button("Cargar backup");
+            cargarBackup.Clicked += (sender, e) => {
+                //CargarBackup cargarBackup = new CargarBackup(ventana);
+                ventana.Hide();
+            };
+            table.Attach(cargarBackup, 1, 2, 2, 3);
             
 
             Button cerrarSesionButton = new Button("Cerrar sesión");

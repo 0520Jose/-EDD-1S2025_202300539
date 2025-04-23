@@ -70,6 +70,12 @@ namespace AutoGestPro.Views
             };
             contenedor.PackStart(reportes5, false, false, 10);
 
+            Button reporte6 = new Button ("Reporte de Grafo"); 
+            reporte6.Clicked += delegate
+            {
+                new ReporteGrafo().Generar();
+            };
+            contenedor.PackStart(reporte6, false, false, 10);
 
             Button regresar = new Button("Regresar");
             regresar.Clicked += delegate

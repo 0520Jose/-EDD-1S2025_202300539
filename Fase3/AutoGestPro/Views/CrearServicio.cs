@@ -93,7 +93,7 @@ namespace AutoGestPro.Views
                             repuestoDialog.Destroy();
                             return;
                         }
-                        NodoBinario nodoBinario = EstructurasGlobales.arbolServicios.Buscar(id_);
+                        NodoBinario nodoBinario = EstructurasGlobales.arbolServicios.BuscarNodo(id_);
                         if (nodoBinario != null)
                         {
                             MessageDialog servicioDialog = new MessageDialog(ventanaServicio, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "Servicio ya existe");
@@ -105,9 +105,10 @@ namespace AutoGestPro.Views
                         Servicio Servicio = new Servicio(id_, idRepuesto_, idVehiculo_, detalles, costo_);
                         Repuesto repustoCosto = EstructurasGlobales.arbolRepuestos.Buscar(EstructurasGlobales.arbolRepuestos.Raiz, idRepuesto_).Repuesto;
                         double Total = costo_ + repustoCosto.Costo;
-                        Factura Factura = new Factura(1000+EstructurasGlobales.arbolFacturas.Tamanio, id_, Total, "Efectivo");
+                        Factura Factura = new Factura(1+EstructurasGlobales.arbolFacturas.Facturas.tamanio, id_, Total, "Efectivo");
                         EstructurasGlobales.arbolFacturas.Insertar(Factura);
                         EstructurasGlobales.arbolServicios.Insertar(Servicio);
+                        EstructurasGlobales.grafoVehiculos_Repuestos.insertar(idVehiculo_, idRepuesto_);
                         idEntry.Text = "";
                         idRepuestoEntry.Text = "";
                         idVehiculoEntry.Text = "";

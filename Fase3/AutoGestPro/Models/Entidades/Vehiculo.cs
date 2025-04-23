@@ -2,7 +2,7 @@ using System;
 
 namespace AutoGestPro.Models.Entidades
 {
-    unsafe struct Vehiculo
+    public unsafe struct Vehiculo
     {
         public int Id { get; set; }
         public int Id_Usuario { get; set; }

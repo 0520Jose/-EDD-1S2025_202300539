@@ -1,5 +1,5 @@
 using System;
-using AutoGestPro.Models.Estructuras;
+using AutoGestPro.Models.Estructuras.Grafos;
 
 namespace AutoGestPro.Models.Estructuras
 {
@@ -12,5 +12,8 @@ namespace AutoGestPro.Models.Estructuras
         public static ArbolMerkle arbolFacturas = new ArbolMerkle();
 
         public static BlockChain blockChain = new BlockChain();
+
+        public static Grafo grafoVehiculos_Repuestos = new Grafo();
+
     }
 }

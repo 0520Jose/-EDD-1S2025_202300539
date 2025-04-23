@@ -30,7 +30,7 @@ namespace AutoGestPro.Models.Entidades
 
         public void MineBlock()
         {
-            int dificultad = 3;
+            int dificultad = 1;
             string target = new string('0', dificultad);
             while (!Hash.StartsWith(target))
             {

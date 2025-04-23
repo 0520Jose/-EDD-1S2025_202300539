@@ -2,7 +2,7 @@ using System;
 
 namespace AutoGestPro.Models.Entidades
 {
-    class Repuesto
+    public class Repuesto
     {
         public int Id { get; set; }
         public string REpuesto { get; set; }
