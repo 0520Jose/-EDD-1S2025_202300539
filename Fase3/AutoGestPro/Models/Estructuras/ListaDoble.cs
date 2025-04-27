@@ -66,6 +66,37 @@ unsafe class ListaDoble
         return new Vehiculo();
     }
 
+    public void CargarDesdeTexto(string texto)
+    {
+        string[] lineas = texto.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (string linea in lineas)
+        {
+            string[] partes = linea.Split(',');
+            if (partes.Length == 5)
+            {
+                int id = int.Parse(partes[0]);
+                int idUsuario = int.Parse(partes[1]);
+                string marca = partes[2];
+                string modelo = partes[3];
+                string placa = partes[4];
+
+                Insertar(id, idUsuario, marca, modelo, placa);
+            }
+        }
+    }
+
+    public string ObtenerTexto()
+    {
+        string texto = "";
+        Vehiculo* vehiculoActual = inicio;
+        while (vehiculoActual != null)
+        {
+            texto += $"{vehiculoActual->Id},{vehiculoActual->Id_Usuario},{vehiculoActual->Marca},{vehiculoActual->Modelo},{vehiculoActual->Placa}\n";
+            vehiculoActual = vehiculoActual->siguiente;
+        }
+        return texto;
+    }
+
     public void eliminarVehiculo(int id)
     {
         Vehiculo* vehiculoActual = inicio;

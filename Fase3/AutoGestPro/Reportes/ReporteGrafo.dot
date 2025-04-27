@@ -5,6 +5,8 @@ graph G {
     R1 [label="R1"];
     V1 -- R1;
     V2 [label="V2"];
+    R1 [label="R1"];
+    V2 -- R1;
     R2 [label="R2"];
     V2 -- R2;
 }

@@ -9,6 +9,8 @@ namespace AutoGestPro.Views
     {
         public Menu(Window cerrarSesion)
         {
+            
+
             Window ventana = new Window("Menu - Root");
             ventana.SetDefaultSize(800, 600);
             ventana.SetPosition(WindowPosition.Center);
@@ -68,28 +70,51 @@ namespace AutoGestPro.Views
                 ventana.Hide();
             };
             table.Attach(reportes, 2, 3, 1, 2);
+    
+            Button logueos = new Button("Ver logueos");
+            logueos.Clicked += (sender, e) => {
+                string filePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/Logueos.json";
+                if (System.IO.File.Exists(filePath))
+                {
+                    string logueosContent = System.IO.File.ReadAllText(filePath);
+                    MessageDialog dialog = new MessageDialog(
+                        null,
+                        DialogFlags.Modal,
+                        MessageType.Info,
+                        ButtonsType.Ok,
+                        logueosContent
+                    );
+                    dialog.Run();
+                    dialog.Destroy();
+                }
+                else
+                {
+                    MessageDialog dialog = new MessageDialog(
+                        null,
+                        DialogFlags.Modal,
+                        MessageType.Error,
+                        ButtonsType.Ok,
+                        "El archivo Logueos.json no existe."
+                    );
+                    dialog.Run();
+                    dialog.Destroy();
+                }
+            };
+            table.Attach(logueos, 0, 1, 2, 3);
 
             Button backup = new Button("Backup");
             backup.Clicked += (sender, e) => {
-                //Backup backup = new Backup(ventana);
-                ventana.Hide();
+                Backup backup = new Backup();
+                backup.GenerarBackup();
             };
             table.Attach(backup, 0, 1, 2, 3);
-
-            Button cargarBackup = new Button("Cargar backup");
-            cargarBackup.Clicked += (sender, e) => {
-                //CargarBackup cargarBackup = new CargarBackup(ventana);
-                ventana.Hide();
-            };
-            table.Attach(cargarBackup, 1, 2, 2, 3);
-            
 
             Button cerrarSesionButton = new Button("Cerrar sesión");
             cerrarSesionButton.Clicked += (sender, e) => {
                 cerrarSesion.Show();
                 ventana.Destroy();
             };
-            table.Attach(cerrarSesionButton, 2, 3, 2, 3);
+            table.Attach(cerrarSesionButton, 1, 2, 2, 3);
 
             ventana.ShowAll();
         }

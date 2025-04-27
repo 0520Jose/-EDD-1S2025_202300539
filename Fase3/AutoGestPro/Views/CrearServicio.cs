@@ -105,8 +105,7 @@ namespace AutoGestPro.Views
                         Servicio Servicio = new Servicio(id_, idRepuesto_, idVehiculo_, detalles, costo_);
                         Repuesto repustoCosto = EstructurasGlobales.arbolRepuestos.Buscar(EstructurasGlobales.arbolRepuestos.Raiz, idRepuesto_).Repuesto;
                         double Total = costo_ + repustoCosto.Costo;
-                        Factura Factura = new Factura(1+EstructurasGlobales.arbolFacturas.Facturas.tamanio, id_, Total, "Efectivo");
-                        EstructurasGlobales.arbolFacturas.Insertar(Factura);
+                        EstructurasGlobales.arbolFacturas.Insertar(1+EstructurasGlobales.arbolFacturas.Facturas.Count, id_, Total, "Efectivo");
                         EstructurasGlobales.arbolServicios.Insertar(Servicio);
                         EstructurasGlobales.grafoVehiculos_Repuestos.insertar(idVehiculo_, idRepuesto_);
                         idEntry.Text = "";

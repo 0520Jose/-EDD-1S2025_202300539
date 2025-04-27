@@ -1,8 +1,9 @@
 digraph G {
 node [shape=record];
-rankdir=TB;
+rankdir=LR;
 node [height=0.5];
 node [width=0.5];
+node [shape=record];
 node [style=filled];
 node [fillcolor="#EEEEEE"];
 node [fontname="Arial"];
@@ -21,12 +22,21 @@ edge [taillabel=""];
 edge [headlabel=""];
 edge [label=""];
 edge [weight="1"];
-"1" [label="{
-INDEX: 1\l
-TIMESTAMP: 14-04-25::10:54:46\l
-DATA: \{NOMBRE: Ana Lucia, APELLIDO: Martinez Lopez, CORREO: ana.lucia@usac.com, EDAD: 20, CONTRASEÑA: uvWeIMOnvU6SiG3q4AKTwOHzqLhPqiEfehAiQACTFOk=\}\l
-NONCE: 3095\l
-PREVIOUS HASH: 0000d59186bb850dddf898aaafb8cfddd3972486902e8f89bd6f387d93bbd026\l
-HASH: 000f4f9f4db20db579722a3ec4980c202db0d3d11f4c787cce27237a49dd03d4\l
-}"]
+"2" [label="{<f0> Id: 2 | <f1> Nombres: Ana Lucia | <f2> Apellidos: Martinez Lopez | <f3> Correo: ana.lucia@usac.com | <f4> Edad: 39 }"];
+"2" -> "3";
+"3" [label="{<f0> Id: 3 | <f1> Nombres: Luis Enrique | <f2> Apellidos: Perez Ramirez | <f3> Correo: luis.enrique@usac.com | <f4> Edad: 50 }"];
+"3" -> "4";
+"4" [label="{<f0> Id: 4 | <f1> Nombres: Marta Isabel | <f2> Apellidos: Lopez Perez | <f3> Correo: marta.isabel@usac.com | <f4> Edad: 60 }"];
+"4" -> "5";
+"5" [label="{<f0> Id: 5 | <f1> Nombres: Juan Carlos | <f2> Apellidos: Hernandez Lopez | <f3> Correo: juan.carlos@usac.com | <f4> Edad: 46 }"];
+"5" -> "6";
+"6" [label="{<f0> Id: 6 | <f1> Nombres: Maria Fernanda | <f2> Apellidos: Garcia Lopez | <f3> Correo: maria.fernanda@usac.com | <f4> Edad: 39 }"];
+"6" -> "7";
+"7" [label="{<f0> Id: 7 | <f1> Nombres: Pedro Pablo | <f2> Apellidos: Rodriguez Torres | <f3> Correo: pedro.pablo@usac.com | <f4> Edad: 32 }"];
+"7" -> "8";
+"8" [label="{<f0> Id: 8 | <f1> Nombres: Laura Isabel | <f2> Apellidos: Sanchez Morales | <f3> Correo: laura.isabel@usac.com | <f4> Edad: 18 }"];
+"8" -> "9";
+"9" [label="{<f0> Id: 9 | <f1> Nombres: Rafael Alejandro | <f2> Apellidos: Ramirez Diaz | <f3> Correo: rafael.alejandro@usac.com | <f4> Edad: 20 }"];
+"9" -> "10";
+"10" [label="{<f0> Id: 10 | <f1> Nombres: Isabel Cristina | <f2> Apellidos: Diaz Lopez | <f3> Correo: isabel.cristina@usac.com | <f4> Edad: 40 }"];
 }

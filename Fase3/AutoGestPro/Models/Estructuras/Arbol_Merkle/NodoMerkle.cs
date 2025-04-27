@@ -7,49 +7,42 @@ namespace AutoGestPro.Models.Estructuras
 {
     public class Nodo
     {
-        public Factura? IzquierdoFinal { get; set; }
-        public Factura? DerechoFinal { get; set; }
-        public Nodo? Izquierdo { get; set; }
-        public Nodo? Derecho { get; set; }
-        public bool EsNodoImpar { get; set; }
-
+        public Nodo Izquierdo;
+        public Nodo Derecho;
+        public Factura Factura;
         public string Hash;
 
-        public Nodo()
+        public Nodo(Factura factura)
         {
             Izquierdo = null;
             Derecho = null;
-            IzquierdoFinal = null;
-            DerechoFinal = null;
-            Hash = null;
-            EsNodoImpar = false;
+            Factura = factura;
+            Hash = factura.GetHash();
         }
 
-
-        public string HashPadre()
+        public Nodo(Nodo izquierdo, Nodo derecho)
         {
+            Factura = null;
+            Izquierdo = izquierdo;
+            Derecho = derecho;
+            Hash = CalcularHash(izquierdo.Hash, derecho?.Hash);
+        }
+
+        private string CalcularHash(string leftHash, string rightHash)
+        {
+
+            string combined = leftHash + (rightHash ?? leftHash);
             using (SHA256 sha256 = SHA256.Create())
             {
-                string combined;
-                
-                if (EsNodoImpar && Derecho == null)
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(combined));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
                 {
-                    combined = Izquierdo?.Hash + Izquierdo?.Hash;
+                    builder.Append(b.ToString("x2"));
                 }
-                else
-                {
-                    combined = Izquierdo?.Hash + Derecho?.Hash;
-                }
-                
-                if (IzquierdoFinal != null && DerechoFinal != null)
-                {
-                    combined = IzquierdoFinal.Hash + DerechoFinal.Hash;
-                }
-                
-                byte[] bytes = Encoding.UTF8.GetBytes(combined);
-                byte[] hashBytes = sha256.ComputeHash(bytes);
-                return Convert.ToBase64String(hashBytes);
+                return builder.ToString();
             }
+
         }
 
     }

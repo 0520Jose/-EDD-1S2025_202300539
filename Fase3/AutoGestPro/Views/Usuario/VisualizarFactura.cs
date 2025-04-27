@@ -74,12 +74,12 @@ namespace AutoGestPro.Views
 
                 llenarListaInOrden(nodo.Izquierdo);
 
-                if (nodo.IzquierdoFinal != null && nodo.DerechoFinal != null)
+                if (nodo.Izquierdo != null && nodo.Derecho != null)
                 {
-                    var nodoServicio = arbolServicio.Buscar(nodo.IzquierdoFinal.Id_Servicio);
+                    var nodoServicio = arbolServicio.Buscar(nodo.Izquierdo.Factura.Id_Servicio);
                     if (nodoServicio)
                     {   
-                        NodoBinario NodoServicio = arbolServicio.BuscarNodo(nodo.IzquierdoFinal.Id_Servicio);
+                        NodoBinario NodoServicio = arbolServicio.BuscarNodo(nodo.Izquierdo.Factura.Id_Servicio);
                         int Id_Vehiculo = NodoServicio.Servicio.Id_Vehiculo;
                         var vehiculo = lista.buscarVehiculo(Id_Vehiculo);
                         if (vehiculo.Id != 0)
@@ -88,11 +88,11 @@ namespace AutoGestPro.Views
                             if (idUsuario == id)
                             {
                                 listStore.AppendValues(
-                                    nodo.IzquierdoFinal.Id.ToString(),
-                                    nodo.IzquierdoFinal.Id_Servicio.ToString(),
-                                    nodo.IzquierdoFinal.Total.ToString(),
-                                    nodo.IzquierdoFinal.Fecha.ToString(),
-                                    nodo.IzquierdoFinal.MetodoDePago.ToString()
+                                    nodo.Izquierdo.Factura.Id.ToString(),
+                                    nodo.Izquierdo.Factura.Id_Servicio.ToString(),
+                                    nodo.Izquierdo.Factura.Total.ToString("F2"),
+                                    $"{nodo.Izquierdo.Factura.Fecha:yyyy-MM-dd}",
+                                    nodo.Izquierdo.Factura.MetodoDePago
                                 );
                             }
                         }

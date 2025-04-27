@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -11,9 +12,6 @@ namespace AutoGestPro.Models.Entidades
         public double Total { get; set; }
         public string Fecha { get; set; }
         public string MetodoDePago { get; set; }
-        public Factura? siguiente { get; set; }
-        public Factura? anterior { get; set; }
-        public string Hash { get; set; }
 
         public Factura(int id, int idServicio, double total, string metodoDePago)
         {
@@ -22,15 +20,21 @@ namespace AutoGestPro.Models.Entidades
             Total = total;
             Fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             MetodoDePago = metodoDePago;
-            Hash = CalcularHash();
         }
 
-        public string CalcularHash()
+        public string GetHash()
         {
-            string data = $"{Id}{Id_Servicio}{Total}{Fecha}{MetodoDePago}";
-            byte[] bytes = Encoding.UTF8.GetBytes(data);
-            byte[] hashBytes = SHA256.HashData(bytes);
-            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            string data = System.Text.Json.JsonSerializer.Serialize(this);
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(data));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
 
         

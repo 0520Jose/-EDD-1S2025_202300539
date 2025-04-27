@@ -51,6 +51,9 @@ namespace AutoGestPro.Views
             txtContrasena.Text = "admint123";
             txtusuario_.Text = "admin@usac.com";
 
+            Backup backup = new Backup();
+            backup.CargarBackup();
+
             Button iniciarSesion = new Button("Iniciar Sesión");
             iniciarSesion.Clicked += (sender, e) => {
                 BlockChain listaUsuarios = EstructurasGlobales.blockChain;

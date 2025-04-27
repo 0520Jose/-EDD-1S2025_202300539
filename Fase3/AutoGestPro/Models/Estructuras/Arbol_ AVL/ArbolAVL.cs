@@ -69,6 +69,39 @@ namespace AutoGestPro.Models
 
         }
 
+        public void CargarDesdeTexto(string texto)
+        {
+            string[] lineas = texto.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string linea in lineas)
+            {
+                string[] partes = linea.Split(',');
+                if (partes.Length == 4)
+                {
+                    int id = int.Parse(partes[0]);
+                    string repuesto = partes[1];
+                    string detalle = partes[2];
+                    float costo = float.Parse(partes[3]);
+                    Repuesto nuevoRepuesto = new Repuesto(id, repuesto, detalle, costo);
+                    Raiz = Insertar(Raiz, nuevoRepuesto);
+                }
+            }
+        }
+
+        public string ObtenerTexto()
+        {
+            return ObtenerTextoRecursivo(Raiz);
+        }
+
+        private string ObtenerTextoRecursivo(NodoAVL nodo)
+        {
+            if (nodo == null)
+                return string.Empty;
+            string texto = $"{nodo.Repuesto.Id},{nodo.Repuesto.REpuesto},{nodo.Repuesto.Detalle},{nodo.Repuesto.Costo}\n";
+            texto += ObtenerTextoRecursivo(nodo.Izquierdo);
+            texto += ObtenerTextoRecursivo(nodo.Derecho);
+            return texto;
+        }
+
         public NodoAVL Buscar(NodoAVL raiz, int id)
         {
             if (raiz == null)

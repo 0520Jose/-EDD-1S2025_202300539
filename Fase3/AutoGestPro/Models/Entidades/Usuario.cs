@@ -25,12 +25,12 @@ namespace AutoGestPro.Models.Entidades
             string data = $"{Index}{Fecha}{Id}{Nombres}{Apellidos}{Correo}{Edad}{Contrasenia}{Nonce}{HashAnterior}";
             byte[] bytes = Encoding.UTF8.GetBytes(data);
             byte[] hashBytes = SHA256.HashData(bytes);
-            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            return "0000" + BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
         }
 
         public void MineBlock()
         {
-            int dificultad = 1;
+            int dificultad = 0;
             string target = new string('0', dificultad);
             while (!Hash.StartsWith(target))
             {

@@ -21,3 +21,4 @@
 /home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/obj/Debug/net7.0/AutoGestPro.pdb
 /home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/obj/Debug/net7.0/AutoGestPro.genruntimeconfig.cache
 /home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/obj/Debug/net7.0/ref/AutoGestPro.dll
+/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/bin/Debug/net7.0/Newtonsoft.Json.dll

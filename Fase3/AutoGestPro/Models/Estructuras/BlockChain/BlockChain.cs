@@ -120,6 +120,72 @@ namespace AutoGestPro.Models.Estructuras
             return null;
         }
 
+        public List<UsuarioNodo> ObtenerTodosLosUsuarios()
+        {
+            var usuarios = new List<UsuarioNodo>();
+            var usuarioActual = Inicio;
+
+            while (usuarioActual != null)
+            {
+                usuarios.Add(new UsuarioNodo
+                {
+                    Index = usuarioActual.Index,
+                    Id = usuarioActual.Id,
+                    Nombres = usuarioActual.Nombres,
+                    Apellidos = usuarioActual.Apellidos,
+                    Correo = usuarioActual.Correo,
+                    Edad = usuarioActual.Edad,
+                    Contrasenia = usuarioActual.Contrasenia,
+                    Hash = usuarioActual.Hash,
+                    Fecha = usuarioActual.Fecha,
+                    Nonce = usuarioActual.Nonce,
+                    HashAnterior = usuarioActual.HashAnterior,
+                });
+
+                usuarioActual = usuarioActual.Siguiente;
+            }
+
+            return usuarios;
+        }
+
+        public void CargarUsuarios(List<UsuarioNodo> usuarios)
+        {
+            Inicio = null;
+            Fin = null;
+            Tamanio = 0;
+
+            foreach (var usuario in usuarios)
+            {
+                var nuevoNodo = new UsuarioNodo
+                {
+                    Index = usuario.Index,
+                    Id = usuario.Id,
+                    Nombres = usuario.Nombres,
+                    Apellidos = usuario.Apellidos,
+                    Correo = usuario.Correo,
+                    Contrasenia = usuario.Contrasenia,
+                    Edad = usuario.Edad,
+                    Hash = usuario.Hash,
+                    Fecha = usuario.Fecha,
+                    Nonce = usuario.Nonce,
+                    HashAnterior = usuario.HashAnterior
+                };
+
+                if (Inicio == null)
+                {
+                    Inicio = nuevoNodo;
+                    Fin = nuevoNodo;
+                }
+                else
+                {
+                    Fin.Siguiente = nuevoNodo;
+                    Fin = nuevoNodo;
+                }
+
+                Tamanio++;
+            }
+        }
+
         public bool EliminarBloque(int index)
         {
             if (index == 0) return false;
