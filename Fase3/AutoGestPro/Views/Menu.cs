@@ -76,16 +76,36 @@ namespace AutoGestPro.Views
                 string filePath = "/home/emanuel/Escritorio/Proyectos/-EDD-Proyecto_202300539/-EDD-Proyecto_202300539/Fase3/AutoGestPro/Logueos.json";
                 if (System.IO.File.Exists(filePath))
                 {
-                    string logueosContent = System.IO.File.ReadAllText(filePath);
-                    MessageDialog dialog = new MessageDialog(
-                        null,
-                        DialogFlags.Modal,
-                        MessageType.Info,
-                        ButtonsType.Ok,
-                        logueosContent
-                    );
-                    dialog.Run();
-                    dialog.Destroy();
+                    try
+                    {
+                        string logueosContent = System.IO.File.ReadAllText(filePath);
+                        if (Newtonsoft.Json.Linq.JToken.Parse(logueosContent) is not null)
+                        {
+                            MessageDialog dialog = new MessageDialog(
+                                null,
+                                DialogFlags.Modal,
+                                MessageType.Info,
+                                ButtonsType.Ok,
+                                false,
+                                "El archivo Logueos.json contiene un JSON válido."
+                            );
+                            dialog.Run();
+                            dialog.Destroy();
+                            System.Diagnostics.Process.Start("xdg-open", filePath);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageDialog errorDialog = new MessageDialog(
+                            null,
+                            DialogFlags.Modal,
+                            MessageType.Error,
+                            ButtonsType.Ok,
+                            "Error al leer o formatear el archivo Logueos.json.\n" + ex.Message
+                        );
+                        errorDialog.Run();
+                        errorDialog.Destroy();
+                    }
                 }
                 else
                 {
