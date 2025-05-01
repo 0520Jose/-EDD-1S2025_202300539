@@ -1,0 +1,609 @@
+{
+  "Comprimido": "0101101010110111110101100101100010001011111100100011101000001101001100000111000110101000010001000001101110000001100000010000010111110101110101101011100110100101010010110000111001110111011001110001111111001000111011001111100110010111100111101111110101000010010100101010001001101011000000001111100001000010000011001101101101010010111101111100111110010001010010111011111001111000101110111101000101010000100010001111101100011101000010100110000110101010111010011111100110111001010110110110001111100000110100011010001111101100010010000001011110110001100000001101011111101010000100101010010111101111000011101100011001110110101101000110100110000110101101101001110111011001110011101001111100110010111101110011100011001000000111010011110011100110101000010001000010110111100000011000110000000011111011010000011101001101100110101101101111101011011100111011011000100010111111000001001011011000111101111101100011000111110011111101010000100101000011010001111001101111011000110111011110010111011110011000101101011100101011111111110111010100010111111001001101101010000100101010110101111100000011110111110101111010001111000001100110011111010000110111010111000001111110010000110100000110011010100001001010111001010001101000010000110001110011100111011010100100111110101010000110111110101100101100010001011111100100000011110001111000111001111100100010101010000100010111010101110110111100000001101110101101111010100000010011010100101010110011010000000111011110101011111111111000111011100101000110000110101000110111110011100101110101111110101000010010101100110111000000110000001000110101111100001110111110011010101011010110011011110000011111001101110010110000011011010100001001010110110111100001000111101111100111111110110001010001111100110101010010100010110111011011100101111011010100110100000110011011111001100111111001011000100100001001110011100011100011111110101000010010101001010001001100001101011011010001110111010111101110011010101101101001111101100001110011101110110011100011111110010001110111110011010111100110111010101000010010101110010111101101100011000001000110010001100111001110111100110101011100101111010101001110111011001110011101001111100110010111101110011100011001000000010001101111111111001101010010101000010010101011011100001000010001101110101101100010100011111001101010000110101010010101011111111110111010100010111111001000111011000000110010000011010100001001010001011011101101001101100011100110111011110010111101110011",
+  "Arbol": {
+    "Caracter": "\u0000",
+    "Frecuencia": 453,
+    "Izquierdo": {
+      "Caracter": "\u0000",
+      "Frecuencia": 195,
+      "Izquierdo": {
+        "Caracter": "\u0000",
+        "Frecuencia": 93,
+        "Izquierdo": {
+          "Caracter": "\u0000",
+          "Frecuencia": 45,
+          "Izquierdo": {
+            "Caracter": "\u0000",
+            "Frecuencia": 21,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 10,
+              "Izquierdo": {
+                "Caracter": "S",
+                "Frecuencia": 5,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "A",
+                "Frecuencia": 5,
+                "Izquierdo": null,
+                "Derecho": null
+              }
+            },
+            "Derecho": {
+              "Caracter": "5",
+              "Frecuencia": 11,
+              "Izquierdo": null,
+              "Derecho": null
+            }
+          },
+          "Derecho": {
+            "Caracter": "\u0000",
+            "Frecuencia": 24,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 12,
+              "Izquierdo": {
+                "Caracter": "J",
+                "Frecuencia": 6,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "7",
+                "Frecuencia": 6,
+                "Izquierdo": null,
+                "Derecho": null
+              }
+            },
+            "Derecho": {
+              "Caracter": "\u0000",
+              "Frecuencia": 12,
+              "Izquierdo": {
+                "Caracter": "R",
+                "Frecuencia": 6,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "\u0000",
+                "Frecuencia": 6,
+                "Izquierdo": {
+                  "Caracter": "L",
+                  "Frecuencia": 3,
+                  "Izquierdo": null,
+                  "Derecho": null
+                },
+                "Derecho": {
+                  "Caracter": "Q",
+                  "Frecuencia": 3,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              }
+            }
+          }
+        },
+        "Derecho": {
+          "Caracter": "\u0000",
+          "Frecuencia": 48,
+          "Izquierdo": {
+            "Caracter": "0",
+            "Frecuencia": 24,
+            "Izquierdo": null,
+            "Derecho": null
+          },
+          "Derecho": {
+            "Caracter": "\u0000",
+            "Frecuencia": 24,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 12,
+              "Izquierdo": {
+                "Caracter": "\u0000",
+                "Frecuencia": 6,
+                "Izquierdo": {
+                  "Caracter": "Z",
+                  "Frecuencia": 3,
+                  "Izquierdo": null,
+                  "Derecho": null
+                },
+                "Derecho": {
+                  "Caracter": "\u0000",
+                  "Frecuencia": 3,
+                  "Izquierdo": {
+                    "Caracter": "-",
+                    "Frecuencia": 1,
+                    "Izquierdo": null,
+                    "Derecho": null
+                  },
+                  "Derecho": {
+                    "Caracter": "\u0000",
+                    "Frecuencia": 2,
+                    "Izquierdo": {
+                      "Caracter": "w",
+                      "Frecuencia": 1,
+                      "Izquierdo": null,
+                      "Derecho": null
+                    },
+                    "Derecho": {
+                      "Caracter": "g",
+                      "Frecuencia": 1,
+                      "Izquierdo": null,
+                      "Derecho": null
+                    }
+                  }
+                }
+              },
+              "Derecho": {
+                "Caracter": "\u0000",
+                "Frecuencia": 6,
+                "Izquierdo": {
+                  "Caracter": "m",
+                  "Frecuencia": 3,
+                  "Izquierdo": null,
+                  "Derecho": null
+                },
+                "Derecho": {
+                  "Caracter": "W",
+                  "Frecuencia": 3,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              }
+            },
+            "Derecho": {
+              "Caracter": "\u0000",
+              "Frecuencia": 12,
+              "Izquierdo": {
+                "Caracter": "C",
+                "Frecuencia": 6,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "8",
+                "Frecuencia": 6,
+                "Izquierdo": null,
+                "Derecho": null
+              }
+            }
+          }
+        }
+      },
+      "Derecho": {
+        "Caracter": "\u0000",
+        "Frecuencia": 102,
+        "Izquierdo": {
+          "Caracter": "\u0000",
+          "Frecuencia": 49,
+          "Izquierdo": {
+            "Caracter": "2",
+            "Frecuencia": 24,
+            "Izquierdo": null,
+            "Derecho": null
+          },
+          "Derecho": {
+            "Caracter": "1",
+            "Frecuencia": 25,
+            "Izquierdo": null,
+            "Derecho": null
+          }
+        },
+        "Derecho": {
+          "Caracter": "\u0000",
+          "Frecuencia": 53,
+          "Izquierdo": {
+            "Caracter": "\u0000",
+            "Frecuencia": 25,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 12,
+              "Izquierdo": {
+                "Caracter": "n",
+                "Frecuencia": 6,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "6",
+                "Frecuencia": 6,
+                "Izquierdo": null,
+                "Derecho": null
+              }
+            },
+            "Derecho": {
+              "Caracter": "3",
+              "Frecuencia": 13,
+              "Izquierdo": null,
+              "Derecho": null
+            }
+          },
+          "Derecho": {
+            "Caracter": "\u0000",
+            "Frecuencia": 28,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 14,
+              "Izquierdo": {
+                "Caracter": "4",
+                "Frecuencia": 7,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "\u0000",
+                "Frecuencia": 7,
+                "Izquierdo": {
+                  "Caracter": "z",
+                  "Frecuencia": 3,
+                  "Izquierdo": null,
+                  "Derecho": null
+                },
+                "Derecho": {
+                  "Caracter": "u",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              }
+            },
+            "Derecho": {
+              "Caracter": "\u0000",
+              "Frecuencia": 14,
+              "Izquierdo": {
+                "Caracter": "l",
+                "Frecuencia": 7,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "M",
+                "Frecuencia": 7,
+                "Izquierdo": null,
+                "Derecho": null
+              }
+            }
+          }
+        }
+      }
+    },
+    "Derecho": {
+      "Caracter": "\u0000",
+      "Frecuencia": 258,
+      "Izquierdo": {
+        "Caracter": "\u0000",
+        "Frecuencia": 119,
+        "Izquierdo": {
+          "Caracter": "\u0000",
+          "Frecuencia": 59,
+          "Izquierdo": {
+            "Caracter": "\u0000",
+            "Frecuencia": 29,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 14,
+              "Izquierdo": {
+                "Caracter": "i",
+                "Frecuencia": 7,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "T",
+                "Frecuencia": 7,
+                "Izquierdo": null,
+                "Derecho": null
+              }
+            },
+            "Derecho": {
+              "Caracter": "\u0000",
+              "Frecuencia": 15,
+              "Izquierdo": {
+                "Caracter": "d",
+                "Frecuencia": 7,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "\u0000",
+                "Frecuencia": 8,
+                "Izquierdo": {
+                  "Caracter": "\u0000",
+                  "Frecuencia": 4,
+                  "Izquierdo": {
+                    "Caracter": "I",
+                    "Frecuencia": 2,
+                    "Izquierdo": null,
+                    "Derecho": null
+                  },
+                  "Derecho": {
+                    "Caracter": "p",
+                    "Frecuencia": 2,
+                    "Izquierdo": null,
+                    "Derecho": null
+                  }
+                },
+                "Derecho": {
+                  "Caracter": "\u0000",
+                  "Frecuencia": 4,
+                  "Izquierdo": {
+                    "Caracter": "Y",
+                    "Frecuencia": 2,
+                    "Izquierdo": null,
+                    "Derecho": null
+                  },
+                  "Derecho": {
+                    "Caracter": "N",
+                    "Frecuencia": 2,
+                    "Izquierdo": null,
+                    "Derecho": null
+                  }
+                }
+              }
+            }
+          },
+          "Derecho": {
+            "Caracter": "\u0000",
+            "Frecuencia": 30,
+            "Izquierdo": {
+              "Caracter": " ",
+              "Frecuencia": 15,
+              "Izquierdo": null,
+              "Derecho": null
+            },
+            "Derecho": {
+              "Caracter": "\n",
+              "Frecuencia": 15,
+              "Izquierdo": null,
+              "Derecho": null
+            }
+          }
+        },
+        "Derecho": {
+          "Caracter": ",",
+          "Frecuencia": 60,
+          "Izquierdo": null,
+          "Derecho": null
+        }
+      },
+      "Derecho": {
+        "Caracter": "\u0000",
+        "Frecuencia": 139,
+        "Izquierdo": {
+          "Caracter": "\u0000",
+          "Frecuencia": 64,
+          "Izquierdo": {
+            "Caracter": "\u0000",
+            "Frecuencia": 32,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 16,
+              "Izquierdo": {
+                "Caracter": "X",
+                "Frecuencia": 8,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "t",
+                "Frecuencia": 8,
+                "Izquierdo": null,
+                "Derecho": null
+              }
+            },
+            "Derecho": {
+              "Caracter": "o",
+              "Frecuencia": 16,
+              "Izquierdo": null,
+              "Derecho": null
+            }
+          },
+          "Derecho": {
+            "Caracter": "\u0000",
+            "Frecuencia": 32,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 16,
+              "Izquierdo": {
+                "Caracter": "\u0000",
+                "Frecuencia": 8,
+                "Izquierdo": {
+                  "Caracter": "s",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                },
+                "Derecho": {
+                  "Caracter": "v",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              },
+              "Derecho": {
+                "Caracter": "\u0000",
+                "Frecuencia": 8,
+                "Izquierdo": {
+                  "Caracter": "\u0000",
+                  "Frecuencia": 4,
+                  "Izquierdo": {
+                    "Caracter": "k",
+                    "Frecuencia": 2,
+                    "Izquierdo": null,
+                    "Derecho": null
+                  },
+                  "Derecho": {
+                    "Caracter": "\u0000",
+                    "Frecuencia": 2,
+                    "Izquierdo": {
+                      "Caracter": "G",
+                      "Frecuencia": 1,
+                      "Izquierdo": null,
+                      "Derecho": null
+                    },
+                    "Derecho": {
+                      "Caracter": "b",
+                      "Frecuencia": 1,
+                      "Izquierdo": null,
+                      "Derecho": null
+                    }
+                  }
+                },
+                "Derecho": {
+                  "Caracter": "K",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              }
+            },
+            "Derecho": {
+              "Caracter": "\u0000",
+              "Frecuencia": 16,
+              "Izquierdo": {
+                "Caracter": "\u0000",
+                "Frecuencia": 8,
+                "Izquierdo": {
+                  "Caracter": "E",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                },
+                "Derecho": {
+                  "Caracter": "V",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              },
+              "Derecho": {
+                "Caracter": "\u0000",
+                "Frecuencia": 8,
+                "Izquierdo": {
+                  "Caracter": "y",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                },
+                "Derecho": {
+                  "Caracter": "P",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              }
+            }
+          }
+        },
+        "Derecho": {
+          "Caracter": "\u0000",
+          "Frecuencia": 75,
+          "Izquierdo": {
+            "Caracter": "\u0000",
+            "Frecuencia": 34,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 16,
+              "Izquierdo": {
+                "Caracter": "\u0000",
+                "Frecuencia": 8,
+                "Izquierdo": {
+                  "Caracter": "B",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                },
+                "Derecho": {
+                  "Caracter": "c",
+                  "Frecuencia": 4,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              },
+              "Derecho": {
+                "Caracter": "e",
+                "Frecuencia": 8,
+                "Izquierdo": null,
+                "Derecho": null
+              }
+            },
+            "Derecho": {
+              "Caracter": "\u0000",
+              "Frecuencia": 18,
+              "Izquierdo": {
+                "Caracter": "9",
+                "Frecuencia": 9,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "\u0000",
+                "Frecuencia": 9,
+                "Izquierdo": {
+                  "Caracter": "\u0000",
+                  "Frecuencia": 4,
+                  "Izquierdo": {
+                    "Caracter": "h",
+                    "Frecuencia": 2,
+                    "Izquierdo": null,
+                    "Derecho": null
+                  },
+                  "Derecho": {
+                    "Caracter": "O",
+                    "Frecuencia": 2,
+                    "Izquierdo": null,
+                    "Derecho": null
+                  }
+                },
+                "Derecho": {
+                  "Caracter": "F",
+                  "Frecuencia": 5,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              }
+            }
+          },
+          "Derecho": {
+            "Caracter": "\u0000",
+            "Frecuencia": 41,
+            "Izquierdo": {
+              "Caracter": "\u0000",
+              "Frecuencia": 20,
+              "Izquierdo": {
+                "Caracter": "r",
+                "Frecuencia": 10,
+                "Izquierdo": null,
+                "Derecho": null
+              },
+              "Derecho": {
+                "Caracter": "\u0000",
+                "Frecuencia": 10,
+                "Izquierdo": {
+                  "Caracter": "H",
+                  "Frecuencia": 5,
+                  "Izquierdo": null,
+                  "Derecho": null
+                },
+                "Derecho": {
+                  "Caracter": "D",
+                  "Frecuencia": 5,
+                  "Izquierdo": null,
+                  "Derecho": null
+                }
+              }
+            },
+            "Derecho": {
+              "Caracter": "a",
+              "Frecuencia": 21,
+              "Izquierdo": null,
+              "Derecho": null
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+digraph G {
+nodo [shape=record];
+rankdir=BT;
+nodo [height=0.5];
+nodo [width=0.5];
+nodo [style=filled];
+nodo [fillcolor="#EEEEEE"];
+nodo [fontname="Arial"];
+edge [fontname="Arial"];
+edge [fontsize=8];
+edge [fontcolor="#333333"];
+edge [labelfloat=false];
+edge [decorate=true];
+edge [style="solid"];
+edge [color="#333333"];
+edge [dir="forward"];
+edge [arrowhead="normal"];
+edge [arrowsize="0.5"];
+edge [arrowtail="normal"];
+edge [taillabel=""];
+edge [headlabel=""];
+edge [label=""];
+edge [weight="1"];
+  nodo0 [label="Hash: 54617ebe..."];
+ nodo1 -> nodo0;
+  nodo1 [label="Hash: a1bb9977..."];
+ nodo2 -> nodo1;
+  nodo2 [label="Factura 1\nTotal: 26.5\nHash: 8c9de861..."];
+ nodo3 -> nodo1;
+  nodo3 [label="Factura 2\nTotal: 27.5\nHash: fd1e1316..."];
+ nodo4 -> nodo0;
+  nodo4 [label="Hash: 08c50156..."];
+ nodo5 -> nodo4;
+  nodo5 [label="Factura 3\nTotal: 17.75\nHash: 2d5e33ba..."];
+}
